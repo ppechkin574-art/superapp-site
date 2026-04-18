@@ -1,0 +1,1304 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuperApp — Africa's Financial Super-Ecosystem</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+/* ═══ THEME ═══ */
+:root{
+  --p:#D4830A;--p-end:#F2C94C;--p-rgb:212,131,10;--p-lt:#F0A520;--acc:#F5C842;
+  --p-g:linear-gradient(135deg,#D4830A 0%,#F2C94C 100%);
+  --p-g2:linear-gradient(135deg,#E8962A 0%,#F5C435 100%);
+  --sur:rgba(255,255,255,.08);--sur-hv:rgba(255,255,255,.13);--bd:rgba(255,255,255,.12);
+  --tx:#fff;--tx2:rgba(255,255,255,.6);
+  --t:all .4s cubic-bezier(.4,0,.2,1);--mw:1240px;--r:8px
+}
+
+/* ═══ RESET ═══ */
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{font-family:'SF Pro Display',-apple-system,BlinkMacSystemFont,'Inter',system-ui,sans-serif;background:#050302;color:var(--tx);overflow-x:hidden}
+a{text-decoration:none;color:inherit}
+
+/* ═══ PHOTO BACKGROUNDS ═══ */
+.bg-hero{background-image:linear-gradient(to bottom,rgba(0,0,0,.7) 0%,rgba(0,0,0,.4) 40%,rgba(0,0,0,.72) 100%),url('images/hero.jpg');background-size:cover;background-position:center 30%}
+.bg-feat{background-image:linear-gradient(180deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.55) 50%,rgba(0,0,0,.75) 100%),url('images/features.jpg');background-size:cover;background-position:center 40%}
+.bg-eco{background-image:linear-gradient(160deg,rgba(0,0,0,.75) 0%,rgba(0,0,0,.55) 50%,rgba(0,0,0,.78) 100%),url('images/ecosystem.jpg');background-size:cover;background-position:center 35%}
+.bg-app{background-image:linear-gradient(180deg,rgba(0,0,0,.78) 0%,rgba(0,0,0,.6) 50%,rgba(0,0,0,.8) 100%),url('images/apppreview.jpg');background-size:cover;background-position:center 60%}
+.bg-test{background-image:linear-gradient(180deg,rgba(0,0,0,.72) 0%,rgba(0,0,0,.52) 50%,rgba(0,0,0,.75) 100%),url('images/testimonials.jpg');background-size:cover;background-position:center 50%}
+.bg-dl{background-image:linear-gradient(180deg,rgba(0,0,0,.7) 0%,rgba(0,0,0,.5) 50%,rgba(0,0,0,.75) 100%),url('images/download.jpg');background-size:cover;background-position:center 25%}
+
+/* ═══ ANIMATIONS ═══ */
+@keyframes float{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-14px) rotate(.5deg)}}
+@keyframes floatR{0%,100%{transform:translateY(0) rotate(0deg)}50%{transform:translateY(-8px) rotate(-.5deg)}}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.6)}}
+@keyframes marquee{0%{transform:translateX(0)}100%{transform:translateX(-50%)}}
+@keyframes fadeInUp{from{opacity:0;transform:translateY(36px)}to{opacity:1;transform:none}}
+@keyframes fadeInLeft{from{opacity:0;transform:translateX(-36px)}to{opacity:1;transform:none}}
+@keyframes fadeInRight{from{opacity:0;transform:translateX(36px)}to{opacity:1;transform:none}}
+@keyframes scaleIn{from{opacity:0;transform:scale(.9)}to{opacity:1;transform:scale(1)}}
+@keyframes glow-pulse{0%,100%{box-shadow:0 0 20px rgba(var(--p-rgb),.3)}50%{box-shadow:0 0 50px rgba(var(--p-rgb),.6)}}
+@keyframes spin-slow{from{transform:rotate(0deg)}to{transform:rotate(360deg)}}
+@keyframes drift{0%,100%{transform:translate(0,0) rotate(0deg)}33%{transform:translate(8px,-6px) rotate(2deg)}66%{transform:translate(-5px,8px) rotate(-1deg)}}
+
+/* Scroll reveal classes */
+.rv{opacity:0;transition:opacity .8s ease,transform .8s ease}
+.rv.up{transform:translateY(44px)}
+.rv.left{transform:translateX(-44px)}
+.rv.right{transform:translateX(44px)}
+.rv.scale{transform:scale(.9)}
+.rv.in{opacity:1!important;transform:none!important}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.18s}.rv.d3{transition-delay:.26s}.rv.d4{transition-delay:.34s}
+
+/* ═══ CURSOR GLOW ═══ */
+#cursor-glow{position:fixed;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,rgba(212,131,10,.08) 0%,transparent 65%);pointer-events:none;z-index:0;transform:translate(-50%,-50%);transition:left .12s ease,top .12s ease}
+
+/* ═══ NAV ═══ */
+nav{position:fixed;top:0;left:0;right:0;z-index:100;height:68px;transition:var(--t)}
+.nav-in{max-width:var(--mw);margin:0 auto;height:100%;padding:0 32px;display:flex;align-items:center;gap:28px;justify-content:space-between}
+.nav-links{display:flex;gap:4px;list-style:none}
+.nav-links a{padding:7px 14px;border-radius:6px;font-size:14px;font-weight:500;color:rgba(255,255,255,.7);transition:var(--t)}
+.nav-links a:hover{color:#fff;background:rgba(255,255,255,.08)}
+.nav-r{display:flex;align-items:center;gap:14px}
+.btn{padding:10px 22px;border-radius:8px;font-size:14px;font-weight:700;border:none;cursor:pointer;transition:var(--t);white-space:nowrap;font-family:inherit}
+.btn-p{background:var(--p-g);color:#fff}
+.btn-p:hover{opacity:.9;transform:translateY(-2px);box-shadow:0 10px 28px rgba(var(--p-rgb),.45)}
+.btn-o{background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.2);backdrop-filter:blur(10px)}
+.btn-o:hover{background:rgba(255,255,255,.18)}
+
+/* ═══ COMMON ═══ */
+section{padding:110px 32px;overflow:hidden;position:relative}
+section>.cont,section>.hero-in,section>.stats-in{position:relative;z-index:2}
+.cont{max-width:var(--mw);margin:0 auto}
+.s-tag{display:inline-flex;align-items:center;gap:6px;background:rgba(var(--p-rgb),.15);color:var(--p-lt);border:1px solid rgba(var(--p-rgb),.3);padding:5px 13px;border-radius:6px;font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:18px;backdrop-filter:blur(10px)}
+.s-title{font-size:clamp(32px,5vw,58px);font-weight:900;line-height:1.06;letter-spacing:-.035em;margin-bottom:14px;color:#fff}
+.s-title em{color:var(--p-lt);font-style:normal}
+.s-sub{font-size:16px;color:var(--tx2);line-height:1.65;max-width:500px}
+.glass{background:var(--sur);border:1px solid var(--bd);border-radius:20px;backdrop-filter:blur(20px);-webkit-backdrop-filter:blur(20px);transition:var(--t)}
+.glass:hover{background:var(--sur-hv)}
+
+/* ═══ WAVY DIVIDER ═══ */
+.wave-sep{display:block;width:100%;height:60px;position:relative;z-index:3}
+.wave-sep svg{display:block;width:100%}
+
+/* ═══ HERO ═══ */
+#hero{padding-top:0;padding-bottom:0;min-height:100vh;display:flex;flex-direction:column;justify-content:center}
+.hero-in{max-width:var(--mw);margin:0 auto;width:100%;display:grid;grid-template-columns:1fr 1fr;gap:60px;align-items:center;padding:140px 32px 100px}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.14);border-radius:8px;padding:7px 16px;font-size:13px;font-weight:600;color:rgba(255,255,255,.8);margin-bottom:24px;backdrop-filter:blur(10px)}
+.badge-dot{width:7px;height:7px;background:var(--p);border-radius:50%;animation:pulse-dot 2s infinite;box-shadow:0 0 8px var(--p)}
+.hero-title{font-size:clamp(44px,6.5vw,84px);font-weight:900;line-height:1.01;letter-spacing:-.045em;margin-bottom:20px;color:#fff}
+.hero-title .hi{color:var(--p-lt);display:block}
+.hero-sub{font-size:17px;color:rgba(255,255,255,.65);line-height:1.65;margin-bottom:36px;max-width:440px}
+.hero-acts{display:flex;gap:12px;flex-wrap:wrap;margin-bottom:52px}
+.hero-stats{display:flex;gap:32px}
+.hs-num{font-size:28px;font-weight:900;letter-spacing:-.03em;color:#fff}
+.hs-lbl{font-size:11px;color:rgba(255,255,255,.5);font-weight:500;margin-top:1px}
+.hero-div{width:1px;height:40px;background:rgba(255,255,255,.15);align-self:center}
+.hero-r{display:flex;justify-content:center;align-items:center;position:relative}
+
+/* Africa map watermark */
+.africa-map{position:absolute;right:-40px;top:50%;transform:translateY(-50%);width:500px;height:500px;opacity:.035;pointer-events:none;z-index:0}
+
+/* phone glow */
+.phone-glow{position:absolute;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(var(--p-rgb),.4) 0%,transparent 70%);filter:blur(50px);animation:glow-pulse 3s ease-in-out infinite;z-index:0}
+
+/* SpurFit-style annotation labels */
+.annotation{position:absolute;display:flex;align-items:center;gap:8px;z-index:5}
+.ann-line{height:1px;background:rgba(255,255,255,.3);flex-shrink:0;position:relative}
+.ann-line::before{content:'';position:absolute;width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.5);top:-2.5px}
+.ann-box{background:rgba(0,0,0,.72);border:1px solid rgba(255,255,255,.18);border-radius:10px;padding:8px 12px;backdrop-filter:blur(12px);white-space:nowrap}
+.ann-label{font-size:10px;font-weight:700;color:rgba(255,255,255,.6);text-transform:uppercase;letter-spacing:.5px}
+.ann-val{font-size:13px;font-weight:800;color:#fff}
+.ann-1{top:80px;left:-160px;flex-direction:row-reverse}
+.ann-1 .ann-line::before{left:auto;right:0}
+.ann-2{bottom:130px;right:-175px}
+.ann-2 .ann-line::before{left:0}
+.ann-3{top:190px;right:-180px}
+.ann-3 .ann-line::before{left:0}
+
+/* ═══ PHONE MOCKUP ═══ */
+.phone{width:268px;height:540px;background:#0f0f0f;border-radius:48px;padding:14px;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 80px rgba(0,0,0,.6),0 0 60px rgba(var(--p-rgb),.15),inset 0 0 0 1px rgba(255,255,255,.04);position:relative;z-index:1;flex-shrink:0;animation:float 5s ease-in-out infinite}
+.phone::before{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:90px;height:28px;background:#0f0f0f;border-radius:0 0 18px 18px;z-index:20}
+.phone::after{content:'';position:absolute;right:-3px;top:100px;width:3px;height:58px;background:#222;border-radius:0 2px 2px 0;box-shadow:0 90px 0 #222}
+.pscr{width:100%;height:100%;background:#fff;border-radius:34px;overflow:hidden;position:relative}
+.p-status{display:flex;justify-content:space-between;padding:14px 18px 5px;font-size:10px;font-weight:700;color:#111}
+.p-header{background:#f9f9f9;padding:7px 16px 11px;border-bottom:1px solid #eee}
+.p-greet{font-size:10px;color:#888}
+.p-name{font-size:14px;font-weight:700;color:#111}
+.p-balance{text-align:center;padding:14px 16px 10px}
+.p-bal-lbl{font-size:10px;color:#888}
+.p-bal-amt{font-size:28px;font-weight:900;color:#111;letter-spacing:-.03em}
+.p-card{margin:0 14px 10px;background:linear-gradient(135deg,var(--p),var(--p-lt));border-radius:12px;padding:12px;color:#fff;position:relative;overflow:hidden}
+.p-card::after{content:'';position:absolute;right:-10px;top:-10px;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.1)}
+.p-card-lbl{font-size:9px;opacity:.75;font-weight:600;letter-spacing:.5px}
+.p-card-num{font-size:11px;font-weight:700;margin-top:8px;letter-spacing:2px;opacity:.85}
+.p-card-row{display:flex;justify-content:space-between;margin-top:5px}
+.p-card-sub{font-size:9px;opacity:.65}
+.p-card-val{font-size:10px;font-weight:700}
+.p-actions{display:flex;gap:6px;padding:0 14px 12px;justify-content:center}
+.p-act-btn{background:#f2f2f2;border:1px solid #eee;border-radius:50px;padding:5px 12px;font-size:9px;font-weight:700;color:var(--p)}
+.p-skel{padding:0 16px}
+.skel{background:linear-gradient(90deg,#ebebeb 0%,#f5f5f5 50%,#ebebeb 100%);background-size:200% 100%;animation:shimmer 2s infinite;border-radius:6px}
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skel.h12{height:12px;margin-bottom:7px}
+.skel.h16{height:16px;margin-bottom:9px}
+
+/* ═══ TRUSTED / MARQUEE ═══ */
+#trusted{padding:0;overflow:hidden;border-top:1px solid rgba(255,255,255,.06);border-bottom:1px solid rgba(255,255,255,.06);background:rgba(0,0,0,.5)}
+.trusted-inner{padding:28px 0}
+.trusted-lbl{text-align:center;font-size:10px;font-weight:700;color:rgba(255,255,255,.3);text-transform:uppercase;letter-spacing:2px;margin-bottom:20px;padding:0 32px}
+.marquee-wrap{overflow:hidden;position:relative}
+.marquee-wrap::before,.marquee-wrap::after{content:'';position:absolute;top:0;bottom:0;width:80px;z-index:2;pointer-events:none}
+.marquee-wrap::before{left:0;background:linear-gradient(90deg,rgba(0,0,0,.8),transparent)}
+.marquee-wrap::after{right:0;background:linear-gradient(-90deg,rgba(0,0,0,.8),transparent)}
+.marquee-track{display:flex;gap:60px;align-items:center;width:max-content;animation:marquee 24s linear infinite}
+.mq-logo{height:22px;background:rgba(255,255,255,.15);border-radius:4px;flex-shrink:0}
+.mq-svc{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:50px;padding:7px 16px;font-size:12px;font-weight:600;color:rgba(255,255,255,.55);white-space:nowrap;flex-shrink:0;transition:all .2s}
+.mq-svc:hover{background:rgba(212,131,10,.15);border-color:rgba(212,131,10,.4);color:var(--p-lt)}
+
+/* ═══ FEATURES — BENTO GRID ═══ */
+.feat-bento{display:grid;grid-template-columns:2fr 1fr 1fr;grid-template-rows:auto auto;gap:14px}
+.feat-card{padding:28px 24px;border-radius:22px;position:relative;overflow:hidden}
+.feat-card.wide{grid-column:1;grid-row:1/3;display:flex;flex-direction:column;justify-content:space-between;min-height:280px}
+.feat-card.tall{grid-row:1/3}
+.feat-ico{width:52px;height:52px;background:var(--p-g);border-radius:10px;display:flex;align-items:center;justify-content:center;margin-bottom:18px;box-shadow:0 4px 16px rgba(var(--p-rgb),.35),inset 0 1px 0 rgba(255,255,255,.25)}
+.feat-ico svg{width:26px;height:26px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.3))}
+.feat-title{font-size:16px;font-weight:800;margin-bottom:9px;color:#fff}
+.feat-desc{font-size:13px;color:var(--tx2);line-height:1.6}
+.feat-big-num{font-size:56px;font-weight:900;color:var(--p-lt);letter-spacing:-.04em;line-height:1;margin-top:auto}
+.feat-big-lbl{font-size:12px;color:var(--tx2);font-weight:500;margin-top:4px}
+/* decorative circle in cards */
+.feat-card::after{content:'';position:absolute;right:-30px;bottom:-30px;width:120px;height:120px;border-radius:50%;background:rgba(var(--p-rgb),.08);pointer-events:none}
+
+/* ═══ ECOSYSTEM ═══ */
+.eco-in{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+.eco-pillars{display:flex;flex-direction:column;gap:10px;margin-top:32px}
+.eco-pill{padding:16px 20px;display:flex;gap:14px;align-items:flex-start;cursor:pointer;transition:var(--t);border-radius:16px}
+.eco-pill:hover,.eco-pill.active{background:rgba(var(--p-rgb),.1);border-color:rgba(var(--p-rgb),.35)!important}
+.eco-ico{width:42px;height:42px;background:var(--p-g);border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0;transition:var(--t);box-shadow:0 4px 12px rgba(var(--p-rgb),.3),inset 0 1px 0 rgba(255,255,255,.2)}
+.eco-ico svg{width:22px;height:22px;filter:drop-shadow(0 1px 2px rgba(0,0,0,.3))}
+.eco-pill.active .eco-ico,.eco-pill:hover .eco-ico{background:var(--p-g2)}
+.eco-pt{font-size:14px;font-weight:700;margin-bottom:3px;color:#fff}
+.eco-pd{font-size:12px;color:var(--tx2);line-height:1.5}
+.eco-r{display:flex;justify-content:center}
+.eco-ph-wrap{position:relative}
+.eco-glow{position:absolute;width:200px;height:200px;border-radius:50%;background:radial-gradient(circle,rgba(var(--p-rgb),.35) 0%,transparent 70%);filter:blur(30px);top:50%;left:50%;transform:translate(-50%,-50%)}
+.eco-phone{animation:floatR 6s ease-in-out infinite}
+
+/* ═══ STATS ═══ */
+#stats{padding:80px 32px;background:var(--p-g);position:relative;overflow:hidden}
+#stats::before{content:'';position:absolute;right:-80px;top:-80px;width:400px;height:400px;border-radius:50%;background:rgba(255,255,255,.06);pointer-events:none}
+#stats::after{content:'';position:absolute;left:-60px;bottom:-60px;width:300px;height:300px;border-radius:50%;background:rgba(0,0,0,.08);pointer-events:none}
+.stats-in{max-width:var(--mw);margin:0 auto;display:grid;grid-template-columns:repeat(4,1fr);gap:40px;text-align:center;position:relative;z-index:2}
+.st-num{font-size:clamp(38px,5vw,62px);font-weight:900;color:#fff;letter-spacing:-.04em;line-height:1;margin-bottom:8px}
+.st-lbl{font-size:13px;color:rgba(255,255,255,.75);font-weight:500}
+/* divider between stats */
+.st-item{position:relative}
+.st-item+.st-item::before{content:'';position:absolute;left:0;top:15%;bottom:15%;width:1px;background:rgba(255,255,255,.2)}
+
+/* ═══ APP PREVIEW ═══ */
+.iphone{width:272px;height:556px;background:#111;border-radius:48px;padding:14px;box-shadow:0 0 0 1px rgba(255,255,255,.08),0 40px 90px rgba(0,0,0,.6),0 0 80px rgba(var(--p-rgb),.18),inset 0 0 0 1px rgba(255,255,255,.04);position:relative;z-index:2;flex-shrink:0}
+.iphone::before{content:'';position:absolute;top:14px;left:50%;transform:translateX(-50%);width:92px;height:30px;background:#111;border-radius:0 0 18px 18px;z-index:20}
+.iphone::after{content:'';position:absolute;right:-3px;top:100px;width:3px;height:58px;background:#2a2a2a;border-radius:0 2px 2px 0;box-shadow:0 90px 0 #2a2a2a}
+.ivp{width:100%;height:100%;background:#fff;border-radius:36px;overflow:hidden;position:relative}
+.ist2{position:absolute;top:0;left:0;right:0;z-index:15;display:flex;justify-content:space-between;padding:14px 18px 5px;font-size:10px;font-weight:700;color:#111;background:#fff}
+.sw{position:absolute;top:34px;left:0;right:0;bottom:50px;overflow:hidden}
+.isc{position:absolute;top:0;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;transform:translateX(100%);transition:transform .34s cubic-bezier(.25,.46,.45,.94);background:#fff;scrollbar-width:none}
+.isc::-webkit-scrollbar{display:none}
+.isc.active{transform:translateX(0)}
+.bnav2{position:absolute;bottom:0;left:0;right:0;height:50px;background:#fff;border-top:1px solid #f0f0f0;display:flex;align-items:center;justify-content:space-around;z-index:15}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;gap:2px;cursor:pointer;padding:5px 0;transition:var(--t);color:#aaa}
+.bni.active{color:var(--p)}
+.bni-ico{font-size:17px;line-height:1}
+.bni-lbl{font-size:8px;font-weight:700}
+/* screen atoms */
+.sc-hd{padding:10px 14px 8px;display:flex;align-items:center;justify-content:space-between}
+.sc-ht{font-size:15px;font-weight:800;color:#111}
+.sc-av{width:32px;height:32px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;font-size:12px;color:#fff;font-weight:800;flex-shrink:0}
+.sc-bal{text-align:center;padding:4px 14px 12px}
+.sc-bl{font-size:10px;color:#888;margin-bottom:1px}
+.sc-ba{font-size:30px;font-weight:900;color:#111;letter-spacing:-.03em}
+.sc-bc{font-size:10px;color:#22c55e;font-weight:700;margin-top:1px}
+.sc-card2{margin:0 14px 11px;background:linear-gradient(135deg,var(--p),var(--p-lt));border-radius:14px;padding:13px 15px;color:#fff;position:relative;overflow:hidden}
+.sc-card2::after{content:'';position:absolute;right:-15px;top:-15px;width:80px;height:80px;border-radius:50%;background:rgba(255,255,255,.1)}
+.sc-cl{font-size:9px;opacity:.7;font-weight:600;letter-spacing:.5px}
+.sc-cn{font-size:11px;font-weight:700;margin-top:9px;letter-spacing:2px;opacity:.85}
+.sc-cr{display:flex;justify-content:space-between;margin-top:5px}
+.sc-cs{font-size:9px;opacity:.65}
+.sc-cv{font-size:10px;font-weight:700}
+.sc-acts{display:flex;gap:8px;padding:0 14px 12px}
+.sc-act2{flex:1;background:#f5f5f5;border:1px solid #eee;border-radius:10px;padding:9px 4px;text-align:center;cursor:pointer;transition:var(--t)}
+.sc-act2:hover,.sc-act2:active{background:var(--p);border-color:var(--p)}
+.sc-act2:hover .sc-ai,.sc-act2:hover .sc-al,.sc-act2:active .sc-ai,.sc-act2:active .sc-al{color:#fff}
+.sc-ai{font-size:17px;margin-bottom:2px}
+.sc-al{font-size:9px;font-weight:700;color:#666;transition:var(--t)}
+.sc-sec2{padding:2px 14px 7px;font-size:10px;font-weight:700;color:#aaa;text-transform:uppercase;letter-spacing:.5px}
+.sc-row{display:flex;align-items:center;gap:9px;padding:8px 14px;border-bottom:1px solid #f5f5f5;cursor:pointer;transition:var(--t)}
+.sc-row:hover{background:#fafafa}
+.sc-ri{width:32px;height:32px;border-radius:9px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.sc-rn{font-size:11px;font-weight:700;color:#111}
+.sc-rs{font-size:9px;color:#999}
+.sc-ra{margin-left:auto;font-size:12px;font-weight:700}
+.sc-ra.neg{color:#ef4444}
+.sc-ra.pos{color:#22c55e}
+.sc-amtd{text-align:center;padding:14px 14px 10px}
+.sc-curr{font-size:16px;color:#999;vertical-align:super}
+.sc-bigamt{font-size:44px;font-weight:900;color:#111;letter-spacing:-.04em}
+.sc-hint{font-size:10px;color:#aaa;margin-top:2px}
+.sc-contacts{padding:6px 14px 12px}
+.sc-crow{display:flex;gap:10px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.sc-crow::-webkit-scrollbar{display:none}
+.sc-cont{display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;flex-shrink:0}
+.sc-cav{width:38px;height:38px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:13px;font-weight:800}
+.sc-cnm{font-size:9px;font-weight:600;color:#999}
+.sc-field{margin:0 14px 9px;background:#f9f9f9;border:1px solid #efefef;border-radius:11px;padding:11px 13px;display:flex;align-items:center;gap:8px}
+.sc-fl{font-size:10px;color:#aaa;flex:1}
+.sc-fv{font-size:11px;font-weight:700;color:#111}
+.sc-sbtn{margin:4px 14px 8px;background:var(--p);color:#fff;border:none;border-radius:11px;padding:12px;font-size:13px;font-weight:700;cursor:pointer;width:calc(100% - 28px);transition:var(--t);font-family:inherit}
+.sc-sbtn:hover{opacity:.88}
+.sc-search{margin:4px 14px 12px;background:#f9f9f9;border:1px solid #efefef;border-radius:10px;padding:9px 12px;font-size:11px;color:#aaa;display:flex;align-items:center;gap:6px}
+.sc-ggrid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:0 14px 12px}
+.sc-gt{background:#f9f9f9;border:1px solid #eee;border-radius:12px;padding:13px 11px;cursor:pointer;transition:var(--t)}
+.sc-gt:hover,.sc-gt:active{border-color:var(--p);background:rgba(var(--p-rgb),.06);transform:scale(.96)}
+.sc-gi{font-size:20px;margin-bottom:5px}
+.sc-gn{font-size:11px;font-weight:700;color:#111}
+.sc-gs{font-size:9px;color:#999;margin-top:1px}
+.sc-chart{margin:4px 14px 10px;background:#f9f9f9;border-radius:12px;padding:12px;border:1px solid #eee}
+.sc-chartl{font-size:9px;color:#aaa;margin-bottom:4px}
+.sc-chartv{font-size:18px;font-weight:900;color:#111;letter-spacing:-.03em}
+.sc-chartc{font-size:10px;color:#22c55e;font-weight:700}
+.sc-svg{width:100%;height:48px;margin-top:7px}
+.sc-asset{display:flex;align-items:center;gap:9px;padding:9px 14px;border-bottom:1px solid #f5f5f5;cursor:pointer;transition:var(--t)}
+.sc-asset:hover{background:#fafafa}
+.sc-asico{width:30px;height:30px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:14px;flex-shrink:0}
+.sc-asnm{font-size:11px;font-weight:700;color:#111}
+.sc-assub{font-size:9px;color:#999}
+.sc-asr{margin-left:auto;text-align:right}
+.sc-asamt{font-size:12px;font-weight:700;color:#111}
+.sc-aspct{font-size:10px;font-weight:700;color:#22c55e}
+.sc-aspct.neg{color:#ef4444}
+.sc-ptop{text-align:center;padding:8px 14px 14px;border-bottom:1px solid #f5f5f5}
+.sc-pav{width:62px;height:62px;border-radius:50%;background:var(--p);display:flex;align-items:center;justify-content:center;color:#fff;font-size:24px;font-weight:900;margin:0 auto 7px}
+.sc-pnm{font-size:15px;font-weight:800;color:#111}
+.sc-ploc{font-size:10px;color:#999;margin-top:1px}
+.sc-pbadge{display:inline-flex;align-items:center;gap:3px;background:rgba(34,197,94,.1);color:#16a34a;border:1px solid rgba(34,197,94,.2);border-radius:50px;padding:3px 9px;font-size:9px;font-weight:700;margin-top:6px}
+.sc-set{display:flex;align-items:center;gap:9px;padding:10px 14px;border-bottom:1px solid #f5f5f5;cursor:pointer;transition:var(--t)}
+.sc-set:hover{background:#fafafa}
+.sc-sico{width:28px;height:28px;border-radius:7px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:13px}
+.sc-snm{font-size:11px;font-weight:700;color:#111}
+.sc-ssub{font-size:9px;color:#aaa}
+.sc-sarr{margin-left:auto;color:#ccc;font-size:13px}
+.sc-back2{display:inline-flex;align-items:center;gap:3px;font-size:11px;font-weight:700;color:var(--p);cursor:pointer}
+.ph-s2{transform:scale(.82) translateY(44px);opacity:.55;pointer-events:none;flex-shrink:0}
+.ph-m2{transform:scale(1.06);z-index:2;flex-shrink:0}
+/* tabs */
+.screen-tabs{display:flex;justify-content:center;gap:8px;margin-bottom:52px;flex-wrap:wrap}
+.s-tab{background:rgba(255,255,255,.07);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:8px 20px;font-size:13px;font-weight:600;color:rgba(255,255,255,.6);cursor:pointer;transition:var(--t);font-family:inherit;backdrop-filter:blur(10px)}
+.s-tab.active,.s-tab:hover{background:var(--p-g);color:#fff;border-color:transparent}
+
+/* ═══ DARK PHONE THEME ═══ */
+/* outer shell */
+.pscr{background:#1c1c1e!important}
+.ivp{background:#1c1c1e!important}
+/* status bars */
+.p-status{background:#1c1c1e!important;color:#fff!important}
+.ist2{background:#1c1c1e!important;color:#fff!important}
+/* header strip */
+.p-header{background:#2c2c2e!important;border-bottom-color:#3a3a3c!important}
+.p-greet{color:#aeaeb2!important}
+.p-name{color:#fff!important}
+/* balance */
+.p-balance{background:#1c1c1e}
+.p-bal-lbl{color:#aeaeb2!important}
+.p-bal-amt{color:#fff!important}
+/* card */
+.p-card{background:linear-gradient(135deg,#A85C08,#C8820A)!important}
+/* action pills */
+.p-act-btn{background:#2c2c2e!important;border-color:#3a3a3c!important;color:var(--p-lt)!important}
+/* skeleton shimmer dark */
+.skel{background:linear-gradient(90deg,#2c2c2e 0%,#3a3a3c 50%,#2c2c2e 100%)!important;background-size:200% 100%!important}
+/* interactive phone screens */
+.isc{background:#1c1c1e!important}
+/* bottom nav */
+.bnav2{background:#121212!important;border-top:none!important;border-radius:20px 20px 0 0;box-shadow:0 -4px 24px rgba(0,0,0,.5)}
+.bni{color:#48484a!important}
+/* nav active pill */
+.bni.active{color:#fff!important}
+.bni.active .bni-inner{background:linear-gradient(135deg,#D4830A,#F2C94C);border-radius:12px;padding:5px 14px;box-shadow:0 4px 14px rgba(212,131,10,.4)}
+/* all text atoms */
+.sc-ht,.sc-rn,.sc-ba,.sc-pnm,.sc-asnm,.sc-snm,.sc-gn,.sc-chartv,.sc-fv,.sc-bigamt{color:#fff!important}
+/* dividers → dark */
+.sc-row,.sc-asset,.sc-set,.sc-ptop{border-bottom-color:#2c2c2e!important}
+/* hover states */
+.sc-row:hover,.sc-asset:hover,.sc-set:hover{background:#2c2c2e!important}
+/* tile/card backgrounds */
+.sc-ri{background:#2c2c2e!important}
+.sc-act2{background:#2c2c2e!important;border-color:#3a3a3c!important}
+.sc-al{color:#aeaeb2!important}
+.sc-field{background:#2c2c2e!important;border-color:#3a3a3c!important}
+.sc-search{background:#2c2c2e!important;border-color:#3a3a3c!important;color:#636366!important}
+.sc-gt{background:#2c2c2e!important;border-color:#3a3a3c!important}
+.sc-chart{background:#2c2c2e!important;border-color:#3a3a3c!important}
+.sc-card2{background:linear-gradient(135deg,#A85C08,#C8820A)!important}
+.sc-sec2{color:#636366!important}
+.sc-rs,.sc-gs,.sc-assub,.sc-ssub,.sc-ploc,.sc-hint,.sc-cnm,.sc-fl{color:#636366!important}
+.sc-sico{background:#2c2c2e!important}
+.sc-asamt{color:#fff!important}
+/* profile stat tiles */
+.sc-pstat{background:#2c2c2e!important}
+/* dark side-phone skeleton cards */
+.dk-card{background:#2c2c2e;border-radius:12px;border:1px solid #3a3a3c}
+
+/* ═══ TESTIMONIALS ═══ */
+.test-hd{text-align:center;margin-bottom:52px}
+.test-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.test-card{padding:26px;border-radius:20px}
+.stars{color:var(--acc);font-size:14px;margin-bottom:14px;letter-spacing:2px}
+.test-txt{font-size:14px;color:rgba(255,255,255,.8);line-height:1.65;margin-bottom:18px;font-style:italic}
+.test-txt::before{content:'"';font-size:40px;color:rgba(var(--p-rgb),.4);line-height:0;vertical-align:-16px;margin-right:4px}
+.test-author{display:flex;align-items:center;gap:11px}
+.test-av{width:38px;height:38px;border-radius:50%;background:rgba(var(--p-rgb),.2);border:2px solid rgba(var(--p-rgb),.3);display:flex;align-items:center;justify-content:center;font-size:16px}
+.test-name{font-size:13px;font-weight:700;color:#fff}
+.test-loc{font-size:11px;color:rgba(255,255,255,.5)}
+
+/* ═══ DOWNLOAD ═══ */
+.dl-in{max-width:680px;margin:0 auto;text-align:center}
+.store-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap;margin-top:32px}
+.store-btn{display:flex;align-items:center;gap:12px;background:rgba(255,255,255,.1);color:#fff;border:1px solid rgba(255,255,255,.15);padding:13px 26px;border-radius:8px;transition:var(--t);cursor:pointer;backdrop-filter:blur(10px)}
+.store-btn:hover{background:rgba(255,255,255,.18);transform:translateY(-3px);box-shadow:0 14px 32px rgba(0,0,0,.4)}
+.st-ico{font-size:26px}
+.st-sub{font-size:9px;opacity:.6}
+.st-name{font-size:15px;font-weight:700}
+
+/* ═══ FOOTER ═══ */
+footer{background:#020101;border-top:1px solid rgba(255,255,255,.05);padding:44px 32px;position:relative}
+.foot-in{max-width:var(--mw);margin:0 auto;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:20px}
+.foot-links{display:flex;gap:22px;list-style:none}
+.foot-links a{font-size:13px;color:rgba(255,255,255,.4);transition:var(--t)}
+.foot-links a:hover{color:var(--p)}
+.foot-copy{font-size:12px;color:rgba(255,255,255,.25)}
+
+/* ═══ RESPONSIVE ═══ */
+@media(max-width:960px){
+  .hero-in{grid-template-columns:1fr;padding:120px 20px 80px}.hero-r{display:none}
+  .feat-bento{grid-template-columns:1fr 1fr}.feat-card.wide{grid-column:1/3;grid-row:auto}
+  .stats-in{grid-template-columns:repeat(2,1fr)}
+  .test-grid{grid-template-columns:1fr}
+  .eco-in{grid-template-columns:1fr}.eco-r{display:none}
+  .ph-s2{display:none}
+  section{padding:80px 20px}
+}
+@media(max-width:600px){
+  .feat-bento{grid-template-columns:1fr}
+  .nav-links{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- 3D SVG icon defs -->
+<svg width="0" height="0" style="position:absolute;overflow:hidden">
+  <defs>
+    <!-- Bank icon -->
+    <symbol id="ico-bank" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L2 8h20L12 2z" fill="rgba(255,255,255,.9)"/>
+      <path d="M2 8h20v2H2z" fill="rgba(255,255,255,.7)"/>
+      <rect x="4" y="10" width="3" height="8" rx="1" fill="rgba(255,255,255,.85)"/>
+      <rect x="10.5" y="10" width="3" height="8" rx="1" fill="rgba(255,255,255,.85)"/>
+      <rect x="17" y="10" width="3" height="8" rx="1" fill="rgba(255,255,255,.85)"/>
+      <rect x="2" y="18" width="20" height="2.5" rx="1" fill="rgba(255,255,255,.9)"/>
+      <path d="M12 4l2 2H10z" fill="rgba(255,255,255,.4)"/>
+    </symbol>
+    <!-- Gov/document icon -->
+    <symbol id="ico-gov" viewBox="0 0 24 24" fill="none">
+      <path d="M5 3h10l4 4v14a1 1 0 01-1 1H5a1 1 0 01-1-1V4a1 1 0 011-1z" fill="rgba(255,255,255,.85)"/>
+      <path d="M15 3l4 4h-4V3z" fill="rgba(255,255,255,.5)"/>
+      <rect x="7" y="10" width="10" height="1.5" rx=".75" fill="rgba(0,0,0,.25)"/>
+      <rect x="7" y="13" width="10" height="1.5" rx=".75" fill="rgba(0,0,0,.25)"/>
+      <rect x="7" y="16" width="7" height="1.5" rx=".75" fill="rgba(0,0,0,.25)"/>
+      <circle cx="19" cy="19" r="4" fill="rgba(255,255,255,.3)" stroke="rgba(255,255,255,.7)" stroke-width="1.5"/>
+      <path d="M17.5 19l1 1.5 2.5-2.5" stroke="rgba(255,255,255,.9)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Chart/FinTech icon -->
+    <symbol id="ico-chart" viewBox="0 0 24 24" fill="none">
+      <rect x="3" y="14" width="4" height="7" rx="1.5" fill="rgba(255,255,255,.7)"/>
+      <rect x="10" y="9" width="4" height="12" rx="1.5" fill="rgba(255,255,255,.85)"/>
+      <rect x="17" y="4" width="4" height="17" rx="1.5" fill="rgba(255,255,255,.95)"/>
+      <path d="M3 22h18" stroke="rgba(255,255,255,.5)" stroke-width="1.5" stroke-linecap="round"/>
+      <path d="M5 14L12 9l7-5" stroke="rgba(255,255,255,.6)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Shield/Security icon -->
+    <symbol id="ico-shield" viewBox="0 0 24 24" fill="none">
+      <path d="M12 2L4 5.5v5.3c0 5.2 3.6 9 8 10.7 4.4-1.7 8-5.5 8-10.7V5.5L12 2z" fill="rgba(255,255,255,.85)"/>
+      <path d="M12 2L4 5.5v5.3c0 2 .5 3.8 1.4 5.2L12 2z" fill="rgba(255,255,255,.2)"/>
+      <path d="M8.5 12l2.5 2.5 4.5-4.5" stroke="rgba(0,0,0,.35)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <!-- Bolt/Speed icon -->
+    <symbol id="ico-bolt" viewBox="0 0 24 24" fill="none">
+      <path d="M13 2L5 14h7l-1 8 9-12h-7l1-8z" fill="rgba(255,255,255,.9)"/>
+      <path d="M13 2L9 10h5l-1 4 5-6.5h-5L13 2z" fill="rgba(255,255,255,.3)"/>
+    </symbol>
+    <!-- Globe icon -->
+    <symbol id="ico-globe" viewBox="0 0 24 24" fill="none">
+      <circle cx="12" cy="12" r="10" fill="rgba(255,255,255,.85)"/>
+      <ellipse cx="12" cy="12" rx="4" ry="10" fill="none" stroke="rgba(0,0,0,.2)" stroke-width="1"/>
+      <path d="M2 12h20M3.5 7h17M3.5 17h17" stroke="rgba(0,0,0,.2)" stroke-width="1"/>
+      <circle cx="12" cy="12" r="10" fill="none" stroke="rgba(255,255,255,.4)" stroke-width="1"/>
+      <path d="M12 2c-2.5 2-4 5.5-4 10s1.5 8 4 10" fill="none" stroke="rgba(0,0,0,.1)" stroke-width="1"/>
+    </symbol>
+  </defs>
+</svg>
+
+<!-- cursor glow -->
+<div id="cursor-glow"></div>
+
+<!-- NAV -->
+<nav id="nav">
+  <div class="nav-in">
+    <ul class="nav-links">
+      <li><a href="#features">Features</a></li>
+      <li><a href="#ecosystem">Ecosystem</a></li>
+      <li><a href="#app-preview">App UI</a></li>
+      <li><a href="#testimonials">Reviews</a></li>
+      <li><a href="#download">Download</a></li>
+      <li><a href="superapp-app.html" style="color:var(--p-lt);font-weight:700">▶ Live Preview</a></li>
+    </ul>
+    <div class="nav-r">
+      <button class="btn btn-p">Get App</button>
+    </div>
+  </div>
+</nav>
+
+<!-- HERO -->
+<section id="hero" class="bg-hero">
+  <!-- Africa map SVG watermark -->
+  <svg class="africa-map" viewBox="0 0 400 500" fill="white" xmlns="http://www.w3.org/2000/svg">
+    <path d="M180,20 L220,18 L260,30 L290,50 L310,80 L320,110 L315,140 L330,170 L340,210 L335,250 L320,290 L300,330 L280,365 L260,395 L240,420 L220,445 L200,460 L185,445 L170,420 L155,395 L135,365 L110,330 L90,290 L80,250 L75,210 L85,170 L100,140 L95,110 L105,80 L125,50 L155,30 Z"/>
+  </svg>
+
+  <div class="hero-in">
+    <div>
+      <h1 class="hero-title rv up d1 in">
+        One App.<br>
+        <span class="hi">Infinite</span>
+        Possibilities.
+      </h1>
+      <p class="hero-sub rv up d2 in">Banking, government services, and fintech — all in your pocket. SuperApp is Africa's financial super-ecosystem.</p>
+      <div class="hero-acts rv up d3 in">
+        <button class="btn btn-p" style="padding:14px 32px;font-size:16px">Get Started Free</button>
+        <button class="btn btn-o" style="padding:14px 32px;font-size:16px;border-radius:8px">Watch Demo ▶</button>
+      </div>
+      <div class="hero-stats rv up d4 in">
+        <div><div class="hs-num" data-count="40">0</div><div class="hs-lbl">M+ Active Users</div></div>
+        <div class="hero-div"></div>
+        <div><div class="hs-num" data-count="54">0</div><div class="hs-lbl">Countries</div></div>
+        <div class="hero-div"></div>
+        <div><div class="hs-num">$2.4B</div><div class="hs-lbl">Daily Volume</div></div>
+      </div>
+    </div>
+    <div class="hero-r rv scale d2 in">
+      <div class="phone-glow"></div>
+      <div style="position:relative">
+        <!-- SpurFit-style annotations -->
+        <div class="annotation ann-1">
+          <div class="ann-box"><div class="ann-label">Balance</div><div class="ann-val">+$1,240 ↑</div></div>
+          <div class="ann-line" style="width:70px"></div>
+        </div>
+        <div class="annotation ann-2">
+          <div class="ann-line" style="width:70px"></div>
+          <div class="ann-box"><div class="ann-label">Gov Services</div><div class="ann-val">✓ Verified</div></div>
+        </div>
+        <div class="annotation ann-3">
+          <div class="ann-line" style="width:70px"></div>
+          <div class="ann-box"><div class="ann-label">Instant Transfer</div><div class="ann-val">0.3s</div></div>
+        </div>
+        <div class="phone">
+          <div class="pscr">
+            <!-- status bar -->
+            <div class="p-status" style="background:#1c1c1e;color:#fff;padding:12px 16px 4px;font-size:10px;font-weight:700;display:flex;justify-content:space-between">
+              <span>9:41</span>
+              <span style="display:flex;gap:4px;align-items:center">
+                <svg width="14" height="10" viewBox="0 0 15 11" fill="none"><rect x="0" y="4" width="3" height="7" rx="1" fill="rgba(255,255,255,.4)"/><rect x="4" y="2.5" width="3" height="8.5" rx="1" fill="rgba(255,255,255,.65)"/><rect x="8" y="1" width="3" height="10" rx="1" fill="#fff"/></svg>
+                <svg width="14" height="10" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#fff" stroke-width="1.5"/><rect x="21" y="3.5" width="2.5" height="5" rx="1" fill="#fff" opacity=".5"/><rect x="1.5" y="2.5" width="14" height="7" rx="1" fill="#D4830A"/></svg>
+              </span>
+            </div>
+            <!-- header: avatar + title -->
+            <div style="display:flex;align-items:center;padding:6px 14px 6px;gap:8px;background:#1c1c1e">
+              <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#D4830A,#F2C94C);display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:800;flex-shrink:0">АА</div>
+              <div style="flex:1;text-align:center;font-size:13px;font-weight:800;color:#fff;letter-spacing:-.3px">Operations</div>
+              <div style="width:30px"></div>
+            </div>
+            <!-- balance card -->
+            <div style="margin:0 12px 8px;background:linear-gradient(135deg,#A85C08,#C8820A);border-radius:18px;padding:12px 14px 14px;color:#fff;position:relative;overflow:hidden">
+              <div style="position:absolute;top:-18px;right:-18px;width:70px;height:70px;border-radius:50%;background:rgba(255,255,255,.08)"></div>
+              <div style="display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;position:relative">
+                <div>
+                  <div style="font-size:9px;opacity:.72;font-weight:600;letter-spacing:.3px">YOUR BALANCE</div>
+                  <div style="font-size:20px;font-weight:900;letter-spacing:-.04em;margin-top:3px">$4 582.00</div>
+                </div>
+                <div style="display:flex;flex-direction:column;align-items:flex-end;gap:3px">
+                  <div style="background:rgba(255,255,255,.2);border-radius:6px;padding:3px 7px;font-size:9px;font-weight:700">USD</div>
+                  <img src="https://flagcdn.com/w20/us.png" style="width:20px;height:20px;border-radius:50%;object-fit:cover;border:1.5px solid rgba(255,255,255,.3)"/>
+                </div>
+              </div>
+              <div style="display:flex;gap:5px;position:relative">
+                <div style="flex:1;background:rgba(255,255,255,.16);border-radius:9px;padding:5px 3px;text-align:center;font-size:8px;font-weight:700">Block</div>
+                <div style="flex:1;background:rgba(255,255,255,.16);border-radius:9px;padding:5px 3px;text-align:center;font-size:8px;font-weight:700">Card</div>
+                <div style="flex:1;background:rgba(255,255,255,.16);border-radius:9px;padding:5px 3px;text-align:center;font-size:8px;font-weight:700">Limits</div>
+                <div style="flex:1;background:rgba(255,255,255,.16);border-radius:9px;padding:5px 3px;text-align:center;font-size:8px;font-weight:700">Settings</div>
+              </div>
+            </div>
+            <!-- transfers grid 3×2 -->
+            <div style="background:#2c2c2e;border-radius:16px;margin:0 12px 8px;padding:10px">
+              <div style="font-size:9px;font-weight:700;color:#636366;text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px">Transfers</div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px">
+                <div style="text-align:center"><div style="width:32px;height:32px;border-radius:10px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div><div style="font-size:8px;color:#aeaeb2;font-weight:600">By Number</div></div>
+                <div style="text-align:center"><div style="width:32px;height:32px;border-radius:10px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg></div><div style="font-size:8px;color:#aeaeb2;font-weight:600">By Card</div></div>
+                <div style="text-align:center"><div style="width:32px;height:32px;border-radius:10px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><div style="font-size:8px;color:#aeaeb2;font-weight:600">QR Code</div></div>
+                <div style="text-align:center"><div style="width:32px;height:32px;border-radius:10px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M17 20H7M17 20v-2m0 2h3v-2a3 3 0 00-5.356-1.857M7 20v-2m0 2H4v-2a3 3 0 015.356-1.857"/></svg></div><div style="font-size:8px;color:#aeaeb2;font-weight:600">Contact</div></div>
+                <div style="text-align:center"><div style="width:32px;height:32px;border-radius:10px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg></div><div style="font-size:8px;color:#aeaeb2;font-weight:600">By IBAN</div></div>
+                <div style="text-align:center"><div style="width:32px;height:32px;border-radius:10px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><div style="font-size:8px;color:#aeaeb2;font-weight:600">History</div></div>
+              </div>
+            </div>
+            <!-- activity -->
+            <div style="background:#2c2c2e;border-radius:16px;margin:0 12px;padding:10px">
+              <div style="font-size:9px;font-weight:700;color:#636366;text-transform:uppercase;letter-spacing:.7px;margin-bottom:8px">Activity</div>
+              <div style="display:flex;align-items:center;gap:8px;padding:3px 0">
+                <div style="width:28px;height:28px;border-radius:8px;background:#FF0000;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="11" height="11" viewBox="0 0 24 24" fill="#fff"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9C2 15.49 2 14.8 2 14.2V12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28C8 5.09 9.19 5 10.29 5L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></div>
+                <div style="flex:1"><div style="font-size:10px;font-weight:700;color:#fff">YouTube</div><div style="font-size:8px;color:#636366">Today, 11:05</div></div>
+                <div style="font-size:10px;font-weight:800;color:#ff6b6b">−$16</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:8px;padding:3px 0">
+                <div style="width:28px;height:28px;border-radius:8px;background:#E50914;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900;color:#fff;flex-shrink:0">N</div>
+                <div style="flex:1"><div style="font-size:10px;font-weight:700;color:#fff">Netflix</div><div style="font-size:8px;color:#636366">Yesterday, 19:30</div></div>
+                <div style="font-size:10px;font-weight:800;color:#ff6b6b">−$18</div>
+              </div>
+            </div>
+            <!-- bottom nav -->
+            <div style="position:absolute;bottom:0;left:0;right:0;height:50px;background:#121212;border-radius:20px 20px 0 0;display:flex;align-items:center;justify-content:space-around;padding:0 4px">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#48484a">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2.25 12l8.954-8.955a1.126 1.126 0 011.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75"/></svg>
+                <div style="font-size:7px;font-weight:700">Home</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+                <div style="background:linear-gradient(135deg,#D4830A,#F2C94C);border-radius:12px;padding:4px 12px;display:flex;flex-direction:column;align-items:center;gap:1px;color:#fff;box-shadow:0 3px 12px rgba(212,131,10,.4)">
+                  <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+                  <div style="font-size:7px;font-weight:800">Operations</div>
+                </div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#48484a">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 22h18M12 2l9 5H3l9-5z"/><path d="M5 9v11M9 9v11M15 9v11M19 9v11"/><path d="M3 7h18"/></svg>
+                <div style="font-size:7px;font-weight:700">Gov</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#48484a">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                <div style="font-size:7px;font-weight:700">Feed</div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#48484a">
+                <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 110 8 4 4 0 010-8z"/></svg>
+                <div style="font-size:7px;font-weight:700">Profile</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- wavy bottom -->
+  <svg style="position:absolute;bottom:-1px;left:0;right:0;z-index:3" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,60 L0,60 Z" fill="#050302"/>
+  </svg>
+</section>
+
+<!-- TRUSTED / MARQUEE -->
+<div id="trusted">
+  <div class="trusted-inner">
+    <div class="trusted-lbl">Government services available in the app</div>
+    <div class="marquee-wrap">
+      <div class="marquee-track">
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M5 3h10l4 4v14H5V3z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg> Certificates &amp; Statements</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Tax Services</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> Court Services</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M3 6l9-4 9 4v6c0 5-4 9-9 10-5-1-9-5-9-10V6z"/></svg> Enforcement Proceedings</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8z"/></svg> Unemployment Assistance</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M8 14h.01M12 14h.01M16 14h.01"/></svg> Deposit Insurance</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M3 3h18M3 9h18M9 21l3-12 3 12"/></svg> Government Bonds</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg> Driver's License</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg> Residence Registration</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg> Online Marriage</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Surveys &amp; Feedback</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> Social Assistance Card</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Entertainment &amp; Leisure</div>
+        <!-- duplicate for seamless loop -->
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M5 3h10l4 4v14H5V3z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg> Certificates &amp; Statements</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg> Tax Services</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg> Court Services</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M3 6l9-4 9 4v6c0 5-4 9-9 10-5-1-9-5-9-10V6z"/></svg> Enforcement Proceedings</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8z"/></svg> Unemployment Assistance</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18M8 14h.01M12 14h.01M16 14h.01"/></svg> Deposit Insurance</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M3 3h18M3 9h18M9 21l3-12 3 12"/></svg> Government Bonds</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><circle cx="12" cy="12" r="9"/><path d="M12 3v2M12 19v2M3 12h2M19 12h2"/></svg> Driver's License</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><path d="M9 22V12h6v10"/></svg> Residence Registration</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg> Online Marriage</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg> Surveys &amp; Feedback</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><path d="M2 10h20"/></svg> Social Assistance Card</div>
+        <div class="mq-svc"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,.5)" stroke-width="1.8" stroke-linecap="round"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z"/></svg> Entertainment &amp; Leisure</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FEATURES — BENTO GRID -->
+<section id="features" class="bg-feat">
+  <svg style="position:absolute;top:-1px;left:0;right:0;z-index:3;transform:scaleY(-1)" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C240,80 480,0 720,40 C960,80 1200,0 1440,40 L1440,60 L0,60 Z" fill="#050302"/>
+  </svg>
+  <div class="cont">
+    <div style="text-align:center;margin-bottom:60px" class="rv up">
+      <h2 class="s-title">Everything you need,<br><em>nothing you don't</em></h2>
+      <p class="s-sub" style="margin:0 auto">Built for Africa's unique financial landscape and government service needs.</p>
+    </div>
+    <div class="feat-bento">
+      <div class="glass feat-card wide rv left">
+        <div>
+          <div class="feat-ico"><svg><use href="#ico-bank"/></svg></div>
+          <div class="feat-title">Smart Banking for Africa</div>
+          <div class="feat-desc">Full-service mobile banking with instant transfers, savings, loans, and investment products. Available in 54 countries with local currency support.</div>
+        </div>
+        <div>
+          <div class="feat-big-num">54</div>
+          <div class="feat-big-lbl">Countries supported</div>
+        </div>
+      </div>
+      <div class="glass feat-card rv up d1">
+        <div class="feat-ico"><svg><use href="#ico-gov"/></svg></div>
+        <div class="feat-title">Gov Services</div>
+        <div class="feat-desc">Pay taxes, renew docs, access benefits — all in one place.</div>
+      </div>
+      <div class="glass feat-card rv up d2">
+        <div class="feat-ico"><svg><use href="#ico-chart"/></svg></div>
+        <div class="feat-title">FinTech Suite</div>
+        <div class="feat-desc">Crypto, investments, insurance, micro-loans and BNPL.</div>
+      </div>
+      <div class="glass feat-card rv up d3">
+        <div class="feat-ico"><svg><use href="#ico-shield"/></svg></div>
+        <div class="feat-title">Security</div>
+        <div class="feat-desc">Bank-grade encryption, face ID and AI fraud detection.</div>
+      </div>
+      <div class="glass feat-card rv up d4">
+        <div class="feat-ico"><svg><use href="#ico-bolt"/></svg></div>
+        <div class="feat-title">Instant</div>
+        <div class="feat-desc">0.3s transfers across the continent, 24/7 availability.</div>
+      </div>
+    </div>
+  </div>
+  <svg style="position:absolute;bottom:-1px;left:0;right:0;z-index:3" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C360,70 1080,-10 1440,30 L1440,60 L0,60 Z" fill="#050302"/>
+  </svg>
+</section>
+
+<!-- ECOSYSTEM -->
+<section id="ecosystem" class="bg-eco">
+  <svg style="position:absolute;top:-1px;left:0;right:0;z-index:3;transform:scaleY(-1)" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,20 C360,70 1080,-10 1440,30 L1440,60 L0,60 Z" fill="#050302"/>
+  </svg>
+  <div class="cont eco-in">
+    <div class="rv left">
+      <h2 class="s-title">Three pillars.<br><em>One app.</em></h2>
+      <p class="s-sub">Inspired by M-Pesa, Tinkoff, and Freedom — Africa's most complete financial super-app.</p>
+      <div class="eco-pillars">
+        <div class="glass eco-pill active rv up d1">
+          <div class="eco-ico"><svg><use href="#ico-bank"/></svg></div>
+          <div><div class="eco-pt">Banking & Payments</div><div class="eco-pd">Accounts, cards, transfers, mobile money, FX across 54 countries.</div></div>
+        </div>
+        <div class="glass eco-pill rv up d2">
+          <div class="eco-ico"><svg><use href="#ico-gov"/></svg></div>
+          <div><div class="eco-pt">Government Services</div><div class="eco-pd">Tax filing, permits, ID renewal, social benefits — digital first.</div></div>
+        </div>
+        <div class="glass eco-pill rv up d3">
+          <div class="eco-ico"><svg><use href="#ico-chart"/></svg></div>
+          <div><div class="eco-pt">FinTech & Investments</div><div class="eco-pd">Stocks, crypto, insurance, micro-lending and BNPL in your pocket.</div></div>
+        </div>
+      </div>
+    </div>
+    <div class="eco-r rv right">
+      <div class="eco-ph-wrap">
+        <div class="eco-glow"></div>
+        <div class="phone eco-phone" style="width:240px;height:480px">
+          <div class="pscr" style="background:#1c1c1e">
+            <div style="background:#1c1c1e;color:#fff;padding:10px 14px 4px;font-size:10px;font-weight:700;display:flex;justify-content:space-between"><span>9:41</span><span>▐▐▐</span></div>
+            <!-- gov header -->
+            <div style="display:flex;align-items:center;padding:6px 12px 8px;background:#1c1c1e">
+              <div style="flex:1;text-align:center;font-size:13px;font-weight:800;color:#fff">Gov Services</div>
+            </div>
+            <!-- search "Services" -->
+            <div style="margin:0 12px 10px;background:#2c2c2e;border-radius:12px;padding:8px 12px;display:flex;align-items:center;gap:7px">
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><path d="M21 21l-4.35-4.35"/></svg>
+              <span style="font-size:10px;color:#636366;font-weight:600">Services</span>
+            </div>
+            <!-- quick tiles 2×3 -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px;padding:0 12px 10px">
+              <div style="background:#2c2c2e;border-radius:12px;padding:11px 10px;display:flex;align-items:center;gap:7px"><div style="width:26px;height:26px;border-radius:8px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><div><div style="font-size:9px;font-weight:700;color:#fff">Taxes</div><div style="font-size:8px;color:#636366">Payment</div></div></div>
+              <div style="background:#2c2c2e;border-radius:12px;padding:11px 10px;display:flex;align-items:center;gap:7px"><div style="width:26px;height:26px;border-radius:8px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M5 3h10l4 4v14H5V3z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg></div><div style="overflow:hidden;min-width:0"><div style="font-size:9px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Certificates</div><div style="font-size:8px;color:#636366">Statements</div></div></div>
+              <div style="background:#2c2c2e;border-radius:12px;padding:11px 10px;display:flex;align-items:center;gap:7px"><div style="width:26px;height:26px;border-radius:8px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div style="font-size:9px;font-weight:700;color:#fff">Court</div><div style="font-size:8px;color:#636366">Cases</div></div></div>
+              <div style="background:#2c2c2e;border-radius:12px;padding:11px 10px;display:flex;align-items:center;gap:7px"><div style="width:26px;height:26px;border-radius:8px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div><div style="font-size:9px;font-weight:700;color:#fff">Social Aid</div><div style="font-size:8px;color:#636366">Benefits</div></div></div>
+              <div style="background:#2c2c2e;border-radius:12px;padding:11px 10px;display:flex;align-items:center;gap:7px"><div style="width:26px;height:26px;border-radius:8px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M3 12h18M12 3l9 9-9 9"/></svg></div><div><div style="font-size:9px;font-weight:700;color:#fff">Passport</div><div style="font-size:8px;color:#636366">Documents</div></div></div>
+              <div style="background:#2c2c2e;border-radius:12px;padding:11px 10px;display:flex;align-items:center;gap:7px"><div style="width:26px;height:26px;border-radius:8px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div><div><div style="font-size:9px;font-weight:700;color:#fff">Marriage</div><div style="font-size:8px;color:#636366">Online</div></div></div>
+            </div>
+            <!-- pending notification -->
+            <div style="margin:0 12px;background:linear-gradient(135deg,#A85C08,#C8820A);border-radius:12px;padding:10px 12px;color:#fff">
+              <div style="font-size:8px;opacity:.75;font-weight:600">UPCOMING PAYMENT</div>
+              <div style="font-size:11px;font-weight:800;margin-top:2px">Income Tax</div>
+              <div style="font-size:9px;opacity:.8;margin-top:1px">Due: June 30 · $240.00</div>
+            </div>
+            <!-- bottom nav -->
+            <div style="position:absolute;bottom:0;left:0;right:0;height:46px;background:#121212;border-radius:18px 18px 0 0;display:flex;align-items:center;justify-content:space-around">
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#48484a"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M2.25 12l8.954-8.955a1.126 1.126 0 011.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75"/></svg><div style="font-size:6px;font-weight:700">Home</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#48484a"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg><div style="font-size:6px;font-weight:700">Operations</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center">
+                <div style="background:linear-gradient(135deg,#D4830A,#F2C94C);border-radius:10px;padding:3px 10px;display:flex;flex-direction:column;align-items:center;gap:1px;color:#fff">
+                  <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 22h18M12 2l9 5H3l9-5z"/><path d="M5 9v11M9 9v11M15 9v11M19 9v11"/><path d="M3 7h18"/></svg>
+                  <div style="font-size:6px;font-weight:800">Gov</div>
+                </div>
+              </div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#48484a"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><div style="font-size:6px;font-weight:700">Feed</div></div>
+              <div style="flex:1;display:flex;flex-direction:column;align-items:center;gap:1px;color:#48484a"><svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 110 8 4 4 0 010-8z"/></svg><div style="font-size:6px;font-weight:700">Profile</div></div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <svg style="position:absolute;bottom:-1px;left:0;right:0;z-index:3" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C480,0 960,70 1440,20 L1440,60 L0,60 Z" fill="#050302"/>
+  </svg>
+</section>
+
+<!-- STATS -->
+<section id="stats">
+  <div class="stats-in">
+    <div class="st-item rv up">
+      <div class="st-num" data-count="40" data-suffix="M+">0</div>
+      <div class="st-lbl">Active Users Across Africa</div>
+    </div>
+    <div class="st-item rv up d1">
+      <div class="st-num" data-count="54">0</div>
+      <div class="st-lbl">Countries Supported</div>
+    </div>
+    <div class="st-item rv up d2">
+      <div class="st-num">$2.4B</div>
+      <div class="st-lbl">Daily Transaction Volume</div>
+    </div>
+    <div class="st-item rv up d3">
+      <div class="st-num">4.9★</div>
+      <div class="st-lbl">Average App Store Rating</div>
+    </div>
+  </div>
+</section>
+
+<!-- APP PREVIEW -->
+<section id="app-preview" class="bg-app">
+  <svg style="position:absolute;top:-1px;left:0;right:0;z-index:3;transform:scaleY(-1)" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,40 C480,0 960,70 1440,20 L1440,60 L0,60 Z" fill="#050302"/>
+  </svg>
+  <div class="cont">
+    <div style="text-align:center;margin-bottom:56px" class="rv up">
+      <h2 class="s-title">See every screen.<br><em>Feel every detail.</em></h2>
+      <p class="s-sub" style="margin:0 auto">Click tabs or tap inside the phone to navigate between screens.</p>
+    </div>
+    <div class="screen-tabs rv up d1" id="extTabs">
+      <button class="s-tab active" onclick="goTo('home')">Home</button>
+      <button class="s-tab" onclick="goTo('pay')">Transfers</button>
+      <button class="s-tab" onclick="goTo('gov')">Gov Services</button>
+      <button class="s-tab" onclick="goTo('invest')">Feed</button>
+      <button class="s-tab" onclick="goTo('profile')">Profile</button>
+    </div>
+    <div style="display:flex;justify-content:center;gap:20px;align-items:flex-end;padding-bottom:20px" class="rv scale d2">
+      <!-- left side phone — Home screen -->
+      <div class="iphone ph-s2">
+        <div class="ivp" style="background:#1c1c1e">
+          <div class="ist2" style="background:#1c1c1e;color:#fff"><span>9:41</span><span style="display:flex;gap:3px;align-items:center"><svg width="11" height="8" viewBox="0 0 15 11" fill="none"><rect x="0" y="4" width="3" height="7" rx="1" fill="rgba(255,255,255,.4)"/><rect x="4" y="2.5" width="3" height="8.5" rx="1" fill="rgba(255,255,255,.65)"/><rect x="8" y="1" width="3" height="10" rx="1" fill="#fff"/></svg><svg width="13" height="8" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#fff" stroke-width="1.5"/><rect x="21" y="3.5" width="2.5" height="5" rx="1" fill="#fff" opacity=".5"/><rect x="1.5" y="2.5" width="14" height="7" rx="1" fill="#D4830A"/></svg></span></div>
+          <div style="padding:44px 12px 8px;background:#1c1c1e">
+            <!-- avatar + title -->
+            <div style="display:flex;align-items:center;gap:6px;margin-bottom:8px">
+              <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#D4830A,#F2C94C);display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;flex-shrink:0">АА</div>
+              <div style="flex:1;text-align:center;font-size:11px;font-weight:800;color:#fff">Home</div>
+              <div style="width:26px"></div>
+            </div>
+            <!-- balance card -->
+            <div style="background:linear-gradient(135deg,#A85C08,#C8820A);border-radius:14px;padding:10px 12px 12px;color:#fff;margin-bottom:7px;position:relative;overflow:hidden">
+              <div style="position:absolute;top:-14px;right:-14px;width:54px;height:54px;border-radius:50%;background:rgba(255,255,255,.08)"></div>
+              <div style="font-size:7px;opacity:.72;font-weight:600;letter-spacing:.3px;margin-bottom:2px">YOUR BALANCE</div>
+              <div style="font-size:17px;font-weight:900;letter-spacing:-.03em;margin-bottom:8px">$4 582.00</div>
+              <div style="display:flex;gap:4px">
+                <div style="flex:1;background:rgba(255,255,255,.18);border-radius:7px;padding:4px 2px;text-align:center;font-size:6px;font-weight:700">Block</div>
+                <div style="flex:1;background:rgba(255,255,255,.18);border-radius:7px;padding:4px 2px;text-align:center;font-size:6px;font-weight:700">Card</div>
+                <div style="flex:1;background:rgba(255,255,255,.18);border-radius:7px;padding:4px 2px;text-align:center;font-size:6px;font-weight:700">Limits</div>
+                <div style="flex:1;background:rgba(255,255,255,.18);border-radius:7px;padding:4px 2px;text-align:center;font-size:6px;font-weight:700">Settings</div>
+              </div>
+            </div>
+            <!-- transfers -->
+            <div style="background:#2c2c2e;border-radius:12px;padding:8px 8px 6px;margin-bottom:7px">
+              <div style="font-size:7px;font-weight:700;color:#636366;letter-spacing:.3px;margin-bottom:7px">TRANSFERS</div>
+              <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:5px">
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;display:flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><line x1="12" y1="19" x2="12" y2="5"/><polyline points="5 12 12 5 19 12"/></svg></div><div style="font-size:6px;color:#8e8e93;font-weight:600">By Number</div></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;display:flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><rect x="2" y="5" width="20" height="14" rx="2"/><line x1="2" y1="10" x2="22" y2="10"/></svg></div><div style="font-size:6px;color:#8e8e93;font-weight:600">By Card</div></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;display:flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M7 7h3v3H7zM14 7h3v3h-3zM7 14h3v3H7zM14 14h2M17 14v3"/></svg></div><div style="font-size:6px;color:#8e8e93;font-weight:600">QR</div></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;display:flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg></div><div style="font-size:6px;color:#8e8e93;font-weight:600">Contact</div></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;display:flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><div style="font-size:6px;color:#8e8e93;font-weight:600">By IBAN</div></div>
+                <div style="display:flex;flex-direction:column;align-items:center;gap:3px"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;display:flex;align-items:center;justify-content:center"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div style="font-size:6px;color:#8e8e93;font-weight:600">History</div></div>
+              </div>
+            </div>
+            <!-- activity -->
+            <div style="background:#2c2c2e;border-radius:12px;padding:8px">
+              <div style="font-size:7px;font-weight:700;color:#636366;letter-spacing:.3px;margin-bottom:7px">ACTIVITY</div>
+              <div style="display:flex;align-items:center;gap:6px;padding-bottom:5px;border-bottom:1px solid #3a3a3c;margin-bottom:5px">
+                <div style="width:22px;height:22px;border-radius:6px;background:#FF0000;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="8" viewBox="0 0 24 18" fill="#fff"><path d="M23 3s-.3-2-1.2-2.8C20.7-.1 19.4 0 18.8 0 15.7.2 11 .2 11 .2S6.3.2 3.2 0C2.6 0 1.3-.1.2.2-.7 1-1 3-1 3S-1.3 5.2-1.3 7.3v2c0 2.1.3 4.3.3 4.3s.3 2 1.2 2.8C1.3 17.4 2.8 17.4 3.5 17.5 5.7 17.7 11 17.7 11 17.7s4.7 0 7.8-.3c.6-.1 1.9-.1 3-1 .9-.8 1.2-2.8 1.2-2.8s.3-2.1.3-4.3v-2C23.3 5.2 23 3 23 3zM9 12.6V5.4l6.5 3.6L9 12.6z"/></svg></div>
+                <div style="flex:1"><div style="font-size:7px;font-weight:700;color:#fff">YouTube</div><div style="font-size:6px;color:#636366">Today, 11:05</div></div>
+                <div style="font-size:7px;font-weight:700;color:#FF453A">−$16</div>
+              </div>
+              <div style="display:flex;align-items:center;gap:6px">
+                <div style="width:22px;height:22px;border-radius:6px;background:#E50914;display:flex;align-items:center;justify-content:center;font-size:8px;font-weight:900;color:#fff;flex-shrink:0">N</div>
+                <div style="flex:1"><div style="font-size:7px;font-weight:700;color:#fff">Netflix</div><div style="font-size:6px;color:#636366">Yesterday, 19:30</div></div>
+                <div style="font-size:7px;font-weight:700;color:#FF453A">−$18</div>
+              </div>
+            </div>
+          </div>
+          <!-- bottom nav -->
+          <div style="position:absolute;bottom:0;left:0;right:0;height:44px;background:#121212;border-radius:18px 18px 0 0;display:flex;align-items:center;justify-content:space-around;padding:0 4px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:1px;background:linear-gradient(135deg,#D4830A,#F2C94C);border-radius:10px;padding:4px 9px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div style="font-size:5px;font-weight:700;color:#fff">Home</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#48484a" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><div style="font-size:5px;font-weight:700;color:#48484a">Ops</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#48484a" stroke-width="1.5" stroke-linecap="round"><path d="M3 6l9-4 9 4v6c0 5-4 9-9 10-5-1-9-5-9-10V6z"/></svg><div style="font-size:5px;font-weight:700;color:#48484a">Gov</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#48484a" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><div style="font-size:5px;font-weight:700;color:#48484a">Feed</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#48484a" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg><div style="font-size:5px;font-weight:700;color:#48484a">Profile</div></div>
+          </div>
+        </div>
+      </div>
+
+      <!-- CENTER interactive phone -->
+      <div class="iphone ph-m2" id="mainPhone">
+        <div class="ivp" style="background:#1c1c1e">
+          <div class="ist2" style="background:#1c1c1e;color:#fff"><span>9:41</span><span>▐▐▐ ◈</span></div>
+          <div class="sw" id="screensWrap">
+
+            <!-- HOME -->
+            <div class="isc active" id="s-home" style="background:#1c1c1e">
+              <!-- avatar + title -->
+              <div style="display:flex;align-items:center;padding:8px 14px 6px;gap:8px">
+                <div class="sc-av" style="width:30px;height:30px;font-size:11px">АА</div>
+                <div style="flex:1;text-align:center;font-size:13px;font-weight:800;color:#fff">Operations</div>
+                <div style="width:30px"></div>
+              </div>
+              <!-- balance card -->
+              <div class="sc-card2" style="margin:0 12px 8px;border-radius:18px;padding:12px 14px">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px">
+                  <div><div class="sc-cl">YOUR BALANCE</div><div style="font-size:20px;font-weight:900;color:#fff;letter-spacing:-.04em;margin-top:3px">$4 582.00</div></div>
+                  <img src="https://flagcdn.com/w20/us.png" style="width:22px;height:22px;border-radius:50%;object-fit:cover;border:2px solid rgba(255,255,255,.3);margin-top:2px"/>
+                </div>
+                <div style="display:flex;gap:5px">
+                  <div style="flex:1;background:rgba(255,255,255,.16);border-radius:8px;padding:4px 2px;text-align:center;font-size:8px;font-weight:700;color:#fff">Block</div>
+                  <div style="flex:1;background:rgba(255,255,255,.16);border-radius:8px;padding:4px 2px;text-align:center;font-size:8px;font-weight:700;color:#fff">Card</div>
+                  <div style="flex:1;background:rgba(255,255,255,.16);border-radius:8px;padding:4px 2px;text-align:center;font-size:8px;font-weight:700;color:#fff">Limits</div>
+                  <div style="flex:1;background:rgba(255,255,255,.16);border-radius:8px;padding:4px 2px;text-align:center;font-size:8px;font-weight:700;color:#fff">Settings</div>
+                </div>
+              </div>
+              <!-- transfers -->
+              <div style="background:#2c2c2e;border-radius:14px;margin:0 12px 7px;padding:9px">
+                <div class="sc-sec2" style="padding:0 0 7px">TRANSFERS</div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:4px">
+                  <div style="text-align:center"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg></div><div style="font-size:7px;color:#aeaeb2;font-weight:600">By Number</div></div>
+                  <div style="text-align:center"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><rect x="3" y="6" width="18" height="13" rx="2"/><path d="M3 10h18"/></svg></div><div style="font-size:7px;color:#aeaeb2;font-weight:600">By Card</div></div>
+                  <div style="text-align:center"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg></div><div style="font-size:7px;color:#aeaeb2;font-weight:600">QR</div></div>
+                  <div style="text-align:center"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8z"/></svg></div><div style="font-size:7px;color:#aeaeb2;font-weight:600">Contact</div></div>
+                  <div style="text-align:center"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M3 7h18M3 12h18M3 17h18"/></svg></div><div style="font-size:7px;color:#aeaeb2;font-weight:600">By IBAN</div></div>
+                  <div style="text-align:center"><div style="width:30px;height:30px;border-radius:9px;background:#3a3a3c;margin:0 auto 3px;display:flex;align-items:center;justify-content:center"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 3"/></svg></div><div style="font-size:7px;color:#aeaeb2;font-weight:600">History</div></div>
+                </div>
+              </div>
+              <!-- activity -->
+              <div style="background:#2c2c2e;border-radius:14px;margin:0 12px;padding:9px">
+                <div class="sc-sec2" style="padding:0 0 7px">ACTIVITY</div>
+                <div class="sc-row" style="padding:5px 0;border-bottom-color:#3a3a3c"><div style="width:28px;height:28px;border-radius:8px;background:#FF0000;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="#fff"><path d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9C2 15.49 2 14.8 2 14.2V12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28C8 5.09 9.19 5 10.29 5L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></div><div style="padding:0 8px;flex:1"><div class="sc-rn">YouTube</div><div class="sc-rs">Today, 11:05</div></div><div class="sc-ra neg">−$16</div></div>
+                <div class="sc-row" style="padding:5px 0;border-bottom:none"><div style="width:28px;height:28px;border-radius:8px;background:#E50914;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:900;color:#fff;flex-shrink:0">N</div><div style="padding:0 8px;flex:1"><div class="sc-rn">Netflix</div><div class="sc-rs">Yesterday, 19:30</div></div><div class="sc-ra neg">−$18</div></div>
+              </div>
+            </div>
+
+            <!-- OPERATIONS (pay tab) -->
+            <div class="isc" id="s-pay" style="background:#1c1c1e">
+              <div style="display:flex;align-items:center;padding:8px 14px 6px;gap:8px">
+                <div style="width:30px;height:30px;border-radius:50%;background:linear-gradient(135deg,#D4830A,#F2C94C);display:flex;align-items:center;justify-content:center;font-size:10px;color:#fff;font-weight:800;flex-shrink:0">АА</div>
+                <div style="flex:1;text-align:center;font-size:13px;font-weight:800;color:#fff">Transfers</div>
+                <div style="width:30px"></div>
+              </div>
+              <div class="sc-amtd" style="padding:10px 14px 8px"><div><span class="sc-curr">$</span><span class="sc-bigamt">500</span></div><div class="sc-hint">Tap to edit</div></div>
+              <div class="sc-contacts"><div class="sc-sec2">Contacts</div>
+                <div class="sc-crow">
+                  <div class="sc-cont"><div class="sc-cav" style="background:#8B5CF6">AK</div><div class="sc-cnm">Aliya</div></div>
+                  <div class="sc-cont"><div class="sc-cav" style="background:#E07B2A">DM</div><div class="sc-cnm">Damir</div></div>
+                  <div class="sc-cont"><div class="sc-cav" style="background:#10b981">SN</div><div class="sc-cnm">Sanem</div></div>
+                  <div class="sc-cont"><div class="sc-cav" style="background:#ef4444">NM</div><div class="sc-cnm">Nurlan</div></div>
+                  <div class="sc-cont"><div class="sc-cav" style="background:#F59E0B">BT</div><div class="sc-cnm">Batyr</div></div>
+                </div>
+              </div>
+              <div class="sc-field"><div class="sc-fl">Recipient</div><div class="sc-fv">Aliya Kenzhebayeva</div></div>
+              <div class="sc-field"><div class="sc-fl">From card</div><div class="sc-fv">•••• 3567</div></div>
+              <div class="sc-field"><div class="sc-fl">Note</div><div class="sc-fv" style="color:#48484a">Add note...</div></div>
+              <button class="sc-sbtn" style="background:linear-gradient(135deg,#D4830A,#F2C94C);box-shadow:0 5px 18px rgba(212,131,10,.35)">Send $500.00 →</button>
+              <div class="sc-sec2" style="margin-top:4px">History</div>
+              <div class="sc-row"><div class="sc-ri" style="background:#2c2c2e"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aeaeb2" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 110 8 4 4 0 010-8z"/></svg></div><div><div class="sc-rn">To Damir M.</div><div class="sc-rs">Yesterday · 14:22</div></div><div class="sc-ra neg">−$200</div></div>
+              <div class="sc-row"><div class="sc-ri" style="background:#2c2c2e"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#aeaeb2" stroke-width="1.8"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 110 8 4 4 0 010-8z"/></svg></div><div><div class="sc-rn">From Sanem N.</div><div class="sc-rs">Mon · 09:15</div></div><div class="sc-ra pos">+$350</div></div>
+            </div>
+
+            <!-- GOV -->
+            <div class="isc" id="s-gov" style="background:#1c1c1e">
+              <div style="display:flex;align-items:center;padding:8px 14px 6px"><div style="flex:1;text-align:center;font-size:13px;font-weight:800;color:#fff">Gov Services</div></div>
+              <div class="sc-search" style="margin:4px 12px 10px"><span style="color:#636366">🔍</span><span>Services</span></div>
+              <div class="sc-sec2">ALL SERVICES</div>
+              <div class="sc-ggrid" style="padding:0 12px 10px">
+                <div class="sc-gt"><div class="sc-gi">🧾</div><div class="sc-gn">Taxes</div><div class="sc-gs">Payments & Accounting</div></div>
+                <div class="sc-gt"><div class="sc-gi">📄</div><div class="sc-gn">Certificates</div><div class="sc-gs">Certificates & Statements</div></div>
+                <div class="sc-gt"><div class="sc-gi">⚖️</div><div class="sc-gn">Court</div><div class="sc-gs">CourtCourt Cases</div></div>
+                <div class="sc-gt"><div class="sc-gi">🤝</div><div class="sc-gn">Social Aid</div><div class="sc-gs">Benefits</div></div>
+                <div class="sc-gt"><div class="sc-gi">🚗</div><div class="sc-gn">Driver's Lic.</div><div class="sc-gs">Driver's License</div></div>
+                <div class="sc-gt"><div class="sc-gi">💒</div><div class="sc-gn">Marriage Online</div><div class="sc-gs">Registration</div></div>
+                <div class="sc-gt"><div class="sc-gi">🏠</div><div class="sc-gn">Residence</div><div class="sc-gs">Residence</div></div>
+                <div class="sc-gt"><div class="sc-gi">📋</div><div class="sc-gn">Surveys</div><div class="sc-gs">Feedback</div></div>
+              </div>
+            </div>
+
+            <!-- MESSAGES (invest tab) -->
+            <div class="isc" id="s-invest" style="background:#1c1c1e">
+              <div style="display:flex;align-items:center;padding:8px 14px 6px"><div style="flex:1;text-align:center;font-size:13px;font-weight:800;color:#fff">Feed</div></div>
+              <!-- post card 1 -->
+              <div style="background:#2c2c2e;border-radius:14px;margin:4px 12px 8px;padding:12px">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                  <div style="width:26px;height:26px;border-radius:50%;background:linear-gradient(135deg,#D4830A,#F2C94C);display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:800;flex-shrink:0">MF</div>
+                  <div><div style="font-size:10px;font-weight:700;color:#fff">Ministry of Finance</div><div style="font-size:8px;color:#636366">2 hours ago</div></div>
+                </div>
+                <div style="font-size:10px;color:#aeaeb2;line-height:1.5;margin-bottom:8px">Reminder: income tax declaration for 2025 is due. Deadline — May 31.</div>
+                <div style="display:flex;gap:12px">
+                  <span style="font-size:9px;color:#636366">👍 124</span>
+                  <span style="font-size:9px;color:#636366">💬 18</span>
+                </div>
+              </div>
+              <!-- post card 2 -->
+              <div style="background:#2c2c2e;border-radius:14px;margin:0 12px 8px;padding:12px">
+                <div style="display:flex;align-items:center;gap:8px;margin-bottom:8px">
+                  <div style="width:26px;height:26px;border-radius:50%;background:#1d6cdb;display:flex;align-items:center;justify-content:center;font-size:9px;color:#fff;font-weight:800;flex-shrink:0">CB</div>
+                  <div><div style="font-size:10px;font-weight:700;color:#fff">Central Bank</div><div style="font-size:8px;color:#636366">5 hours ago</div></div>
+                </div>
+                <div style="font-size:10px;color:#aeaeb2;line-height:1.5;margin-bottom:8px">Base rate reduced to 14.25%. Deposit and loan rates will be revised accordingly.</div>
+                <div style="display:flex;gap:12px">
+                  <span style="font-size:9px;color:#636366">👍 89</span>
+                  <span style="font-size:9px;color:#636366">💬 34</span>
+                </div>
+              </div>
+              <!-- chart -->
+              <div class="sc-chart" style="margin:0 12px">
+                <div class="sc-chartl">Monthly Spending</div>
+                <div class="sc-chartv">$1 240.00</div>
+                <div class="sc-chartc">▼ −8% vs last month</div>
+                <svg class="sc-svg" viewBox="0 0 200 48" preserveAspectRatio="none">
+                  <defs><linearGradient id="cg2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#D4830A" stop-opacity=".35"/><stop offset="100%" stop-color="#D4830A" stop-opacity="0"/></linearGradient></defs>
+                  <path d="M0,42 L25,36 L50,38 L75,28 L100,30 L125,18 L150,22 L175,12 L200,8" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"/>
+                  <path d="M0,42 L25,36 L50,38 L75,28 L100,30 L125,18 L150,22 L175,12 L200,8 L200,48 L0,48Z" fill="url(#cg2)"/>
+                </svg>
+              </div>
+            </div>
+
+            <!-- PROFILE -->
+            <div class="isc" id="s-profile" style="background:#1c1c1e">
+              <div style="display:flex;align-items:center;padding:8px 14px 6px">
+                <div style="width:28px"></div>
+                <div style="flex:1;text-align:center;font-size:13px;font-weight:800;color:#fff">Profile</div>
+                <div style="width:28px;text-align:right;cursor:pointer"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#aeaeb2" stroke-width="1.8" stroke-linecap="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83 0 2 2 0 010-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 010-2.83 2 2 0 012.83 0l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 0 2 2 0 010 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+              </div>
+              <div class="sc-ptop" style="border-bottom-color:#2c2c2e;padding:8px 14px 12px">
+                <div class="sc-pav" style="background:linear-gradient(135deg,#D4830A,#F2C94C);font-size:18px">АА</div>
+                <div class="sc-pnm">Alex Johnson</div>
+                <div class="sc-ploc">Almaty, Kazakhstan 🇰🇿</div>
+                <div class="sc-pbadge">✓ EDS Verified</div>
+              </div>
+              <div style="display:flex;gap:6px;padding:10px 12px;border-bottom:1px solid #2c2c2e">
+                <div style="flex:1;background:#2c2c2e;border-radius:10px;padding:8px;text-align:center"><div style="font-size:13px;font-weight:900;color:#fff">$4 582</div><div style="font-size:8px;color:#636366">Balance</div></div>
+                <div style="flex:1;background:#2c2c2e;border-radius:10px;padding:8px;text-align:center"><div style="font-size:13px;font-weight:900;color:#fff">148</div><div style="font-size:8px;color:#636366">Transactions</div></div>
+                <div style="flex:1;background:#2c2c2e;border-radius:10px;padding:8px;text-align:center"><div style="font-size:13px;font-weight:900;color:var(--p-lt)">Gold</div><div style="font-size:8px;color:#636366">Tier</div></div>
+              </div>
+              <div class="sc-set"><div class="sc-sico"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aeaeb2" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 110 8 4 4 0 010-8z"/></svg></div><div><div class="sc-snm">My Details</div><div class="sc-ssub">Personal information</div></div><div class="sc-sarr" style="color:#48484a">›</div></div>
+              <div class="sc-set"><div class="sc-sico"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aeaeb2" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div><div><div class="sc-snm">Security</div><div class="sc-ssub">PIN, Face ID, EDS</div></div><div class="sc-sarr" style="color:#48484a">›</div></div>
+              <div class="sc-set"><div class="sc-sico"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#aeaeb2" stroke-width="1.8" stroke-linecap="round"><path d="M18 8A6 6 0 006 8c0 7-3 9-3 9h18s-3-2-3-9M13.73 21a2 2 0 01-3.46 0"/></svg></div><div><div class="sc-snm">Notifications</div><div class="sc-ssub">Push & SMS alerts</div></div><div class="sc-sarr" style="color:#48484a">›</div></div>
+              <div class="sc-set" style="border-bottom:none"><div class="sc-sico"><svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#ef4444" stroke-width="1.8" stroke-linecap="round"><path d="M9 21H5a2 2 0 01-2-2V5a2 2 0 012-2h4M16 17l5-5-5-5M21 12H9"/></svg></div><div><div class="sc-snm" style="color:#ef4444">Log Out</div></div></div>
+            </div>
+          </div>
+
+          <!-- bottom nav dark -->
+          <div class="bnav2" style="background:#121212;border-top:none;border-radius:18px 18px 0 0;height:54px;padding:0 4px">
+            <div class="bni active" onclick="goTo('home')" data-sc="home">
+              <div class="bni-inner" style="display:flex;flex-direction:column;align-items:center;gap:2px;padding:5px 12px;border-radius:14px;background:linear-gradient(135deg,#D4830A,#F2C94C);box-shadow:0 4px 14px rgba(212,131,10,.4)">
+                <svg class="bni-ico" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"><path d="M2.25 12l8.954-8.955a1.126 1.126 0 011.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75"/></svg>
+                <div class="bni-lbl">Home</div>
+              </div>
+            </div>
+            <div class="bni" onclick="goTo('pay')" data-sc="pay" style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#48484a;padding:8px 0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+              <div class="bni-lbl">Operations</div>
+            </div>
+            <div class="bni" onclick="goTo('gov')" data-sc="gov" style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#48484a;padding:8px 0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M3 22h18M12 2l9 5H3l9-5z"/><path d="M5 9v11M9 9v11M15 9v11M19 9v11"/><path d="M3 7h18"/></svg>
+              <div class="bni-lbl">Gov</div>
+            </div>
+            <div class="bni" onclick="goTo('invest')" data-sc="invest" style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#48484a;padding:8px 0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              <div class="bni-lbl">Feed</div>
+            </div>
+            <div class="bni" onclick="goTo('profile')" data-sc="profile" style="display:flex;flex-direction:column;align-items:center;gap:2px;color:#48484a;padding:8px 0">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 3a4 4 0 110 8 4 4 0 010-8z"/></svg>
+              <div class="bni-lbl">Profile</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- right side phone — Gov preview -->
+      <!-- right side phone — Gov Services screen -->
+      <div class="iphone ph-s2">
+        <div class="ivp" style="background:#1c1c1e">
+          <div class="ist2" style="background:#1c1c1e;color:#fff"><span>9:41</span><span style="display:flex;gap:3px;align-items:center"><svg width="11" height="8" viewBox="0 0 15 11" fill="none"><rect x="0" y="4" width="3" height="7" rx="1" fill="rgba(255,255,255,.4)"/><rect x="4" y="2.5" width="3" height="8.5" rx="1" fill="rgba(255,255,255,.65)"/><rect x="8" y="1" width="3" height="10" rx="1" fill="#fff"/></svg><svg width="13" height="8" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#fff" stroke-width="1.5"/><rect x="21" y="3.5" width="2.5" height="5" rx="1" fill="#fff" opacity=".5"/><rect x="1.5" y="2.5" width="14" height="7" rx="1" fill="#D4830A"/></svg></span></div>
+          <div style="padding:44px 12px 8px;background:#1c1c1e">
+            <!-- title -->
+            <div style="text-align:center;margin-bottom:8px;font-size:11px;font-weight:800;color:#fff">Gov Services</div>
+            <!-- search bar -->
+            <div style="background:#2c2c2e;border-radius:10px;padding:6px 10px;display:flex;align-items:center;gap:6px;margin-bottom:8px">
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#636366" stroke-width="2" stroke-linecap="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+              <div style="font-size:7px;color:#636366;font-weight:500">Search services...</div>
+            </div>
+            <!-- service grid 2×3 -->
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:6px;margin-bottom:7px">
+              <div style="background:#2c2c2e;border-radius:11px;padding:8px;display:flex;align-items:center;gap:5px"><div style="width:22px;height:22px;border-radius:7px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/></svg></div><div><div style="font-size:7px;font-weight:700;color:#fff">Taxes</div><div style="font-size:6px;color:#636366">Payment</div></div></div>
+              <div style="background:#2c2c2e;border-radius:11px;padding:8px;display:flex;align-items:center;gap:5px"><div style="width:22px;height:22px;border-radius:7px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M5 3h10l4 4v14H5V3z"/><path d="M9 9h6M9 13h6M9 17h4"/></svg></div><div style="overflow:hidden;min-width:0"><div style="font-size:7px;font-weight:700;color:#fff;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">Certificates</div><div style="font-size:6px;color:#636366">Statements</div></div></div>
+              <div style="background:#2c2c2e;border-radius:11px;padding:8px;display:flex;align-items:center;gap:5px"><div style="width:22px;height:22px;border-radius:7px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/></svg></div><div><div style="font-size:7px;font-weight:700;color:#fff">Court</div><div style="font-size:6px;color:#636366">Cases</div></div></div>
+              <div style="background:#2c2c2e;border-radius:11px;padding:8px;display:flex;align-items:center;gap:5px"><div style="width:22px;height:22px;border-radius:7px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M16 21v-2a4 4 0 00-4-4H6a4 4 0 00-4 4v2M9 7a4 4 0 100 8 4 4 0 000-8zM22 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div><div><div style="font-size:7px;font-weight:700;color:#fff">Social Aid</div><div style="font-size:6px;color:#636366">Benefits</div></div></div>
+              <div style="background:#2c2c2e;border-radius:11px;padding:8px;display:flex;align-items:center;gap:5px"><div style="width:22px;height:22px;border-radius:7px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M19 3H5a2 2 0 00-2 2v14a2 2 0 002 2h14a2 2 0 002-2V5a2 2 0 00-2-2zM9 9h1M9 12h6M9 15h4"/></svg></div><div><div style="font-size:7px;font-weight:700;color:#fff">Passport</div><div style="font-size:6px;color:#636366">Documents</div></div></div>
+              <div style="background:#2c2c2e;border-radius:11px;padding:8px;display:flex;align-items:center;gap:5px"><div style="width:22px;height:22px;border-radius:7px;background:#3a3a3c;display:flex;align-items:center;justify-content:center;flex-shrink:0"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#D4830A" stroke-width="2" stroke-linecap="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div><div><div style="font-size:7px;font-weight:700;color:#fff">Marriage</div><div style="font-size:6px;color:#636366">Online</div></div></div>
+            </div>
+            <!-- upcoming payment -->
+            <div style="background:linear-gradient(135deg,#A85C08,#C8820A);border-radius:12px;padding:9px 11px;color:#fff">
+              <div style="font-size:6px;opacity:.72;font-weight:600;letter-spacing:.3px;margin-bottom:3px">UPCOMING PAYMENT</div>
+              <div style="font-size:8px;font-weight:800;margin-bottom:2px">Property Tax Q2</div>
+              <div style="display:flex;justify-content:space-between;align-items:center"><div style="font-size:6px;opacity:.7">Due May 15, 2026</div><div style="font-size:10px;font-weight:900">$124.00</div></div>
+            </div>
+          </div>
+          <!-- bottom nav -->
+          <div style="position:absolute;bottom:0;left:0;right:0;height:44px;background:#121212;border-radius:18px 18px 0 0;display:flex;align-items:center;justify-content:space-around;padding:0 4px">
+            <div style="display:flex;flex-direction:column;align-items:center;gap:1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#48484a" stroke-width="1.5" stroke-linecap="round"><path d="M3 9l9-7 9 7v11a2 2 0 01-2 2H5a2 2 0 01-2-2z"/><polyline points="9 22 9 12 15 12 15 22"/></svg><div style="font-size:5px;font-weight:700;color:#48484a">Home</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#48484a" stroke-width="1.5" stroke-linecap="round"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg><div style="font-size:5px;font-weight:700;color:#48484a">Ops</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:1px;background:linear-gradient(135deg,#D4830A,#F2C94C);border-radius:10px;padding:4px 9px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linecap="round"><path d="M3 6l9-4 9 4v6c0 5-4 9-9 10-5-1-9-5-9-10V6z"/></svg><div style="font-size:5px;font-weight:700;color:#fff">Gov</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#48484a" stroke-width="1.5" stroke-linecap="round"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg><div style="font-size:5px;font-weight:700;color:#48484a">Feed</div></div>
+            <div style="display:flex;flex-direction:column;align-items:center;gap:1px"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#48484a" stroke-width="1.5" stroke-linecap="round"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2M12 11a4 4 0 100-8 4 4 0 000 8z"/></svg><div style="font-size:5px;font-weight:700;color:#48484a">Profile</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <svg style="position:absolute;bottom:-1px;left:0;right:0;z-index:3" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C480,70 960,-10 1440,40 L1440,60 L0,60 Z" fill="#050302"/>
+  </svg>
+</section>
+
+<!-- TESTIMONIALS -->
+<section id="testimonials" class="bg-test">
+  <svg style="position:absolute;top:-1px;left:0;right:0;z-index:3;transform:scaleY(-1)" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,30 C480,70 960,-10 1440,40 L1440,60 L0,60 Z" fill="#050302"/>
+  </svg>
+  <div class="cont">
+    <div class="test-hd rv up">
+      <h2 class="s-title">Loved across <em>the continent</em></h2>
+    </div>
+    <div class="test-grid">
+      <div class="glass test-card rv up d1">
+        <div class="stars">★★★★★</div>
+        <p class="test-txt">SuperApp changed how I run my business. I pay taxes, send money, and get a loan — all in one app. This is the future.</p>
+        <div class="test-author"><div class="test-av">👨🏿</div><div><div class="test-name">Kwame Asante</div><div class="test-loc">Accra, Ghana</div></div></div>
+      </div>
+      <div class="glass test-card rv up d2">
+        <div class="stars">★★★★★</div>
+        <p class="test-txt">I renewed my national ID and paid my electricity bill in 2 minutes. No queues. No stress. Just SuperApp.</p>
+        <div class="test-author"><div class="test-av">👩🏾</div><div><div class="test-name">Amara Diallo</div><div class="test-loc">Dakar, Senegal</div></div></div>
+      </div>
+      <div class="glass test-card rv up d3">
+        <div class="stars">★★★★★</div>
+        <p class="test-txt">My investments, savings, business account — all managed from one beautiful app. Finally Africa has its own Tinkoff.</p>
+        <div class="test-author"><div class="test-av">👨🏿</div><div><div class="test-name">Chidi Okafor</div><div class="test-loc">Lagos, Nigeria</div></div></div>
+      </div>
+    </div>
+  </div>
+  <svg style="position:absolute;bottom:-1px;left:0;right:0;z-index:3" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,10 C360,70 1080,0 1440,50 L1440,60 L0,60 Z" fill="#050302"/>
+  </svg>
+</section>
+
+<!-- DOWNLOAD -->
+<section id="download" class="bg-dl">
+  <svg style="position:absolute;top:-1px;left:0;right:0;z-index:3;transform:scaleY(-1)" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,10 C360,70 1080,0 1440,50 L1440,60 L0,60 Z" fill="#050302"/>
+  </svg>
+  <div class="dl-in rv up">
+    <h2 class="s-title">Start your journey<br><em>today.</em></h2>
+    <p class="s-sub" style="margin:14px auto 0;text-align:center">Join 40 million Africans who manage money, access government services, and grow wealth — all in SuperApp.</p>
+    <div class="store-btns">
+      <div class="store-btn">
+        <!-- Apple logo SVG -->
+        <svg style="width:26px;height:26px;flex-shrink:0" viewBox="0 0 24 24" fill="#fff"><path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.8-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M13 3.5c.73-.83 1.94-1.46 2.94-1.5.13 1.17-.34 2.35-1.04 3.19-.69.85-1.83 1.51-2.95 1.42-.15-1.15.41-2.35 1.05-3.11z"/></svg>
+        <div><div class="st-sub">Download on the</div><div class="st-name">App Store</div></div>
+      </div>
+      <div class="store-btn">
+        <!-- Google Play logo SVG (official 4-color) -->
+        <svg style="width:26px;height:26px;flex-shrink:0" viewBox="0 0 48 48">
+          <path fill="#4CAF50" d="M3.2 42.4c.5.3 1.1.3 1.7 0l22-12.7-4.8-4.8L3.2 42.4z"/>
+          <path fill="#1976D2" d="M3.2 5.6L22.1 24 27 19.1 5 5.6A1.9 1.9 0 003.2 5.6z"/>
+          <path fill="#FFC107" d="M39.5 20.7L33.8 17.4 28.3 22.6l6.6 6.6 4.6-2.7c1.3-.8 2.1-2.1 2.1-3.5 0-1.3-.7-2.5-2.1-3.3z"/>
+          <path fill="#F44336" d="M4.9 42.4L22.1 26 27 30.9l-20.4 11.8c-.6.3-1.2.1-1.7-.3z"/>
+          <path fill="#4CAF50" d="M3.2 5.6A2 2 0 003 6.5V41.5c0 .3 0 .6.2.9L22.1 24 3.2 5.6z"/>
+        </svg>
+        <div><div class="st-sub">Get it on</div><div class="st-name">Google Play</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="foot-in">
+    <ul class="foot-links">
+      <li><a href="#">Privacy</a></li>
+      <li><a href="#">Terms</a></li>
+      <li><a href="#">Support</a></li>
+      <li><a href="#">Press</a></li>
+      <li><a href="#">Careers</a></li>
+    </ul>
+    <div class="foot-copy">© 2026 SuperApp. Africa's Financial Future.</div>
+  </div>
+</footer>
+
+<script>
+/* ── Nav scroll ── */
+const navEl = document.getElementById('nav');
+window.addEventListener('scroll', () => {
+  const s = scrollY > 20;
+  navEl.style.background = s ? 'rgba(5,3,2,.92)' : 'transparent';
+  navEl.style.backdropFilter = s ? 'blur(20px)' : 'none';
+  navEl.style.borderBottom = s ? '1px solid rgba(255,255,255,.06)' : '1px solid transparent';
+}, { passive: true });
+
+/* ── Cursor glow ── */
+const glow = document.getElementById('cursor-glow');
+document.addEventListener('mousemove', e => {
+  glow.style.left = e.clientX + 'px';
+  glow.style.top = e.clientY + 'px';
+}, { passive: true });
+
+/* ── Scroll Reveal ── */
+const revealObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      entry.target.classList.add('in');
+      revealObserver.unobserve(entry.target);
+    }
+  });
+}, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+document.querySelectorAll('.rv').forEach(el => revealObserver.observe(el));
+
+/* ── Counter animation ── */
+function animateCounter(el, target, suffix = '') {
+  const duration = 1800;
+  const start = performance.now();
+  function update(now) {
+    const elapsed = now - start;
+    const progress = Math.min(elapsed / duration, 1);
+    const eased = 1 - Math.pow(1 - progress, 3);
+    el.textContent = Math.round(eased * target) + suffix;
+    if (progress < 1) requestAnimationFrame(update);
+  }
+  requestAnimationFrame(update);
+}
+
+const counterObserver = new IntersectionObserver((entries) => {
+  entries.forEach(entry => {
+    if (entry.isIntersecting) {
+      const el = entry.target;
+      const count = parseInt(el.dataset.count);
+      const suffix = el.dataset.suffix || '';
+      if (count) animateCounter(el, count, suffix);
+      counterObserver.unobserve(el);
+    }
+  });
+}, { threshold: 0.5 });
+document.querySelectorAll('[data-count]').forEach(el => counterObserver.observe(el));
+
+/* ── 3D Card tilt ── */
+document.querySelectorAll('.feat-card').forEach(card => {
+  card.addEventListener('mousemove', e => {
+    const r = card.getBoundingClientRect();
+    const x = (e.clientX - r.left - r.width / 2) / (r.width / 2);
+    const y = (e.clientY - r.top - r.height / 2) / (r.height / 2);
+    card.style.transform = `perspective(800px) rotateY(${x * 6}deg) rotateX(${-y * 6}deg) scale(1.02)`;
+  });
+  card.addEventListener('mouseleave', () => {
+    card.style.transform = '';
+  });
+});
+
+/* ── Interactive phone navigation ── */
+const SCREENS = ['home','pay','gov','invest','profile'];
+let cur = 0;
+function goTo(name) {
+  const ni = SCREENS.indexOf(name);
+  if (ni === cur) return;
+  const dir = ni > cur ? 1 : -1;
+  const ca = document.querySelector('.isc.active');
+  const nx = document.getElementById('s-' + name);
+  if (!ca || !nx) return;
+  nx.style.transition = 'none';
+  nx.style.transform = `translateX(${dir * 100}%)`;
+  nx.offsetHeight;
+  nx.style.transition = 'transform .34s cubic-bezier(.25,.46,.45,.94)';
+  ca.style.transition = 'transform .34s cubic-bezier(.25,.46,.45,.94)';
+  nx.style.transform = 'translateX(0)';
+  ca.style.transform = `translateX(${dir * -28}%)`;
+  ca.addEventListener('transitionend', () => {
+    ca.classList.remove('active');
+    ca.style.transform = '';
+    ca.style.transition = '';
+    nx.classList.add('active');
+    nx.style.transition = '';
+    nx.scrollTop = 0;
+  }, { once: true });
+  cur = ni;
+  document.querySelectorAll('#extTabs .s-tab').forEach((t, i) => t.classList.toggle('active', i === ni));
+  // update dark bottom nav active pill
+  document.querySelectorAll('.bnav2 .bni').forEach(b => {
+    const isActive = b.dataset.sc === name;
+    b.classList.toggle('active', isActive);
+    b.style.color = isActive ? '#fff' : '#48484a';
+    const inner = b.querySelector('.bni-inner');
+    if (inner) {
+      inner.style.background = isActive ? 'linear-gradient(135deg,#D4830A,#F2C94C)' : 'transparent';
+      inner.style.borderRadius = isActive ? '14px' : '';
+      inner.style.padding = isActive ? '5px 12px' : '';
+      inner.style.boxShadow = isActive ? '0 4px 14px rgba(212,131,10,.4)' : 'none';
+    }
+  });
+}
+
+/* ── Ecosystem pillar toggle ── */
+document.querySelectorAll('.eco-pill').forEach(p => {
+  p.addEventListener('click', () => {
+    document.querySelectorAll('.eco-pill').forEach(x => x.classList.remove('active'));
+    p.classList.add('active');
+  });
+});
+</script>
+</body>
+</html>
