@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SuperApp — Onboarding</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900;1000&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%;overflow:hidden}
+body{
+  font-family:'Nunito',-apple-system,BlinkMacSystemFont,sans-serif;
+  background:#1CB85A;
+  display:flex;align-items:center;justify-content:center;
+  min-height:100vh;
+}
+
+/* ── SLIDES ── */
+.slides{position:relative;width:100%;height:100vh;overflow:hidden}
+.slide{
+  position:absolute;inset:0;
+  display:flex;flex-direction:column;align-items:center;justify-content:flex-start;
+  padding:52px 32px 40px;
+  opacity:0;transform:translateX(100%);
+  transition:opacity .55s cubic-bezier(.4,0,.2,1),transform .55s cubic-bezier(.4,0,.2,1);
+  pointer-events:none;
+}
+.slide.active{opacity:1;transform:translateX(0);pointer-events:all}
+.slide.exit{opacity:0;transform:translateX(-100%)}
+
+/* bg colors per slide */
+.slide-1{background:linear-gradient(160deg,#0FA84E 0%,#1DD16A 50%,#0FA84E 100%)}
+.slide-2{background:linear-gradient(160deg,#0A7A6E 0%,#13A896 50%,#0A7A6E 100%)}
+.slide-3{background:linear-gradient(160deg,#1A3A6E 0%,#1E52AA 50%,#1A3A6E 100%)}
+
+/* decorative circles */
+.slide::before,.slide::after{
+  content:'';position:absolute;border-radius:50%;
+  background:rgba(255,255,255,.06);pointer-events:none
+}
+.slide::before{width:400px;height:400px;top:-120px;right:-100px}
+.slide::after{width:280px;height:280px;bottom:-60px;left:-80px;background:rgba(255,255,255,.04)}
+
+/* ── TOP TEXT ── */
+.slide-top{text-align:center;z-index:2;margin-bottom:28px}
+.slide-label{
+  display:inline-block;background:rgba(255,255,255,.18);
+  border:1px solid rgba(255,255,255,.25);border-radius:50px;
+  padding:5px 16px;font-size:12px;font-weight:700;color:rgba(255,255,255,.9);
+  letter-spacing:.5px;text-transform:uppercase;margin-bottom:14px;
+  backdrop-filter:blur(8px)
+}
+.slide-title{
+  font-size:clamp(28px,5vw,40px);font-weight:900;color:#fff;
+  line-height:1.12;letter-spacing:-.04em;
+  text-shadow:0 2px 20px rgba(0,0,0,.15)
+}
+.slide-title em{font-style:normal;color:rgba(255,255,255,.75)}
+.slide-sub{
+  font-size:15px;color:rgba(255,255,255,.8);font-weight:600;
+  margin-top:10px;line-height:1.45;max-width:300px;margin-left:auto;margin-right:auto
+}
+
+/* ── PHONE ── */
+.phone-wrap{position:relative;z-index:2;flex-shrink:0}
+.phone{
+  width:270px;height:540px;
+  background:linear-gradient(180deg,#1c1c1c,#111);
+  border-radius:50px;padding:12px;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.12),
+    0 0 0 2.5px #080808,
+    0 0 0 3.5px rgba(255,255,255,.05),
+    0 32px 80px rgba(0,0,0,.45),
+    0 0 60px rgba(0,0,0,.25),
+    inset 0 1px 0 rgba(255,255,255,.1);
+  position:relative
+}
+/* side buttons */
+.phone::before{content:'';position:absolute;left:-3px;top:90px;width:3px;height:56px;background:#1a1a1a;border-radius:2px 0 0 2px;box-shadow:0 70px 0 #1a1a1a,0 120px 0 #1a1a1a}
+.phone::after{content:'';position:absolute;right:-3px;top:140px;width:3px;height:76px;background:#1a1a1a;border-radius:0 2px 2px 0}
+
+.phone-screen{
+  width:100%;height:100%;
+  border-radius:38px;overflow:hidden;position:relative;
+  background:#000
+}
+/* dynamic island */
+.di{
+  position:absolute;top:10px;left:50%;transform:translateX(-50%);
+  width:100px;height:30px;background:#000;border-radius:18px;z-index:10
+}
+/* photo */
+.phone-photo{
+  width:100%;height:100%;object-fit:cover;object-position:center top;
+  display:block;transition:transform 8s ease
+}
+.slide.active .phone-photo{transform:scale(1.04)}
+
+/* gradient overlay */
+.phone-overlay{
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,
+    rgba(0,0,0,.0) 0%,
+    rgba(0,0,0,.0) 45%,
+    rgba(0,0,0,.55) 68%,
+    rgba(0,0,0,.82) 100%
+  )
+}
+/* text inside phone */
+.phone-inner-text{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:18px 18px 70px;z-index:5
+}
+.phone-inner-title{
+  font-size:19px;font-weight:900;color:#fff;
+  line-height:1.2;letter-spacing:-.02em;margin-bottom:5px;
+  text-shadow:0 1px 8px rgba(0,0,0,.4)
+}
+.phone-inner-sub{
+  font-size:12px;color:rgba(255,255,255,.72);
+  font-weight:600;line-height:1.4
+}
+/* Next button inside phone */
+.phone-btn{
+  position:absolute;bottom:14px;left:14px;right:14px;
+  background:rgba(255,255,255,.15);
+  backdrop-filter:blur(12px);
+  border:1px solid rgba(255,255,255,.2);
+  border-radius:14px;padding:13px;
+  text-align:center;font-size:14px;font-weight:800;
+  color:#fff;cursor:pointer;z-index:6;
+  transition:background .2s,transform .12s;
+  font-family:inherit;letter-spacing:.2px
+}
+.phone-btn:active{transform:scale(.97);background:rgba(255,255,255,.22)}
+.phone-btn.finish{background:linear-gradient(135deg,#D4830A,#F2C94C);border-color:transparent;color:#fff}
+
+/* ── STATUS BAR (inside phone top) ── */
+.phone-status{
+  position:absolute;top:0;left:0;right:0;height:44px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 20px 8px;z-index:8;
+  background:linear-gradient(to bottom,rgba(0,0,0,.35),transparent)
+}
+.sb-time{font-size:13px;font-weight:700;color:#fff;letter-spacing:-.2px}
+.sb-icons{display:flex;align-items:center;gap:4px}
+
+/* ── PROGRESS DOTS ── */
+.dots{
+  display:flex;gap:8px;margin-top:20px;z-index:2
+}
+.dot{
+  width:8px;height:8px;border-radius:50%;
+  background:rgba(255,255,255,.3);
+  transition:all .3s ease
+}
+.dot.active{width:28px;border-radius:4px;background:#fff}
+
+/* ── SKIP ── */
+.skip-btn{
+  position:absolute;top:20px;right:24px;z-index:20;
+  font-size:13px;font-weight:700;color:rgba(255,255,255,.6);
+  cursor:pointer;padding:6px 10px;border-radius:8px;
+  transition:color .2s;font-family:inherit;background:none;border:none
+}
+.skip-btn:hover{color:#fff}
+
+/* ── SWIPE HINT ── */
+.swipe-hint{
+  position:absolute;bottom:24px;left:0;right:0;
+  text-align:center;font-size:11px;font-weight:600;
+  color:rgba(255,255,255,.35);z-index:2;letter-spacing:.3px
+}
+</style>
+</head>
+<body>
+
+<div class="slides" id="slides">
+
+  <!-- ─── SLIDE 1 ─── -->
+  <div class="slide slide-1 active" id="slide-0">
+    <button class="skip-btn" onclick="goTo(2)">Skip</button>
+
+    <div class="slide-top">
+      <div class="slide-label">SuperApp Africa</div>
+      <div class="slide-title">Banking on<br>your phone</div>
+      <div class="slide-sub">Everything you need is in one app — fast, safe, and always with you.</div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="di"></div>
+          <div class="phone-status">
+            <span class="sb-time">9:41</span>
+            <div class="sb-icons">
+              <svg width="14" height="10" viewBox="0 0 17 12" fill="#fff" opacity=".9"><rect x="0" y="8.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>
+              <svg width="14" height="10" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#fff" stroke-opacity=".8" stroke-width="1.5"/><rect x="1.5" y="2.5" width="14" height="7" rx="1" fill="#fff" opacity=".8"/><path d="M22.5 4v4a2 2 0 000-4z" fill="#fff" fill-opacity=".5"/></svg>
+            </div>
+          </div>
+          <img class="phone-photo" src="/photos/c67881c0dbb873b1970d95321a5c7e92.jpg" alt="Banking"/>
+          <div class="phone-overlay"></div>
+          <div class="phone-inner-text">
+            <div class="phone-inner-title">Fast & secure<br>service.</div>
+            <div class="phone-inner-sub">Transfers & payments across Africa — instant and reliable.</div>
+          </div>
+          <button class="phone-btn" onclick="goTo(1)">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dots">
+      <div class="dot active"></div>
+      <div class="dot"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+  <!-- ─── SLIDE 2 ─── -->
+  <div class="slide slide-2" id="slide-1">
+    <button class="skip-btn" onclick="goTo(2)">Skip</button>
+
+    <div class="slide-top">
+      <div class="slide-label">Gov Services</div>
+      <div class="slide-title">Government<br>in your<br><em>pocket</em></div>
+      <div class="slide-sub">200+ government services — taxes, documents, and certificates online.</div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="di"></div>
+          <div class="phone-status">
+            <span class="sb-time">9:41</span>
+            <div class="sb-icons">
+              <svg width="14" height="10" viewBox="0 0 17 12" fill="#fff" opacity=".9"><rect x="0" y="8.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>
+              <svg width="14" height="10" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#fff" stroke-opacity=".8" stroke-width="1.5"/><rect x="1.5" y="2.5" width="14" height="7" rx="1" fill="#fff" opacity=".8"/><path d="M22.5 4v4a2 2 0 000-4z" fill="#fff" fill-opacity=".5"/></svg>
+            </div>
+          </div>
+          <img class="phone-photo" src="/photos/232fa43ef3485bbe8b3ef21f4f71ec65.jpg" alt="Gov Services"/>
+          <div class="phone-overlay"></div>
+          <div class="phone-inner-text">
+            <div class="phone-inner-title">No queues.<br>No office visits.</div>
+            <div class="phone-inner-sub">Renew your ID, pay taxes, and get certificates — all in 2 minutes.</div>
+          </div>
+          <button class="phone-btn" onclick="goTo(2)">Next →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot active"></div>
+      <div class="dot"></div>
+    </div>
+  </div>
+
+  <!-- ─── SLIDE 3 ─── -->
+  <div class="slide slide-3" id="slide-2">
+
+    <div class="slide-top">
+      <div class="slide-label">40M+ Users</div>
+      <div class="slide-title">Your financial<br>future starts<br><em>today</em></div>
+      <div class="slide-sub">Join 40 million Africans who manage money, grow wealth, and access government services — all in one app.</div>
+    </div>
+
+    <div class="phone-wrap">
+      <div class="phone">
+        <div class="phone-screen">
+          <div class="di"></div>
+          <div class="phone-status">
+            <span class="sb-time">9:41</span>
+            <div class="sb-icons">
+              <svg width="14" height="10" viewBox="0 0 17 12" fill="#fff" opacity=".9"><rect x="0" y="8.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>
+              <svg width="14" height="10" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#fff" stroke-opacity=".8" stroke-width="1.5"/><rect x="1.5" y="2.5" width="14" height="7" rx="1" fill="#fff" opacity=".8"/><path d="M22.5 4v4a2 2 0 000-4z" fill="#fff" fill-opacity=".5"/></svg>
+            </div>
+          </div>
+          <img class="phone-photo" src="/photos/5c7bbe95709e909fe2b08cc5866f7337.jpg" alt="SuperApp"/>
+          <div class="phone-overlay"></div>
+          <div class="phone-inner-text">
+            <div class="phone-inner-title">One app.<br>Infinite possibilities.</div>
+            <div class="phone-inner-sub">Banking · Gov Services · Investments — Africa's financial super-ecosystem.</div>
+          </div>
+          <button class="phone-btn finish" onclick="window.location.href='/'">Get Started →</button>
+        </div>
+      </div>
+    </div>
+
+    <div class="dots">
+      <div class="dot"></div>
+      <div class="dot"></div>
+      <div class="dot active"></div>
+    </div>
+  </div>
+
+  <div class="swipe-hint">Swipe to continue</div>
+</div>
+
+<script>
+let current = 0;
+const total = 3;
+let isAnimating = false;
+
+function goTo(idx) {
+  if (isAnimating || idx === current || idx < 0 || idx >= total) return;
+  isAnimating = true;
+
+  const prev = document.getElementById('slide-' + current);
+  const next = document.getElementById('slide-' + idx);
+
+  prev.classList.remove('active');
+  prev.classList.add('exit');
+  next.style.transform = idx > current ? 'translateX(100%)' : 'translateX(-100%)';
+  next.style.opacity = '0';
+  next.classList.add('active');
+
+  requestAnimationFrame(() => {
+    requestAnimationFrame(() => {
+      next.style.transform = '';
+      next.style.opacity = '';
+      setTimeout(() => {
+        prev.classList.remove('exit');
+        prev.style.transform = '';
+        isAnimating = false;
+      }, 560);
+    });
+  });
+
+  current = idx;
+}
+
+/* ── Touch / swipe ── */
+let touchStartX = 0;
+let touchStartY = 0;
+
+document.addEventListener('touchstart', e => {
+  touchStartX = e.touches[0].clientX;
+  touchStartY = e.touches[0].clientY;
+}, { passive: true });
+
+document.addEventListener('touchend', e => {
+  const dx = e.changedTouches[0].clientX - touchStartX;
+  const dy = e.changedTouches[0].clientY - touchStartY;
+  if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
+  if (dx < 0) goTo(current + 1);
+  else goTo(current - 1);
+}, { passive: true });
+
+/* ── Keyboard ── */
+document.addEventListener('keydown', e => {
+  if (e.key === 'ArrowRight') goTo(current + 1);
+  if (e.key === 'ArrowLeft') goTo(current - 1);
+});
+</script>
+</body>
+</html>
