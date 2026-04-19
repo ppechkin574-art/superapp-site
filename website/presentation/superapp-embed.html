@@ -1,0 +1,2613 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<base href="https://website-kartionline-production.up.railway.app/">
+<title>SuperApp — Interactive Preview</title>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html,body{height:100%}
+body{
+  font-family:'Nunito','SF Pro Rounded',-apple-system,BlinkMacSystemFont,system-ui,sans-serif;
+  background:#d8dce6;
+  display:flex;flex-direction:column;align-items:center;
+  justify-content:flex-start;min-height:100vh;padding:40px 20px 60px;
+}
+:root{--p:#D4830A;--p-lt:#F0A520;--p-g:linear-gradient(135deg,#D4830A,#F2C94C)}
+
+/* top bar */
+.top-bar{width:100%;max-width:480px;display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}
+.tb-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#888;text-decoration:none;transition:color .2s}
+.tb-back:hover{color:#333}
+.tb-back svg{width:16px;height:16px}
+.tb-title{font-size:14px;font-weight:700;color:#333}
+.tb-tabs{display:flex;gap:5px}
+.tb-tab{padding:5px 11px;border-radius:6px;font-size:12px;font-weight:600;border:1px solid #ddd;background:#fff;color:#888;cursor:pointer;transition:all .2s;font-family:inherit}
+.tb-tab.active{background:#D4830A;color:#fff;border-color:#D4830A}
+.theme-toggle{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:50px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid #ddd;background:#fff;color:#333;font-family:inherit;transition:all .2s}
+.theme-toggle:hover{background:#f5f5f5}
+.theme-toggle svg{width:14px;height:14px;flex-shrink:0}
+
+/* iPhone 16 frame */
+.phone-wrap{position:relative;width:393px}
+.iphone16{
+  width:393px;height:852px;
+  background:linear-gradient(180deg,#2c2c2c 0%,#1a1a1a 100%);
+  border-radius:56px;padding:13px;position:relative;
+  box-shadow:
+    0 0 0 1px rgba(255,255,255,.14),
+    0 0 0 2.5px #111,
+    0 0 0 3.5px rgba(255,255,255,.06),
+    0 30px 80px rgba(0,0,0,.35),
+    0 60px 140px rgba(0,0,0,.2),
+    inset 0 1px 0 rgba(255,255,255,.12),
+    inset 0 0 40px rgba(0,0,0,.3);
+}
+.sb-mute{position:absolute;left:-3.5px;top:108px;width:3.5px;height:30px;background:#1a1a1a;border-radius:2px 0 0 2px}
+.sb-vol-up{position:absolute;left:-3.5px;top:158px;width:3.5px;height:62px;background:#1a1a1a;border-radius:2px 0 0 2px}
+.sb-vol-dn{position:absolute;left:-3.5px;top:234px;width:3.5px;height:62px;background:#1a1a1a;border-radius:2px 0 0 2px}
+.sb-power{position:absolute;right:-3.5px;top:176px;width:3.5px;height:90px;background:#1a1a1a;border-radius:0 2px 2px 0}
+
+/* screen */
+.iphone-screen{width:100%;height:100%;background:#fff;border-radius:44px;overflow:hidden;position:relative}
+
+/* dynamic island */
+.dynamic-island{
+  position:absolute;top:12px;left:50%;transform:translateX(-50%);
+  width:118px;height:34px;background:#000;border-radius:20px;z-index:30;
+  display:flex;align-items:center;justify-content:center;gap:8px;
+}
+.di-cam{width:10px;height:10px;border-radius:50%;background:#111;border:1.5px solid #2a2a2a;position:relative}
+.di-cam::after{content:'';position:absolute;top:2px;left:2px;width:3px;height:3px;border-radius:50%;background:rgba(100,160,255,.35)}
+
+/* status bar */
+.status-bar{
+  position:absolute;top:0;left:0;right:0;height:54px;
+  display:flex;align-items:flex-end;justify-content:space-between;
+  padding:0 26px 10px;z-index:25;background:#fff;
+}
+.sb-time{font-size:15px;font-weight:700;color:#111;letter-spacing:-.3px}
+.sb-icons{display:flex;align-items:center;gap:5px}
+.sb-icons svg{width:16px;height:16px}
+
+/* viewport */
+.screen-viewport{position:absolute;top:54px;left:0;right:0;bottom:82px;overflow:hidden}
+.isc{
+  position:absolute;top:0;left:0;right:0;bottom:0;
+  overflow-y:auto;overflow-x:hidden;
+  transform:translateX(100%);
+  transition:transform .34s cubic-bezier(.25,.46,.45,.94);
+  background:#fff;scrollbar-width:none;
+}
+.isc::-webkit-scrollbar{display:none}
+.isc.active{transform:translateX(0)}
+
+/* bottom nav */
+.bnav{
+  position:absolute;bottom:0;left:0;right:0;height:82px;
+  background:rgba(255,255,255,.96);backdrop-filter:blur(20px);
+  border-top:1px solid rgba(0,0,0,.07);
+  display:flex;align-items:flex-start;justify-content:space-around;
+  padding-top:10px;z-index:25;
+}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;gap:3px;cursor:pointer;color:#bbb;transition:color .2s;-webkit-tap-highlight-color:transparent;user-select:none}
+.bni.active{color:#D4830A}
+.bni svg{width:24px;height:24px}
+.bni-lbl{font-size:10px;font-weight:600}
+
+/* bottom nav corner fill */
+.bnav-fill{position:absolute;bottom:0;left:0;right:0;height:82px;background:rgba(255,255,255,.96);z-index:24;pointer-events:none}
+.dark-theme .bnav-fill{background:#121212}
+
+/* home indicator */
+.home-ind{position:absolute;bottom:8px;left:50%;transform:translateX(-50%);width:130px;height:5px;background:#111;border-radius:3px;opacity:.18;z-index:26;pointer-events:none}
+
+/* ── SHARED SCREEN ATOMS ── */
+.sc-hd{padding:10px 20px 8px;display:flex;align-items:center;justify-content:space-between}
+.sc-ht{font-size:18px;font-weight:800;color:#111;letter-spacing:-.4px}
+.sc-back{display:inline-flex;align-items:center;gap:3px;font-size:14px;font-weight:600;color:var(--p);cursor:pointer;border:none;background:none;font-family:inherit;padding:0;-webkit-tap-highlight-color:transparent}
+.sc-back svg{width:18px;height:18px}
+.sc-av{width:36px;height:36px;border-radius:50%;background:var(--p-g);display:flex;align-items:center;justify-content:center;font-size:13px;color:#fff;font-weight:800;flex-shrink:0;cursor:pointer}
+.sec-hd{padding:4px 20px 8px;font-size:11px;font-weight:700;color:#bbb;text-transform:uppercase;letter-spacing:.8px}
+
+/* ── HOME ── */
+.home-top{padding:10px 20px 6px;display:flex;align-items:center;justify-content:space-between}
+.home-greet-sub{font-size:12px;color:#999;font-weight:500}
+.home-greet-name{font-size:20px;font-weight:800;color:#111;letter-spacing:-.4px;margin-top:1px}
+.bal-block{text-align:center;padding:12px 20px 8px}
+.bal-lbl{font-size:12px;color:#999;font-weight:500;margin-bottom:2px}
+.bal-amt{font-size:38px;font-weight:900;color:#111;letter-spacing:-.04em;line-height:1}
+.bal-chg{font-size:13px;color:#16a34a;font-weight:700;margin-top:4px;display:flex;align-items:center;justify-content:center;gap:3px}
+
+.card{margin:4px 20px 12px;background:var(--p-g);border-radius:18px;padding:16px 18px;color:#fff;position:relative;overflow:hidden;box-shadow:0 8px 24px rgba(212,131,10,.3);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.card::before{content:'';position:absolute;right:-20px;top:-20px;width:100px;height:100px;border-radius:50%;background:rgba(255,255,255,.12)}
+.card::after{content:'';position:absolute;left:-15px;bottom:-15px;width:80px;height:80px;border-radius:50%;background:rgba(0,0,0,.07)}
+.card-lbl{font-size:10px;opacity:.7;font-weight:700;letter-spacing:1px}
+.card-num{font-size:13px;font-weight:700;margin-top:12px;letter-spacing:2.5px;opacity:.88}
+.card-row{display:flex;justify-content:space-between;margin-top:8px}
+.card-sub{font-size:10px;opacity:.6;margin-bottom:2px}
+.card-val{font-size:12px;font-weight:700}
+
+.quick-acts{display:flex;gap:8px;padding:0 20px 12px}
+.qa{flex:1;background:#f7f7f7;border:1px solid #eee;border-radius:14px;padding:12px 4px;text-align:center;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;user-select:none}
+.qa:active{background:var(--p-g);border-color:transparent;transform:scale(.94)}
+.qa:active .qa-lbl{color:#fff}
+.qa-ico{font-size:19px;margin-bottom:4px;display:block;line-height:1}
+.qa-lbl{font-size:11px;font-weight:700;color:#555;transition:color .15s}
+
+.tx-row{display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid #f4f4f4;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent;user-select:none}
+.tx-row:active{background:#f9f9f9}
+.tx-ico{width:42px;height:42px;border-radius:12px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.tx-name{font-size:14px;font-weight:700;color:#111}
+.tx-sub{font-size:11px;color:#aaa;margin-top:1px}
+.tx-amt{margin-left:auto;font-size:15px;font-weight:800}
+.tx-amt.neg{color:#ef4444}
+.tx-amt.pos{color:#16a34a}
+
+/* ── PAY ── */
+.amt-display{text-align:center;padding:18px 20px 10px;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.amt-curr{font-size:20px;color:#bbb;vertical-align:super;font-weight:600}
+.amt-big{font-size:52px;font-weight:900;color:#111;letter-spacing:-.05em;line-height:1;transition:color .2s}
+.amt-hint{font-size:11px;color:#bbb;margin-top:5px}
+.contacts-row{padding:0 20px 12px}
+.contacts-scroll{display:flex;gap:12px;overflow-x:auto;padding-bottom:2px;scrollbar-width:none}
+.contacts-scroll::-webkit-scrollbar{display:none}
+.contact{display:flex;flex-direction:column;align-items:center;gap:4px;cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent;transition:transform .15s}
+.contact:active{transform:scale(.92)}
+.contact-av{width:44px;height:44px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;font-size:14px;font-weight:800;transition:box-shadow .2s,transform .2s}
+.contact.selected .contact-av{box-shadow:0 0 0 3px #fff,0 0 0 5px var(--p);transform:scale(1.08)}
+.contact-name{font-size:11px;font-weight:600;color:#777}
+.contact.selected .contact-name{color:var(--p);font-weight:800}
+.field{margin:0 20px 10px;background:#f8f8f8;border:1px solid #eee;border-radius:12px;padding:13px 15px;display:flex;align-items:center;gap:10px}
+.field-lbl{font-size:12px;color:#bbb;flex:1;font-weight:500}
+.field-val{font-size:13px;font-weight:700;color:#111}
+.send-btn{
+  margin:6px 20px 10px;background:var(--p-g);color:#fff;border:none;
+  border-radius:14px;padding:15px;font-size:15px;font-weight:800;
+  cursor:pointer;width:calc(100% - 40px);
+  box-shadow:0 6px 20px rgba(212,131,10,.3);
+  font-family:inherit;transition:opacity .2s,transform .12s;
+  -webkit-tap-highlight-color:transparent;
+}
+.send-btn:active{opacity:.88;transform:scale(.98)}
+.send-btn:disabled{opacity:.6;cursor:default}
+
+/* numpad overlay */
+.numpad-overlay{
+  position:absolute;bottom:82px;left:0;right:0;
+  background:#fff;border-top:1px solid #f0f0f0;
+  border-radius:20px 20px 0 0;
+  box-shadow:0 -8px 30px rgba(0,0,0,.08);
+  z-index:40;
+  transform:translateY(100%);
+  transition:transform .3s cubic-bezier(.25,.46,.45,.94);
+  padding-bottom:8px;
+}
+.numpad-overlay.show{transform:translateY(0)}
+.np-header{padding:10px 20px 6px;display:flex;align-items:center;justify-content:space-between}
+.np-title{font-size:13px;font-weight:700;color:#999}
+.np-close{font-size:22px;color:#ccc;cursor:pointer;border:none;background:none;line-height:1;padding:0}
+.np-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px;padding:0 4px}
+.np-key{
+  padding:14px 4px;text-align:center;font-size:22px;font-weight:600;color:#111;
+  cursor:pointer;border:none;background:none;font-family:inherit;border-radius:10px;
+  transition:background .1s;-webkit-tap-highlight-color:transparent;
+}
+.np-key:active{background:#f5f5f5}
+.np-key.del{font-size:18px;color:#888}
+.np-key.confirm{background:var(--p-g);color:#fff;border-radius:10px;font-size:16px;font-weight:800;box-shadow:0 4px 12px rgba(212,131,10,.3)}
+.np-key.confirm:active{opacity:.88}
+
+/* send success overlay */
+.send-success{
+  position:absolute;top:54px;left:0;right:0;bottom:82px;
+  background:#fff;z-index:50;
+  display:flex;flex-direction:column;align-items:center;justify-content:center;gap:12px;
+  opacity:0;pointer-events:none;
+  transition:opacity .3s ease;
+}
+.send-success.show{opacity:1;pointer-events:all}
+.success-circle{
+  width:80px;height:80px;border-radius:50%;
+  background:var(--p-g);
+  display:flex;align-items:center;justify-content:center;
+  box-shadow:0 8px 28px rgba(212,131,10,.35);
+  animation:none;
+}
+.success-circle.pop{animation:pop .4s cubic-bezier(.34,1.56,.64,1)}
+@keyframes pop{0%{transform:scale(0)}100%{transform:scale(1)}}
+.success-check{font-size:36px;line-height:1}
+.success-title{font-size:22px;font-weight:900;color:#111;letter-spacing:-.4px}
+.success-sub{font-size:14px;color:#aaa;font-weight:500}
+.success-done{margin-top:16px;background:var(--p-g);color:#fff;border:none;border-radius:12px;padding:13px 40px;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 4px 16px rgba(212,131,10,.3);-webkit-tap-highlight-color:transparent}
+.success-done:active{opacity:.88;transform:scale(.97)}
+
+/* ── GOV ── */
+@keyframes spin{to{transform:rotate(360deg)}}
+.gov-spinner{width:16px;height:16px;border:2px solid #ddd;border-top-color:var(--p);border-radius:50%;animation:spin .7s linear infinite}
+
+.gov-news-banner{margin:0 16px 14px;border-radius:20px;overflow:hidden;position:relative;height:160px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.gov-news-banner:active{opacity:.92}
+.gov-news-banner img{width:100%;height:100%;object-fit:cover;object-position:center top;display:block}
+.gov-news-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.72) 55%,rgba(0,0,0,.1) 100%);padding:16px}
+.gov-news-tag{display:inline-block;background:var(--p);color:#fff;font-size:9px;font-weight:800;padding:3px 8px;border-radius:50px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:8px}
+.gov-news-title{font-size:15px;font-weight:900;color:#fff;line-height:1.3;max-width:180px}
+.gov-news-sub{font-size:10px;font-weight:500;color:rgba(255,255,255,.7);margin-top:5px;max-width:175px;line-height:1.4}
+
+/* Gov video carousel */
+.gov-vid-wrap{margin:0 0 14px}
+.gov-vid-hd{display:flex;align-items:center;justify-content:space-between;padding:0 16px;margin-bottom:10px}
+.gov-vid-ttl{font-size:13px;font-weight:800;color:#111}
+.gov-vid-scroll{display:flex;gap:10px;padding:0 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.gov-vid-scroll::-webkit-scrollbar{display:none}
+.gov-vid-card{flex-shrink:0;width:180px;height:110px;border-radius:16px;overflow:hidden;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.gov-vid-card:active{opacity:.88}
+.gov-vid-card img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.gov-vid-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.75) 50%,rgba(0,0,0,.1) 100%)}
+.gov-vid-play{position:absolute;top:50%;left:50%;transform:translate(-50%,-60%);width:36px;height:36px;background:rgba(255,255,255,.22);backdrop-filter:blur(6px);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.gov-vid-play svg{width:14px;height:14px;fill:#fff;margin-left:2px}
+.gov-vid-dur{position:absolute;top:8px;right:8px;background:rgba(0,0,0,.55);color:#fff;font-size:9px;font-weight:700;padding:2px 6px;border-radius:4px}
+.gov-vid-info{position:absolute;bottom:0;left:0;right:0;padding:8px 10px}
+.gov-vid-label{font-size:8px;font-weight:800;color:var(--p);text-transform:uppercase;letter-spacing:.06em;margin-bottom:2px}
+.gov-vid-name{font-size:11px;font-weight:800;color:#fff;line-height:1.3}
+
+/* ── Messages page ── */
+.msg-wrap{background:#f5f5f7;min-height:100%;padding-bottom:100px}
+.msg-hd{padding:16px 16px 12px;display:flex;align-items:center;justify-content:space-between}
+.msg-hd-title{font-size:26px;font-weight:900;color:#111;letter-spacing:-.03em;flex:1;text-align:center}
+.msg-hd-edit{width:36px;height:36px;border-radius:50%;background:#fff;box-shadow:0 2px 10px rgba(0,0,0,.08);display:flex;align-items:center;justify-content:center;cursor:pointer}
+.msg-hd-edit svg{width:17px;height:17px;fill:none;stroke:#1c1c1e;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.msg-support{margin:0 16px 12px;background:#fff;border-radius:18px;padding:14px 16px;display:flex;align-items:center;gap:12px;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:opacity .1s}
+.msg-support:active{opacity:.85}
+.msg-support-av{width:48px;height:48px;border-radius:14px;background:var(--p-g);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.msg-support-av svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.msg-support-info{flex:1}
+.msg-support-name{font-size:15px;font-weight:800;color:#111}
+.msg-support-sub{font-size:12px;color:#aaa;font-weight:500;margin-top:1px}
+.msg-support-time{font-size:11px;color:#bbb;font-weight:500;align-self:flex-start;margin-top:2px}
+
+.msg-promo{margin:0 16px 14px;border-radius:18px;overflow:hidden;position:relative;height:130px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.msg-promo:active{opacity:.92}
+.msg-promo img{width:100%;height:100%;object-fit:cover;object-position:center 40%;display:block}
+.msg-promo-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.68) 50%,rgba(0,0,0,.15) 100%);padding:16px;display:flex;flex-direction:column;justify-content:center}
+.msg-promo-tag{display:inline-block;background:var(--p);color:#fff;font-size:9px;font-weight:800;padding:3px 8px;border-radius:50px;letter-spacing:.06em;text-transform:uppercase;margin-bottom:7px;align-self:flex-start}
+.msg-promo-title{font-size:16px;font-weight:900;color:#fff;line-height:1.3;margin-bottom:3px}
+.msg-promo-sub{font-size:11px;color:rgba(255,255,255,.72);font-weight:500}
+
+.msg-pin-lbl{font-size:11px;font-weight:700;color:#bbb;padding:0 16px;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
+.msg-sec-lbl{font-size:11px;font-weight:700;color:#bbb;padding:4px 16px;margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
+.msg-card{margin:0 16px 10px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.msg-row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid #f5f5f7;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .1s}
+.msg-row:last-child{border-bottom:none}
+.msg-row:active{background:#fafafa}
+.msg-av{width:48px;height:48px;border-radius:50%;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.msg-av svg{width:22px;height:22px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.msg-info{flex:1;min-width:0}
+.msg-name{font-size:14px;font-weight:800;color:#111}
+.msg-preview{font-size:12px;color:#aaa;font-weight:500;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.msg-right{display:flex;flex-direction:column;align-items:flex-end;gap:5px;flex-shrink:0}
+.msg-time{font-size:11px;color:#bbb;font-weight:500}
+.msg-badge{background:#999;color:#fff;font-size:10px;font-weight:800;min-width:20px;height:20px;border-radius:50px;display:flex;align-items:center;justify-content:center;padding:0 5px}
+.msg-badge.gold{background:#999}
+
+/* Gov search bar */
+.gov-search{margin:0 16px 14px;display:flex;align-items:center;gap:10px;background:#fff;border-radius:14px;padding:11px 14px;box-shadow:0 1px 4px rgba(0,0,0,.05);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.gov-search svg{width:16px;height:16px;fill:none;stroke:#bbb;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.gov-search-txt{font-size:14px;color:#bbb;font-weight:500;flex:1}
+.gov-search-filter{width:32px;height:32px;border-radius:9px;background:#f0f0f2;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.gov-search-filter svg{width:15px;height:15px;fill:none;stroke:#888;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+.gov-quick-grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin:0 16px 14px}
+.gov-quick-card{background:#fff;border-radius:18px;padding:16px;cursor:pointer;box-shadow:0 2px 12px rgba(0,0,0,.06);-webkit-tap-highlight-color:transparent;transition:opacity .12s}
+.gov-quick-card:active{opacity:.8}
+.gov-quick-ico{width:44px;height:44px;border-radius:13px;background:#f0f0f2;display:flex;align-items:center;justify-content:center;margin-bottom:10px}
+.gov-quick-ico svg{width:20px;height:20px;fill:none;stroke:#1c1c1e;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.gov-quick-name{font-size:13px;font-weight:800;color:#111;line-height:1.3}
+.gov-quick-sub{font-size:10px;font-weight:500;color:#aaa;margin-top:3px}
+
+.gov-cat-section{margin:0 16px 14px;background:#fff;border-radius:20px;padding:14px 14px 6px;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.gov-cat-lbl{font-size:11px;font-weight:700;color:#bbb;margin-bottom:12px;text-transform:uppercase;letter-spacing:.04em}
+.gov-cat-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px}
+.gov-cat-item{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;-webkit-tap-highlight-color:transparent;position:relative}
+.gov-cat-item:active .gov-cat-ico{transform:scale(.93)}
+.gov-cat-ico{width:58px;height:58px;border-radius:16px;background:#f0f0f2;display:flex;align-items:center;justify-content:center;transition:transform .12s;flex-shrink:0}
+.gov-cat-ico svg{width:26px;height:26px;fill:none;stroke:#1c1c1e;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.gov-cat-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 6px;border-radius:50px;white-space:nowrap;letter-spacing:.02em}
+.gov-cat-badge.gold{background:var(--p)}
+.gov-cat-lbl-txt{font-size:10px;font-weight:600;color:#333;text-align:center;line-height:1.3;max-width:64px}
+
+/* ── INVEST ── */
+.chart-card{margin:8px 20px 12px;background:#f9f9f9;border-radius:16px;padding:14px 16px;border:1px solid #eee;cursor:pointer;transition:background .15s}
+.chart-card:active{background:#f5f5f5}
+.chart-lbl{font-size:11px;color:#aaa;font-weight:600;margin-bottom:3px}
+.chart-val{font-size:24px;font-weight:900;color:#111;letter-spacing:-.04em}
+.chart-chg{font-size:12px;color:#16a34a;font-weight:700;margin-top:2px}
+.chart-svg{width:100%;height:60px;margin-top:10px}
+.asset-row{display:flex;align-items:center;gap:12px;padding:12px 20px;border-bottom:1px solid #f4f4f4;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent}
+.asset-row:active{background:#f9f9f9}
+.asset-ico{width:40px;height:40px;border-radius:12px;display:flex;align-items:center;justify-content:center;font-size:18px;flex-shrink:0}
+.asset-name{font-size:14px;font-weight:700;color:#111}
+.asset-sub{font-size:11px;color:#999;margin-top:1px}
+.asset-r{margin-left:auto;text-align:right}
+.asset-amt{font-size:14px;font-weight:800;color:#111}
+.asset-pct{font-size:12px;font-weight:700;color:#16a34a}
+.asset-pct.neg{color:#ef4444}
+
+/* ── PROFILE ── */
+.profile-top{text-align:center;padding:10px 20px 14px;border-bottom:1px solid #f4f4f4}
+.profile-av{width:72px;height:72px;border-radius:50%;background:var(--p-g);display:flex;align-items:center;justify-content:center;color:#fff;font-size:26px;font-weight:900;margin:0 auto 10px;box-shadow:0 6px 20px rgba(212,131,10,.3);cursor:pointer}
+.profile-name{font-size:18px;font-weight:800;color:#111;letter-spacing:-.3px}
+.profile-loc{font-size:12px;color:#999;margin-top:2px}
+.profile-badge{display:inline-flex;align-items:center;gap:4px;background:rgba(22,163,74,.1);color:#16a34a;border:1px solid rgba(22,163,74,.2);border-radius:6px;padding:4px 10px;font-size:11px;font-weight:700;margin-top:8px}
+.profile-stats{display:flex;gap:8px;padding:12px 20px;border-bottom:1px solid #f4f4f4}
+.pstat{flex:1;background:#f9f9f9;border-radius:12px;padding:10px;text-align:center;cursor:pointer;transition:background .12s}
+.pstat:active{background:#f0f0f0}
+.pstat-num{font-size:16px;font-weight:900;color:#111}
+.pstat-lbl{font-size:10px;color:#aaa;margin-top:1px}
+.pstat-num.gold{color:var(--p)}
+.setting-row{display:flex;align-items:center;gap:12px;padding:14px 20px;border-bottom:1px solid #f4f4f4;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent;user-select:none}
+.setting-row:active{background:#f9f9f9}
+.sico{width:32px;height:32px;border-radius:9px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:15px;flex-shrink:0}
+.snm{font-size:14px;font-weight:700;color:#111}
+.ssub{font-size:11px;color:#aaa;margin-top:1px}
+.sarr{margin-left:auto;color:#ccc;font-size:16px}
+
+/* toast */
+.toast{
+  position:absolute;bottom:96px;left:20px;right:20px;
+  background:#111;color:#fff;border-radius:12px;padding:12px 16px;
+  font-size:13px;font-weight:600;z-index:60;
+  transform:translateY(20px);opacity:0;
+  transition:all .25s cubic-bezier(.25,.46,.45,.94);
+  pointer-events:none;text-align:center;
+}
+.toast.show{transform:translateY(0);opacity:1}
+
+@keyframes shimmer{0%{background-position:-200% 0}100%{background-position:200% 0}}
+.skel{background:linear-gradient(90deg,#ebebeb 0%,#f5f5f5 50%,#ebebeb 100%);background-size:200% 100%;animation:shimmer 2s infinite;border-radius:8px}
+
+/* ── FREEDOM HOME ── */
+.fhd{padding:16px 20px 8px;display:flex;align-items:flex-start;justify-content:space-between}
+.fhd-name{font-size:26px;font-weight:900;color:#111;letter-spacing:-.5px;line-height:1.1;cursor:pointer}
+.fhd-arr{color:#bbb;font-size:22px;font-weight:300;margin-left:2px}
+.fhd-sub{font-size:13px;color:#999;font-weight:400;margin-top:3px}
+.fhd-bell{width:38px;height:38px;display:flex;align-items:center;justify-content:center;background:#f5f5f5;border-radius:50%;cursor:pointer;-webkit-tap-highlight-color:transparent;flex-shrink:0;transition:background .15s}
+.fhd-bell:active{background:#ebebeb}
+
+.promo-row{display:flex;gap:10px;padding:6px 20px 16px;overflow-x:auto;scrollbar-width:none}
+.promo-row::-webkit-scrollbar{display:none}
+.promo-card{flex-shrink:0;border-radius:18px;padding:16px;position:relative;overflow:hidden;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s}
+.promo-card:active{transform:scale(.97)}
+.pc-1{width:190px;background:var(--p-g);color:#fff;box-shadow:0 6px 22px rgba(212,131,10,.28)}
+.pc-2{width:155px;background:#f7f7f7;border:1.5px solid #eee}
+.pc-bal-lbl{font-size:10px;opacity:.75;font-weight:600;letter-spacing:.5px;text-transform:uppercase}
+.pc-bal-amt{font-size:32px;font-weight:900;letter-spacing:-.04em;margin-top:5px;line-height:1}
+.pc-bal-sub{font-size:11px;opacity:.75;margin-top:7px;font-weight:500}
+.pc-2-ico{font-size:22px;margin-bottom:6px;display:block}
+.pc-2-ttl{font-size:12px;font-weight:700;color:#444;margin-bottom:5px}
+.pc-2-amt{font-size:20px;font-weight:900;color:#D4830A;letter-spacing:-.02em}
+.pc-2-sub{font-size:11px;color:#999;margin-top:5px;line-height:1.4}
+.pc-bg-ico{position:absolute;right:-10px;bottom:-10px;font-size:52px;opacity:.12;pointer-events:none}
+
+.svc-wrap{padding:0 0 16px}
+.svc-hd{padding:0 20px 10px;display:flex;align-items:center;justify-content:space-between}
+.svc-hd-ttl{font-size:15px;font-weight:800;color:#111}
+.svc-hd-all{font-size:13px;font-weight:600;color:var(--p);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.svc-scroll{display:flex;gap:8px;padding:0 20px;overflow-x:auto;scrollbar-width:none}
+.svc-scroll::-webkit-scrollbar{display:none}
+.svc-item{flex-shrink:0;display:flex;flex-direction:column;align-items:center;gap:5px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s;width:58px}
+.svc-item:active{transform:scale(.88)}
+.svc-ico{width:50px;height:50px;border-radius:14px;background:#f5f5f5;display:flex;align-items:center;justify-content:center;font-size:21px;flex-shrink:0}
+.svc-item:first-child .svc-ico{background:rgba(212,131,10,.12)}
+.svc-lbl{font-size:10px;font-weight:600;color:#555;text-align:center;line-height:1.25}
+
+.mybank{margin:0 20px 16px;background:#fff;border-radius:20px;border:1.5px solid #eee;box-shadow:0 3px 14px rgba(0,0,0,.07);overflow:hidden}
+.mybank-ttl{padding:14px 16px 12px;font-size:15px;font-weight:800;color:#111;border-bottom:none}
+.mybank-acts{display:flex;border-bottom:1px solid #f0f0f0}
+.mybank-act{flex:1;display:flex;flex-direction:column;align-items:center;gap:5px;padding:13px 4px;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent;border-right:1px solid #f0f0f0}
+.mybank-act:last-child{border-right:none}
+.mybank-act:active{background:#fafafa}
+.myba-ico{width:38px;height:38px;border-radius:12px;background:rgba(212,131,10,.1);display:flex;align-items:center;justify-content:center;font-size:17px}
+.myba-lbl{font-size:10px;font-weight:600;color:#444;text-align:center}
+.mybank-card{display:flex;align-items:center;gap:12px;padding:13px 16px;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent}
+.mybank-card:active{background:#fafafa}
+.myb-cico{width:40px;height:40px;border-radius:12px;background:var(--p-g);display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0}
+.myb-cname{font-size:13px;font-weight:700;color:#111}
+.myb-csub{font-size:11px;color:#aaa;margin-top:2px}
+.myb-cbal{margin-left:auto;font-size:14px;font-weight:900;color:#111}
+
+/* ── FREEDOM HOME v2 ── */
+.promo-row{display:block;padding:4px 20px 16px;overflow:visible}
+.pc-1{width:100%}
+.svc-scroll{padding:0 20px 4px}
+.mybank-pills{display:flex;gap:8px;padding:10px 14px 12px;overflow-x:auto;scrollbar-width:none;border-bottom:1px solid #f0f0f0}
+.mybank-pills::-webkit-scrollbar{display:none}
+.mybank-pill{display:inline-flex;align-items:center;gap:7px;background:#fff;border:1.5px solid #e5e5e5;border-radius:50px;padding:9px 14px;font-size:12px;font-weight:600;color:#111;white-space:nowrap;cursor:pointer;flex-shrink:0;transition:background .12s;-webkit-tap-highlight-color:transparent;user-select:none}
+.mybank-pill:active{background:#f5f5f5}
+.mbpil-ico{width:20px;height:20px;flex-shrink:0}
+.myb-card{display:flex;align-items:center;gap:12px;padding:12px 14px;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent;border-top:none}
+.myb-card:active{background:#fafafa}
+.myb-cthumb{width:46px;height:30px;border-radius:7px;background:var(--p-g);flex-shrink:0;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 8px rgba(212,131,10,.25);position:relative;overflow:hidden}
+.myb-cthumb::before{content:'';position:absolute;right:-6px;top:-6px;width:28px;height:28px;border-radius:50%;background:rgba(255,255,255,.15)}
+.myb-cthumb-chip{width:11px;height:8px;border-radius:2px;background:rgba(255,220,80,.75);z-index:1}
+.mybank-goto{display:flex;align-items:center;justify-content:center;gap:7px;margin:0 12px 12px;background:#f5f5f5;border:none;border-radius:14px;padding:13px;font-size:13px;font-weight:700;color:#555;cursor:pointer;width:calc(100% - 24px);font-family:inherit;transition:background .12s;-webkit-tap-highlight-color:transparent}
+.mybank-goto:active{background:#e8e8e8}
+.sb-icons svg{width:17px;height:17px}
+
+/* ══ REDESIGN v3 ══ */
+/* Screen backgrounds */
+.iphone-screen{background:#f5f6f8}
+.isc{background:#f5f6f8}
+#s-pay{background:#f5f5f7}
+#s-gov{background:#f5f5f7}
+#s-invest{background:#f5f5f7}
+#s-profile{background:#f5f5f7}
+
+/* ── Profile redesign ── */
+.prf-wrap{background:#f5f5f7;padding-bottom:100px;min-height:100%}
+.prf-top{background:#fff;padding:24px 20px 20px;text-align:center;margin-bottom:12px}
+.prf-av-wrap{width:84px;height:84px;border-radius:50%;overflow:hidden;margin:0 auto 12px;box-shadow:0 4px 16px rgba(0,0,0,.15)}
+.prf-av-wrap img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.prf-name{font-size:20px;font-weight:900;color:#111;letter-spacing:-.03em}
+.prf-email{font-size:12px;color:#aaa;font-weight:500;margin-top:3px}
+.prf-edit-btn{display:inline-block;margin-top:12px;padding:8px 24px;border-radius:50px;border:1.5px solid var(--p);color:var(--p);font-size:13px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;font-family:inherit;background:transparent;transition:all .15s}
+.prf-edit-btn:active{background:rgba(212,131,10,.06)}
+.prf-stats{display:flex;background:#fff;margin:0 0 12px;border-top:1px solid #f5f5f7}
+.prf-stat{flex:1;padding:14px 8px;text-align:center;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.prf-stat+.prf-stat{border-left:1px solid #f5f5f7}
+.prf-stat-num{font-size:16px;font-weight:900;color:#111}
+.prf-stat-num.gold{background:var(--p-g);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.prf-stat-lbl{font-size:10px;font-weight:600;color:#aaa;margin-top:2px}
+
+.prf-section{margin:0 16px 12px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.prf-sec-ttl{font-size:12px;font-weight:700;color:#aaa;padding:14px 16px 6px;letter-spacing:.02em}
+.prf-row{display:flex;align-items:center;gap:13px;padding:12px 16px;border-bottom:1px solid #f5f5f7;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .1s}
+.prf-row:last-child{border-bottom:none}
+.prf-row:active{background:#fafafa}
+.prf-row-ico{width:36px;height:36px;border-radius:10px;background:#f0f0f2;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.prf-row-ico svg{width:18px;height:18px;fill:none;stroke:#1c1c1e;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.prf-row-info{flex:1}
+.prf-row-name{font-size:14px;font-weight:700;color:#111}
+.prf-row-sub{font-size:11px;color:#aaa;font-weight:500;margin-top:1px}
+.prf-row-val{font-size:12px;font-weight:600;color:#aaa;flex-shrink:0}
+.prf-row-arr{color:#ccc;font-size:18px;font-weight:300;flex-shrink:0}
+.prf-row-badge{background:#ef4444;color:#fff;font-size:9px;font-weight:800;padding:2px 7px;border-radius:50px;flex-shrink:0}
+.prf-row-badge.gold{background:var(--p)}
+
+.prf-logout{margin:4px 16px 16px;width:calc(100% - 32px);padding:15px;border-radius:16px;background:#fff;border:none;color:#ef4444;font-size:15px;font-weight:800;cursor:pointer;font-family:inherit;box-shadow:0 2px 10px rgba(0,0,0,.06);-webkit-tap-highlight-color:transparent;transition:opacity .1s}
+.prf-logout:active{opacity:.8}
+.status-bar{background:#f5f6f8}
+
+/* Bottom nav redesign */
+.bnav{
+  border-radius:26px 26px 0 0;
+  box-shadow:0 -8px 36px rgba(0,0,0,.1);
+  border-top:none;
+  padding:8px 6px 0;
+  align-items:flex-start;
+}
+.bni{flex:1;display:flex;flex-direction:column;align-items:center;color:#c4c4ce;padding:0;gap:0;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none;transition:color .2s}
+.bni-inner{display:flex;flex-direction:column;align-items:center;gap:3px;padding:7px 12px 6px;border-radius:18px;transition:all .28s cubic-bezier(.34,1.56,.64,1)}
+.bni svg{width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.bni-lbl{font-size:10px;font-weight:800;letter-spacing:-.2px}
+.bni.active{color:#fff}
+.bni.active .bni-inner{background:linear-gradient(135deg,#D4830A 0%,#F2C94C 100%);box-shadow:0 5px 20px rgba(212,131,10,.38)}
+
+/* Balance hero card (Operations + Home shared) */
+.bc{margin:10px 16px 8px;background:linear-gradient(135deg,#A85C08,#C8820A);border-radius:24px;padding:14px 18px 16px;box-shadow:0 8px 28px rgba(168,92,8,.38);position:relative;overflow:hidden}
+.bc::before{content:'';position:absolute;top:-30px;right:-30px;width:130px;height:130px;background:rgba(255,255,255,.08);border-radius:50%}
+.bc::after{content:'';position:absolute;bottom:-20px;right:40px;width:80px;height:80px;background:rgba(255,255,255,.06);border-radius:50%}
+.bc-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:16px;position:relative;z-index:1}
+.bc-currency{display:flex;align-items:center;gap:7px;background:rgba(255,255,255,.22);border-radius:50px;padding:5px 12px 5px 6px;cursor:pointer;-webkit-tap-highlight-color:transparent;backdrop-filter:blur(4px)}
+.bc-currency-flag{width:26px;height:26px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 1px 4px rgba(0,0,0,.2)}
+.bc-currency-flag img{width:100%;height:100%;object-fit:cover;display:block}
+.bc-currency-name{font-size:12px;font-weight:700;color:rgba(255,255,255,.9)}
+.bc-visa{font-size:20px;font-weight:900;color:rgba(255,255,255,.9);letter-spacing:.5px;font-style:italic}
+.bc-lbl{font-size:12px;color:rgba(255,255,255,.7);font-weight:500;margin-bottom:4px;position:relative;z-index:1}
+.bc-bal-row{display:flex;align-items:center;gap:10px;position:relative;z-index:1}
+.bc-amt{font-size:30px;font-weight:900;color:#fff;letter-spacing:-.03em;line-height:1}
+.bc-eye{display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;opacity:.7;transition:opacity .15s;margin-top:3px}
+.bc-eye svg{stroke:#fff}
+.bc-eye:active{opacity:1}
+
+/* Action buttons (inside hero card) */
+.act-wrap{display:flex;justify-content:space-around;margin-top:14px;padding-top:14px;border-top:1px solid rgba(255,255,255,.2);position:relative;z-index:1}
+.act-btn{display:flex;flex-direction:column;align-items:center;gap:6px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s;user-select:none}
+.act-btn:active{transform:scale(.88)}
+.act-ico{width:46px;height:46px;border-radius:15px;background:rgba(255,255,255,.2);backdrop-filter:blur(6px);display:flex;align-items:center;justify-content:center;transition:background .15s}
+.act-btn:active .act-ico{background:rgba(255,255,255,.32)}
+.act-ico svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.act-lbl{font-size:11px;font-weight:700;color:rgba(255,255,255,.9)}
+
+/* Section label above services */
+.svc-sect{padding:6px 16px 8px;font-size:13px;font-weight:800;color:#888}
+
+/* Rounder service icons + spacing */
+.svc-ico{border-radius:18px}
+.svc-wrap{padding:0 0 14px}
+.svc-scroll{padding:0 16px 4px}
+.svc-item{width:56px}
+
+/* My Bank: white card refined */
+.mybank{margin:0 16px 20px;background:#fff;border-radius:22px;border:none;box-shadow:0 3px 20px rgba(0,0,0,.08);overflow:hidden}
+.mybank-ttl{padding:14px 16px 10px;font-size:12px;font-weight:600;color:#aaa;border-bottom:none}
+.mybank-pills{border-bottom:none;padding:8px 14px 14px;gap:10px}
+.mybank-pill-ico{width:50px;height:50px;border-radius:14px;background:#f0f0f2;display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;flex-shrink:0;transition:background .12s}
+.mybank-pill-ico:active{background:#e4e4e8}
+.mybank-pill-ico svg{width:22px;height:22px;fill:none;stroke:#1c1c1e;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Header refinement */
+.fhd{padding:14px 16px 8px;align-items:center}
+.fhd-left{display:flex;align-items:center;gap:11px;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.fhd-av{width:44px;height:44px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.16)}
+.fhd-av svg{width:100%;height:100%;display:block}
+.fhd-name{font-size:20px;font-weight:900}
+.fhd-bell{background:#fff;box-shadow:0 2px 12px rgba(0,0,0,.09)}
+.fhd-sub{font-size:12px;color:#999;font-weight:500;margin-top:1px}
+
+/* ── EXCHANGE ── */
+.exch-card-ttl{font-size:12px;font-weight:600;color:#aaa;margin-bottom:10px}
+.exch-card{margin:0 16px 10px;background:#fff;border-radius:22px;padding:14px 16px;box-shadow:0 3px 20px rgba(0,0,0,.08)}
+.exch-row{display:flex;align-items:center;justify-content:space-between;padding:8px 0}
+.exch-row+.exch-row{border-top:1px solid #f5f5f5}
+.exch-cur{display:flex;align-items:center;gap:10px}
+.exch-flag-wrap{width:36px;height:36px;border-radius:50%;overflow:hidden;background:#f0f0f2;display:flex;align-items:center;justify-content:center;font-size:22px;flex-shrink:0;line-height:1}
+.exch-you-lbl{font-size:10px;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:.3px;margin-bottom:2px}
+.exch-cur-code{font-size:13px;font-weight:800;color:#111;line-height:1.2}
+.exch-cur-name{font-size:10px;color:#aaa;font-weight:500;margin-top:1px}
+.exch-input{border:none;outline:none;font-size:18px;font-weight:800;color:#111;font-family:inherit;width:120px;text-align:right;background:transparent;-moz-appearance:textfield;appearance:textfield}
+.exch-input::-webkit-outer-spin-button,.exch-input::-webkit-inner-spin-button{-webkit-appearance:none}
+.exch-input-to{color:#999}
+.exch-divider{display:flex;align-items:center;justify-content:space-between;padding:6px 0;border-top:1px solid #f5f5f5;border-bottom:1px solid #f5f5f5;margin:2px 0}
+.exch-rate-lbl{font-size:11px;font-weight:600;color:#bbb}
+.exch-swap-btn{width:32px;height:32px;border-radius:50%;background:var(--p-g);display:flex;align-items:center;justify-content:center;cursor:pointer;-webkit-tap-highlight-color:transparent;flex-shrink:0;box-shadow:0 4px 12px rgba(212,131,10,.28);transition:transform .25s cubic-bezier(.34,1.56,.64,1);border:none}
+.exch-swap-btn:active{transform:scale(.88) rotate(180deg)}
+.exch-swap-btn svg{width:15px;height:15px}
+.exch-action{margin-top:12px;background:var(--p-g);color:#fff;border:none;border-radius:12px;padding:12px;font-size:13px;font-weight:800;cursor:pointer;width:100%;font-family:inherit;box-shadow:0 4px 14px rgba(212,131,10,.25);-webkit-tap-highlight-color:transparent;transition:opacity .15s,transform .12s}
+.exch-action:active{opacity:.88;transform:scale(.98)}
+/* Rates table */
+.rates-card{margin:0 16px 14px;background:#fff;border-radius:22px;padding:12px 14px;box-shadow:0 3px 20px rgba(0,0,0,.08)}
+.rates-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:8px}
+.rates-hd-ttl{font-size:12px;font-weight:600;color:#aaa;letter-spacing:0;text-transform:none}
+.rates-hd-base{font-size:10px;font-weight:700;color:var(--p);background:rgba(212,131,10,.1);border-radius:6px;padding:2px 7px}
+.rates-thead{display:flex;align-items:center;padding-bottom:6px;border-bottom:1px solid #f0f0f2}
+.rates-thead-spacer{flex:1}
+.rates-col-lbl{width:56px;text-align:right;font-size:10px;font-weight:600;color:#bbb;text-transform:uppercase;letter-spacing:.3px}
+.rate-row{display:flex;align-items:center;padding:6px 0;border-top:1px solid #f8f8f8}
+.rate-flag{width:26px;height:26px;border-radius:50%;overflow:hidden;background:#f0f0f2;display:flex;align-items:center;justify-content:center;font-size:16px;flex-shrink:0;margin-right:8px}
+.rate-info{flex:1;min-width:0}
+.rate-code{font-size:12px;font-weight:800;color:#111}
+.rate-name{font-size:10px;font-weight:500;color:#bbb}
+.rate-buy{width:56px;text-align:right;font-size:11px;font-weight:700;color:#111}
+.rate-sell{width:56px;text-align:right;font-size:11px;font-weight:600;color:#888}
+.rate-chg{width:40px;text-align:right;font-size:10px;font-weight:700}
+.rate-chg.pos{color:#16a34a}
+.rate-chg.neg{color:#ef4444}
+
+/* My Bank pill v2: bigger, colored icons */
+.mybank-pill{padding:11px 18px;font-size:13px;font-weight:600;border-radius:50px;gap:9px;color:#111;border-color:#e0e0e0}
+.mbpil-ico-wrap{width:20px;height:20px;border-radius:0;background:transparent;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.mbpil-ico-wrap svg{width:20px;height:20px;fill:none;stroke:var(--p);stroke-width:1.9;stroke-linecap:round;stroke-linejoin:round;overflow:visible}
+.myb-card{border-top:none}
+.myb-cthumb{width:50px;height:32px;border-radius:8px}
+.myb-cname{font-size:14px;font-weight:700}
+.myb-csub{font-size:11px;color:#aaa}
+.myb-cbal{font-size:15px;font-weight:800}
+.mybank-goto{margin:0 14px 14px;padding:14px;font-size:14px;font-weight:700;color:#444;width:calc(100% - 28px);border-radius:14px}
+.myb-cthumb{width:56px;height:36px;border-radius:9px}
+.myb-cthumb::before{width:36px;height:36px}
+
+/* ── Home feed ── */
+#s-home{background:#f5f5f7}
+.home-scroll{background:#f5f5f7;padding-bottom:100px}
+
+/* Stories */
+.stories-scroll{display:flex;gap:12px;padding:8px 16px 14px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.stories-scroll::-webkit-scrollbar{display:none}
+.story-item{display:flex;flex-direction:column;align-items:center;gap:5px;flex-shrink:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.story-ring{width:62px;height:62px;border-radius:50%;padding:2.5px;background:linear-gradient(135deg,#D4830A,#F2C94C);flex-shrink:0}
+.story-ring.seen{background:#e0e0e0}
+.story-av{width:100%;height:100%;border-radius:50%;overflow:hidden;border:2px solid #f5f5f7;display:flex;align-items:center;justify-content:center;font-size:22px;background:#fff}
+.story-av img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.story-lbl{font-size:10px;font-weight:600;color:#333;max-width:64px;text-align:center;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+
+/* Home section header */
+.home-sec-hd{display:flex;align-items:center;justify-content:space-between;padding:0 16px 8px}
+.home-sec-ttl{font-size:15px;font-weight:900;color:#111;letter-spacing:-.02em}
+.home-sec-all{font-size:12px;font-weight:700;color:var(--p)}
+
+/* Post cards */
+.post-card{margin:0 16px 12px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
+.post-hd{display:flex;align-items:center;gap:10px;padding:14px 14px 10px}
+.post-av{width:42px;height:42px;border-radius:13px;display:flex;align-items:center;justify-content:center;flex-shrink:0;overflow:hidden;box-shadow:0 4px 12px rgba(0,0,0,.18)}
+.post-av img{width:100%;height:100%;object-fit:cover;display:block}
+.post-av svg{width:20px;height:20px;fill:none;stroke:#fff;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.post-av-finance,.post-av-roads,.post-av-digital,.post-av-health{background:#eee}
+.post-org{font-size:13px;font-weight:800;color:#111}
+.post-time{font-size:10px;font-weight:500;color:#aaa;margin-top:1px}
+.post-tag{font-size:9px;font-weight:800;padding:3px 9px;border-radius:50px;background:rgba(212,131,10,.12);color:var(--p);margin-left:auto;flex-shrink:0;white-space:nowrap}
+.post-body{padding:0 14px 14px;font-size:13px;font-weight:600;color:#333;line-height:1.55}
+.post-img{width:100%;height:180px;object-fit:cover;display:block}
+.post-img-caption{padding:10px 14px 14px;font-size:12px;font-weight:600;color:#555;line-height:1.5}
+.post-footer{display:flex;align-items:center;gap:14px;padding:10px 14px 12px;border-top:1px solid #f5f5f7}
+.post-foot-btn{display:flex;align-items:center;gap:5px;font-size:12px;font-weight:700;cursor:pointer;-webkit-tap-highlight-color:transparent;-webkit-user-select:none}
+.post-foot-btn.like{color:#ef4444}
+.post-foot-btn.like svg{fill:#ef4444;stroke:#ef4444}
+.post-foot-btn.comment{color:#999}
+.post-foot-btn.comment svg{stroke:#999}
+.post-foot-btn.share{color:#999;margin-left:auto}
+.post-foot-btn.share svg{stroke:#999}
+.post-foot-btn svg{width:16px;height:16px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+
+/* Home promo banner */
+.home-promo{margin:0 16px 14px;border-radius:20px;overflow:hidden;position:relative;height:130px;cursor:pointer}
+.home-promo img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.home-promo-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.72) 50%,rgba(0,0,0,.15) 100%);padding:18px}
+.home-promo-tag{display:inline-block;background:var(--p);color:#fff;font-size:9px;font-weight:800;padding:3px 8px;border-radius:50px;text-transform:uppercase;margin-bottom:6px}
+.home-promo-title{font-size:16px;font-weight:900;color:#fff;line-height:1.25}
+.home-promo-sub{font-size:11px;color:rgba(255,255,255,.75);margin-top:3px;font-weight:500}
+
+/* Home reels */
+.home-reels-scroll{display:flex;gap:10px;padding:0 16px 16px;overflow-x:auto;scrollbar-width:none;-webkit-overflow-scrolling:touch}
+.home-reels-scroll::-webkit-scrollbar{display:none}
+.home-reel{flex-shrink:0;width:130px;height:200px;border-radius:16px;overflow:hidden;position:relative;cursor:pointer}
+.home-reel img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
+.home-reel-overlay{position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.8) 45%,rgba(0,0,0,.05) 100%)}
+.home-reel-play{position:absolute;top:12px;right:12px;width:28px;height:28px;background:rgba(255,255,255,.2);backdrop-filter:blur(6px);border-radius:50%;display:flex;align-items:center;justify-content:center}
+.home-reel-play svg{width:12px;height:12px;fill:#fff;margin-left:2px}
+.home-reel-lbl{position:absolute;bottom:12px;left:12px;right:12px;font-size:11px;font-weight:800;color:#fff;line-height:1.35;text-shadow:0 1px 4px rgba(0,0,0,.5)}
+.home-reel-views{position:absolute;bottom:12px;right:12px;font-size:10px;font-weight:600;color:rgba(255,255,255,.7)}
+
+/* ── Operations page ── */
+.ops-wrap{padding-bottom:100px;background:#f5f5f7;min-height:100%}
+.ops-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 6px}
+.ops-hd-user{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.15);cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ops-hd-user img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
+.ops-hd-title{font-size:24px;font-weight:900;color:#111;letter-spacing:-.03em;flex:1;text-align:center}
+.ops-search{margin:0 16px 12px;display:flex;align-items:center;gap:10px;background:#fff;border-radius:14px;padding:10px 14px;box-shadow:0 1px 4px rgba(0,0,0,.05)}
+.ops-search svg{width:16px;height:16px;fill:none;stroke:#bbb;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0}
+.ops-search-txt{font-size:14px;color:#bbb;font-weight:500}
+
+.ops-section{margin:0 16px 12px;background:#fff;border-radius:20px;box-shadow:0 2px 10px rgba(0,0,0,.05)}
+.ops-sec-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 4px}
+.ops-sec-lbl{font-size:12px;font-weight:600;color:#aaa;letter-spacing:.02em}
+.ops-sec-all{font-size:12px;font-weight:700;color:var(--p);cursor:pointer}
+
+.ops-transfer-scroll{display:flex;flex-wrap:wrap;gap:10px 0;padding:10px 12px 14px}
+.ops-tr-item{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent;width:33.333%}
+.ops-tr-ico{width:60px;height:60px;border-radius:18px;background:#f0f0f2;border:none;display:flex;align-items:center;justify-content:center;transition:background .12s;box-shadow:none}
+.ops-tr-item:active .ops-tr-ico{background:#e4e4e8}
+.ops-tr-ico svg{width:24px;height:24px;fill:none;stroke:#1c1c1e;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.ops-tr-lbl{font-size:10px;font-weight:600;color:#555;text-align:center;max-width:66px;line-height:1.3}
+
+.ops-promo{margin:0 16px 16px;border-radius:20px;padding:18px 20px;background:#000;display:flex;align-items:center;justify-content:space-between;overflow:hidden;position:relative;cursor:pointer;-webkit-tap-highlight-color:transparent;min-height:110px}
+.ops-promo-bg{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;display:block;opacity:.55}
+.ops-promo-overlay{position:absolute;inset:0;background:rgba(0,0,0,.35)}
+.ops-promo:active{opacity:.92}
+.ops-promo-txt{}
+.ops-promo-tag{font-size:10px;font-weight:700;color:rgba(255,255,255,.7);letter-spacing:.08em;text-transform:uppercase;margin-bottom:4px}
+.ops-promo-title{font-size:16px;font-weight:900;color:#fff;line-height:1.25;margin-bottom:2px}
+.ops-promo-sub{font-size:11px;font-weight:500;color:rgba(255,255,255,.75)}
+.ops-promo-ico{width:64px;height:64px;background:rgba(255,255,255,.15);border-radius:18px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ops-promo-ico svg{width:32px;height:32px;fill:none;stroke:#fff;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round}
+
+.ops-pay-row{display:flex;align-items:center;gap:14px;padding:13px 16px;border-bottom:1px solid #f5f5f7;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .1s}
+.ops-pay-row:last-child{border-bottom:none}
+.ops-pay-row:active{background:#fafafa}
+.ops-pay-ico{width:44px;height:44px;border-radius:13px;background:#f0f0f2;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.ops-pay-ico svg{width:20px;height:20px;fill:none;stroke:#1c1c1e;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ops-pay-info{flex:1}
+.ops-pay-name{font-size:14px;font-weight:700;color:#111}
+.ops-pay-sub{font-size:11px;font-weight:500;color:#aaa;margin-top:1px}
+.ops-pay-arr{color:#ccc;font-size:18px;font-weight:300}
+
+/* ── Two-col row ── */
+.ops-two-col{display:flex;gap:8px;margin:0 16px 8px;align-items:stretch}
+.ops-two-col .ops-chart-card{flex:1;margin:0;min-width:0}
+
+/* ── Activity card ── */
+.ops-act-card{width:148px;flex-shrink:0;background:#fff;border-radius:22px;padding:12px 10px;box-shadow:0 2px 10px rgba(0,0,0,.05);display:flex;flex-direction:column}
+.ops-act-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.ops-act-ttl{font-size:13px;font-weight:900;color:#111}
+.ops-act-all{font-size:11px;font-weight:700;color:var(--p);cursor:pointer}
+.ops-act-row{display:flex;align-items:center;gap:7px;padding:6px 0;border-bottom:1px solid #f5f5f7;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.ops-act-row:last-child{border-bottom:none;padding-bottom:0}
+.ops-act-ico{width:28px;height:28px;border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:13px;flex-shrink:0}
+.ops-act-info{flex:1;min-width:0}
+.ops-act-name{font-size:11px;font-weight:700;color:#111;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ops-act-date{font-size:9px;font-weight:500;color:#bbb;margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ops-act-amt{font-size:11px;font-weight:800;flex-shrink:0;white-space:nowrap}
+.ops-act-amt.minus{color:#ef4444}
+.ops-act-amt.plus{color:#10b981}
+
+/* ── Chart stats card ── */
+.ops-chart-card{margin:0 16px 8px;background:#1c1c1e;border-radius:22px;padding:14px 16px 14px;box-shadow:0 6px 24px rgba(0,0,0,.22);overflow:hidden}
+.ops-chart-hd{display:flex;align-items:center;justify-content:space-between;margin-bottom:2px}
+.ops-chart-ttl{font-size:12px;font-weight:600;color:rgba(255,255,255,.45)}
+.ops-chart-chg{font-size:12px;font-weight:800;color:#10b981}
+.ops-chart-amt{font-size:26px;font-weight:900;color:#fff;letter-spacing:-.03em;margin-bottom:10px;line-height:1}
+.ops-chart-wrap{margin:0 -16px;height:60px}
+.ops-chart-wrap svg{width:100%;height:100%;display:block}
+.ops-chart-periods{display:flex;gap:3px;margin-top:10px;padding:3px;background:rgba(255,255,255,.07);border-radius:12px}
+.ops-chart-per{flex:1;text-align:center;padding:6px 0;font-size:11px;font-weight:700;color:rgba(255,255,255,.38);border-radius:9px;cursor:pointer;transition:all .18s;-webkit-tap-highlight-color:transparent;user-select:none}
+.ops-chart-per.active{background:var(--p);color:#fff;box-shadow:0 2px 8px rgba(212,131,10,.4)}
+.ops-chart-stats{display:flex;margin-top:10px;padding-top:10px;border-top:1px solid rgba(255,255,255,.08)}
+.ops-chart-stat{flex:1;text-align:center}
+.ops-chart-stat+.ops-chart-stat{border-left:1px solid rgba(255,255,255,.08)}
+.ops-chart-stat-lbl{font-size:10px;font-weight:500;color:rgba(255,255,255,.38);margin-bottom:4px}
+.ops-chart-stat-val{font-size:13px;font-weight:900;color:#fff}
+
+/* ── Transactions ── */
+.ops-txn-wrap{margin:0 16px 12px;background:#fff;border-radius:20px;box-shadow:0 2px 10px rgba(0,0,0,.05);overflow:hidden}
+.ops-txn-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 6px}
+.ops-txn-ttl{font-size:15px;font-weight:900;color:#111}
+.ops-txn-all{font-size:12px;font-weight:700;color:var(--p);cursor:pointer}
+.ops-txn-date{font-size:11px;font-weight:700;color:#bbb;padding:8px 16px 4px;letter-spacing:.03em;text-transform:uppercase}
+.ops-txn-row{display:flex;align-items:center;gap:12px;padding:11px 16px;border-top:1px solid #f5f5f7;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .1s}
+.ops-txn-row:active{background:#fafafa}
+.ops-txn-av{width:42px;height:42px;border-radius:13px;background:#f0f0f2;display:flex;align-items:center;justify-content:center;flex-shrink:0;font-size:18px}
+.ops-txn-av svg{width:20px;height:20px;fill:none;stroke:#1c1c1e;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.ops-txn-info{flex:1;min-width:0}
+.ops-txn-name{font-size:14px;font-weight:700;color:#111}
+.ops-txn-sub{font-size:11px;font-weight:500;color:#aaa;margin-top:1px}
+.ops-txn-right{text-align:right;flex-shrink:0}
+.ops-txn-amt{font-size:14px;font-weight:800;color:#111}
+.ops-txn-amt.minus{color:#ef4444}
+.ops-txn-amt.plus{color:#10b981}
+.ops-txn-type{font-size:10px;font-weight:500;color:#bbb;margin-top:2px}
+.ops-txn-show{display:flex;align-items:center;justify-content:center;padding:13px;border-top:1px solid #f5f5f7;font-size:13px;font-weight:700;color:var(--p);cursor:pointer;gap:5px;-webkit-tap-highlight-color:transparent}
+.ops-txn-show svg{width:14px;height:14px;fill:none;stroke:var(--p);stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+
+/* ══════════════════════════════
+   DARK THEME
+   ══════════════════════════════ */
+.dark-theme .iphone-screen{background:#121212}
+.dark-theme .isc{background:#1c1c1e}
+.dark-theme #s-home,.dark-theme .home-scroll{background:#1c1c1e}
+.dark-theme #s-pay,.dark-theme #s-gov,.dark-theme #s-invest,.dark-theme #s-profile{background:#1c1c1e}
+.dark-theme .ops-wrap,.dark-theme .prf-wrap,.dark-theme .msg-wrap{background:#1c1c1e}
+
+/* Status bar & nav */
+.dark-theme .status-bar{background:#1c1c1e}
+.dark-theme .sb-time{color:#fff}
+.dark-theme .sb-icons svg path,.dark-theme .sb-icons svg rect,.dark-theme .sb-icons svg circle{fill:#fff}
+.dark-theme .sb-icons svg{stroke:none}
+.dark-theme .bnav{background:#121212;border-top-color:rgba(255,255,255,.08)}
+.dark-theme .bnav::before{content:'';position:absolute;bottom:0;left:0;right:0;height:100%;background:#121212;z-index:-1;border-radius:inherit}
+.dark-theme .iphone-screen{background:#121212 !important}
+.dark-theme .bni{color:#48484a}
+.dark-theme .home-ind{background:#fff}
+
+/* Page titles */
+.dark-theme .ops-hd-title,.dark-theme .msg-hd-title{color:#fff}
+
+/* White cards → dark cards */
+.dark-theme .post-card,
+.dark-theme .exch-card,
+.dark-theme .rates-card,
+.dark-theme .mybank,
+.dark-theme .ops-section,
+.dark-theme .ops-act-card,
+.dark-theme .prf-section,
+.dark-theme .prf-top,
+.dark-theme .prf-logout,
+.dark-theme .msg-card,
+.dark-theme .msg-support,
+.dark-theme .gov-quick-card,
+.dark-theme .gov-cat-section,
+.dark-theme .gov-search,
+.dark-theme .ops-search{background:#2c2c2e;box-shadow:none}
+
+/* Text – primary */
+.dark-theme .post-org,
+.dark-theme .post-body,
+.dark-theme .exch-input,
+.dark-theme .rate-code,
+.dark-theme .prf-name,
+.dark-theme .prf-row-name,
+.dark-theme .ops-pay-name,
+.dark-theme .ops-tr-lbl,
+.dark-theme .msg-name,
+.dark-theme .msg-support-name,
+.dark-theme .gov-quick-name,
+.dark-theme .gov-cat-lbl-txt,
+.dark-theme .ops-act-name,
+.dark-theme .ops-sec-lbl,
+.dark-theme .mybank-ttl,
+.dark-theme .myb-cname,
+.dark-theme .myb-cbal,
+.dark-theme .rates-hd-ttl,
+.dark-theme .exch-cur-code{color:#fff}
+
+/* Text – secondary */
+.dark-theme .post-time,
+.dark-theme .post-body,
+.dark-theme .prf-email,
+.dark-theme .prf-row-sub,
+.dark-theme .prf-row-val,
+.dark-theme .prf-row-arr,
+.dark-theme .prf-sec-ttl,
+.dark-theme .ops-pay-sub,
+.dark-theme .msg-preview,
+.dark-theme .msg-support-sub,
+.dark-theme .msg-support-time,
+.dark-theme .msg-time,
+.dark-theme .msg-pin-lbl,
+.dark-theme .msg-sec-lbl,
+.dark-theme .gov-quick-sub,
+.dark-theme .ops-act-date,
+.dark-theme .rate-name,
+.dark-theme .rate-sell,
+.dark-theme .myb-csub,
+.dark-theme .exch-cur-name,
+.dark-theme .exch-you-lbl,
+.dark-theme .exch-rate-lbl,
+.dark-theme .exch-input-to,
+.dark-theme .ops-search-txt,
+.dark-theme .gov-search-txt{color:#8e8e93}
+
+/* Icon containers */
+.dark-theme .ops-pay-ico,
+.dark-theme .ops-tr-ico,
+.dark-theme .prf-row-ico,
+.dark-theme .gov-cat-ico,
+.dark-theme .gov-quick-ico,
+.dark-theme .gov-search-filter,
+.dark-theme .msg-hd-edit,
+.dark-theme .mybank-goto{background:#3a3a3c}
+.dark-theme .ops-pay-ico svg,
+.dark-theme .ops-tr-ico svg,
+.dark-theme .prf-row-ico svg,
+.dark-theme .gov-cat-ico svg,
+.dark-theme .gov-quick-ico svg{stroke:#e5e5ea}
+.dark-theme .gov-search-filter svg{stroke:#aaa}
+.dark-theme .msg-hd-edit svg{stroke:#e5e5ea}
+.dark-theme .mybank-goto{color:#aaa}
+
+/* Dividers */
+.dark-theme .prf-row,
+.dark-theme .ops-pay-row,
+.dark-theme .msg-row,
+.dark-theme .ops-act-row,
+.dark-theme .exch-row,
+.dark-theme .exch-divider,
+.dark-theme .rate-row{border-color:#3a3a3c}
+.dark-theme .exch-divider{border-top-color:#3a3a3c;border-bottom-color:#3a3a3c}
+.dark-theme .post-footer{border-top-color:#3a3a3c}
+.dark-theme .mybank-ttl{border-bottom-color:#3a3a3c}
+
+/* Search bar icon */
+.dark-theme .ops-search svg,.dark-theme .gov-search svg{stroke:#636366}
+
+/* Rates */
+.dark-theme .rates-card{background:#2c2c2e;box-shadow:none}
+.dark-theme .rates-thead{border-bottom-color:#3a3a3c}
+.dark-theme .rate-buy{color:#e5e5ea}
+.dark-theme .rates-col-lbl,.dark-theme .rates-hd-ttl{color:#636366}
+
+/* Exchange card */
+.dark-theme .exch-action{box-shadow:0 4px 14px rgba(212,131,10,.35)}
+
+/* Balance card – stays gold, just tweak */
+.dark-theme .bc::before,.dark-theme .bc::after{opacity:.15}
+
+/* Profile logout */
+.dark-theme .prf-logout{color:#ff453a;background:#2c2c2e;box-shadow:none}
+
+/* Profile edit btn */
+.dark-theme .prf-edit-btn{border-color:var(--p);color:var(--p)}
+
+/* Home stories label */
+.dark-theme .story-lbl{color:#e5e5ea}
+.dark-theme .home-sec-ttl{color:#fff}
+.dark-theme .home-sec-all{color:var(--p-lt)}
+
+/* Home reels */
+.dark-theme .post-img-caption{color:#aaa}
+
+/* My bank pills */
+.dark-theme .mybank-pill{background:#3a3a3c;border-color:#48484a;color:#e5e5ea}
+
+/* Active row feedback */
+.dark-theme .prf-row:active,.dark-theme .ops-pay-row:active,.dark-theme .msg-row:active{background:#3a3a3c}
+
+/* Gov badge background unchanged */
+/* Ops act card amounts unchanged (red/green) */
+
+/* Page outer background */
+.dark-body{background:#111}
+
+/* Fix remaining white spots */
+.dark-theme .iphone-screen{background:#121212 !important}
+.dark-theme .isc{background:#1c1c1e !important}
+.dark-theme .status-bar{background:#1c1c1e !important}
+.dark-theme .home-scroll{background:#1c1c1e !important}
+.dark-theme .ops-wrap,.dark-theme .msg-wrap,.dark-theme .prf-wrap{background:#1c1c1e !important}
+
+/* Story ring inner border */
+.dark-theme .story-av{border-color:#1c1c1e}
+
+/* My Bank pills */
+.dark-theme .mybank-pill{background:#3a3a3c;border-color:#48484a;color:#e5e5ea}
+.dark-theme .mybank-pill-ico{background:#3a3a3c}
+.dark-theme .mybank-pill-ico:active{background:#48484a}
+.dark-theme .mybank-goto{background:#3a3a3c;color:#aaa}
+.dark-theme .mybank-goto:active{background:#48484a}
+
+/* My bank card rows */
+.dark-theme .myb-card{background:transparent}
+.dark-theme .myb-card:active{background:#3a3a3c}
+.dark-theme .mybank-card:active{background:#3a3a3c}
+
+/* Exchange swap button stays gold */
+.dark-theme .exch-swap-btn{box-shadow:0 4px 12px rgba(212,131,10,.4)}
+
+/* Rates table */
+.dark-theme .rate-row{border-top-color:#3a3a3c}
+.dark-theme .rate-flag{background:#3a3a3c}
+.dark-theme .rates-thead{border-bottom-color:#3a3a3c}
+
+/* Mybank section */
+.dark-theme .mybank-ttl{color:#8e8e93}
+.dark-theme .mybank{background:#2c2c2e !important}
+
+/* Home promo inner bg */
+.dark-theme .home-promo{background:#000}
+
+/* Post card footer */
+.dark-theme .post-footer{border-top-color:#3a3a3c}
+.dark-theme .post-body{color:#c7c7cc}
+.dark-theme .post-img-caption{color:#8e8e93;background:transparent}
+
+/* Gov video section */
+.dark-theme .gov-vid-hd .gov-vid-ttl{color:#e5e5ea}
+.dark-theme .ops-sec-all{color:var(--p-lt)}
+.dark-theme .gov-cat-lbl{color:#636366}
+
+/* Msg promo area */
+.dark-theme .msg-sec-lbl{color:#636366}
+.dark-theme .msg-pin-lbl{color:#636366}
+
+/* Active row taps */
+.dark-theme .myb-card:active,.dark-theme .gov-quick-card:active{background:#3a3a3c}
+.dark-theme .gov-cat-item:active .gov-cat-ico{background:#48484a}
+
+/* Profile */
+.dark-theme .prf-top{background:#2c2c2e !important}
+.dark-theme .prf-email{color:#8e8e93 !important}
+.dark-theme .prf-section{background:#2c2c2e !important;box-shadow:none}
+.dark-theme .prf-sec-ttl{color:#636366 !important}
+.dark-theme .prf-row:last-child{border-bottom:none}
+
+/* Ops act card */
+.dark-theme .ops-act-card{background:#2c2c2e !important;box-shadow:none}
+.dark-theme .ops-act-ttl{color:#fff}
+.dark-theme .ops-act-row{border-bottom-color:#3a3a3c}
+
+/* Transfers section */
+.dark-theme .ops-section{background:#2c2c2e !important;box-shadow:none}
+.dark-theme .ops-tr-lbl{color:#c7c7cc}
+.dark-theme .ops-tr-ico{background:#3a3a3c !important;border:none}
+.dark-theme .ops-tr-ico svg{stroke:#e5e5ea}
+.dark-theme .ops-tr-item:active .ops-tr-ico{background:#48484a !important}
+
+/* Ops pay */
+.dark-theme .ops-pay-row{border-bottom-color:#3a3a3c}
+.dark-theme .ops-pay-arr{color:#636366}
+.dark-theme .ops-pay-row:active{background:#3a3a3c}
+.dark-theme .ops-pay-ico{background:#3a3a3c !important}
+.dark-theme .ops-pay-ico svg{stroke:#e5e5ea}
+.dark-theme .ops-pay-name{color:#fff}
+.dark-theme .ops-pay-sub{color:#8e8e93}
+
+/* Gov search */
+.dark-theme .gov-search{background:#2c2c2e !important;box-shadow:none}
+.dark-theme .gov-search-txt{color:#636366}
+.dark-theme .gov-search svg{stroke:#636366}
+
+/* ops-search */
+.dark-theme .ops-search{background:#2c2c2e !important;box-shadow:none}
+.dark-theme .ops-search-txt{color:#636366}
+.dark-theme .ops-search svg{stroke:#636366}
+
+/* Two-col chart area */
+.dark-theme .ops-two-col .ops-chart-card{box-shadow:none}
+
+/* Msg rows */
+.dark-theme .msg-row{border-bottom-color:#3a3a3c}
+.dark-theme .msg-row:active{background:#3a3a3c}
+.dark-theme .msg-name{color:#fff}
+.dark-theme .msg-card{background:#2c2c2e !important;box-shadow:none}
+.dark-theme .msg-support{background:#2c2c2e !important;box-shadow:none}
+
+/* Gov quick cards */
+.dark-theme .gov-quick-card{background:#2c2c2e !important;box-shadow:none}
+.dark-theme .gov-quick-name{color:#fff}
+.dark-theme .gov-cat-section{background:#2c2c2e !important;box-shadow:none}
+.dark-theme .gov-cat-lbl-txt{color:#c7c7cc}
+
+/* ── STANDALONE SCREENS SECTION ── */
+.sp-section{width:100%;max-width:2400px;margin:56px auto 0;padding:0 0 80px}
+.sp-section-head{text-align:center;padding:0 20px 32px}
+.sp-section-title{font-size:22px;font-weight:800;color:#444;margin-bottom:6px}
+.sp-section-sub{font-size:13px;color:#aaa;font-weight:500}
+.sp-divider{width:60px;height:3px;background:linear-gradient(90deg,#D4830A,#F2C94C);border-radius:2px;margin:12px auto 0}
+.sp-row{display:flex;gap:28px;overflow-x:auto;padding:10px 40px 32px;scroll-snap-type:x mandatory;scrollbar-width:thin;scrollbar-color:rgba(0,0,0,.15) transparent}
+.sp-row::-webkit-scrollbar{height:5px}
+.sp-row::-webkit-scrollbar-thumb{background:rgba(0,0,0,.18);border-radius:3px}
+.sp-item{flex-shrink:0;scroll-snap-align:start;display:flex;flex-direction:column;align-items:center;gap:14px}
+.sp-item-label{font-size:11px;font-weight:800;color:#aaa;text-transform:uppercase;letter-spacing:1px;padding:4px 14px;background:rgba(0,0,0,.06);border-radius:20px}
+.sp-phone-wrap{position:relative;width:393px}
+</style>
+<style>
+/* ── Embed-mode overrides ── */
+html.embed,html.embed body{background:transparent!important}
+html.embed body{padding:40px 80px 80px!important;display:flex!important;justify-content:center;align-items:flex-start;min-height:auto!important;overflow:hidden}
+html.embed .top-bar,
+html.embed .sp-section,
+html.embed #toastEl{display:none!important}
+html.embed .phone-wrap{margin:0!important}
+</style>
+<script>
+/* Run as early as possible */
+(function(){
+  var q = (location.search || '').toLowerCase();
+  if (q.indexOf('embed') !== -1 || q.indexOf('screen=') !== -1) {
+    document.documentElement.classList.add('embed');
+  }
+  var m = q.match(/screen=([a-z]+)/);
+  if (!m) return;
+  var target = m[1];
+  function apply(){
+    try{
+      var cur = document.querySelector('.isc.active');
+      var next = document.getElementById('s-' + target);
+      if (cur && next && cur !== next){
+        cur.classList.remove('active');
+        next.classList.add('active');
+        if (typeof SCREENS !== 'undefined') {
+          window.cur = SCREENS.indexOf(target);
+        }
+        document.querySelectorAll('.bni').forEach(function(b){
+          b.classList.toggle('active', b.dataset.sc === target);
+        });
+        document.querySelectorAll('.tb-tab').forEach(function(t,i){
+          t.classList.toggle('active', i === SCREENS.indexOf(target));
+        });
+        var sb = document.querySelector('.status-bar');
+        if (sb) sb.style.background = target === 'home' ? '#f5f6f8' : '#fff';
+      }
+    }catch(e){}
+  }
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', function(){ setTimeout(apply, 0); });
+  } else {
+    setTimeout(apply, 0);
+  }
+})();
+</script>
+</head>
+<body>
+
+<div class="top-bar">
+  <a href="superapp.html" class="tb-back">
+    <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
+    Back
+  </a>
+  <div class="tb-title">App Preview</div>
+  <div class="tb-tabs">
+    <button type="button" class="tb-tab active" onclick="goTo('home')">Home</button>
+    <button type="button" class="tb-tab" onclick="goTo('pay')">Pay</button>
+    <button type="button" class="tb-tab" onclick="goTo('gov')">Gov</button>
+    <button type="button" class="tb-tab" onclick="goTo('invest')">Invest</button>
+    <button type="button" class="tb-tab" onclick="goTo('profile')">Profile</button>
+    <button type="button" class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
+      <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
+      <span id="themeLabel">Dark</span>
+    </button>
+  </div>
+</div>
+
+<div class="phone-wrap">
+  <div class="sb-mute"></div>
+  <div class="sb-vol-up"></div>
+  <div class="sb-vol-dn"></div>
+  <div class="sb-power"></div>
+
+  <div class="iphone16">
+    <div class="iphone-screen" id="phoneScreen">
+
+      <div class="dynamic-island"><div class="di-cam"></div></div>
+
+      <div class="status-bar">
+        <span class="sb-time" id="clockEl">9:41</span>
+        <div class="sb-icons">
+          <!-- Cellular signal iOS 17 style -->
+          <svg width="17" height="12" viewBox="0 0 17 12" fill="#111">
+            <rect x="0"   y="8.5" width="3" height="3.5" rx="1"/>
+            <rect x="4.5" y="5.5" width="3" height="6.5" rx="1"/>
+            <rect x="9"   y="2.5" width="3" height="9.5" rx="1"/>
+            <rect x="13.5" y="0"  width="3" height="12"  rx="1"/>
+          </svg>
+          <!-- WiFi iOS 17 style -->
+          <svg width="16" height="12" viewBox="0 0 16 12" fill="none">
+            <path d="M1 4.2a9.5 9.5 0 0114 0"        stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M3.2 6.8a6 6 0 019.6 0"         stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
+            <path d="M5.6 9.4a3 3 0 014.8 0"         stroke="#111" stroke-width="1.6" stroke-linecap="round"/>
+            <circle cx="8" cy="11.4" r="1.2"         fill="#111"/>
+          </svg>
+          <!-- Battery iOS 17 style -->
+          <svg width="25" height="12" viewBox="0 0 25 12" fill="none">
+            <rect x="0.5" y="0.5" width="21" height="11" rx="3.3" stroke="#111" stroke-opacity="0.35"/>
+            <rect x="1.5" y="1.5" width="16" height="9" rx="2.2" fill="#111"/>
+            <path d="M22.5 4v4a2 2 0 000-4z" fill="#111" fill-opacity="0.45"/>
+          </svg>
+        </div>
+      </div>
+
+      <div class="screen-viewport">
+
+        <!-- HOME -->
+        <div class="isc active" id="s-home">
+
+
+          <div class="home-scroll">
+
+          <!-- Stories -->
+          <div class="stories-scroll">
+            <div class="story-item" onclick="showToast('Ministry of Finance')">
+              <div class="story-ring"><div class="story-av"><img src="/photos/7fb534a17f18ce55211709414585c664.jpg" alt=""></div></div>
+              <div class="story-lbl">MoF</div>
+            </div>
+            <div class="story-item" onclick="showToast('Ministry of Health')">
+              <div class="story-ring"><div class="story-av"><img src="/photos/baf129cb71ea45fab3ff3b664f9f42d5.jpg" alt=""></div></div>
+              <div class="story-lbl">Health</div>
+            </div>
+            <div class="story-item" onclick="showToast('Infrastructure')">
+              <div class="story-ring"><div class="story-av"><img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt=""></div></div>
+              <div class="story-lbl">Roads</div>
+            </div>
+            <div class="story-item" onclick="showToast('Agriculture')">
+              <div class="story-ring"><div class="story-av"><img src="/photos/279b963a1603813406c3f6efec942fe2.jpg" alt=""></div></div>
+              <div class="story-lbl">Agriculture</div>
+            </div>
+            <div class="story-item" onclick="showToast('Ministry of Education')">
+              <div class="story-ring seen"><div class="story-av"><img src="/photos/d05575b11d069b56086a22fdc7e9905f.jpg" alt=""></div></div>
+              <div class="story-lbl">Education</div>
+            </div>
+            <div class="story-item" onclick="showToast('Jobs & Labour')">
+              <div class="story-ring seen"><div class="story-av"><img src="/photos/c4508e507c47bceedccea4fa96cc3859.jpg" alt=""></div></div>
+              <div class="story-lbl">Jobs</div>
+            </div>
+            <div class="story-item" onclick="showToast('Security')">
+              <div class="story-ring seen"><div class="story-av"><img src="/photos/a9f9226070f7fa2ce76db677738e4f61.jpg" alt=""></div></div>
+              <div class="story-lbl">Security</div>
+            </div>
+          </div>
+
+          <!-- Promo banner -->
+          <div class="home-promo" onclick="showToast('Digital ID — Apply now')">
+            <img src="/photos/d9ea4590cb72568ebe7649357839f72d.jpg" alt="">
+            <div class="home-promo-overlay">
+              <div class="home-promo-tag">New</div>
+              <div class="home-promo-title">Digital ID<br>Now Available</div>
+              <div class="home-promo-sub">Apply in 2 minutes · Free</div>
+            </div>
+          </div>
+
+          <!-- Gov Posts -->
+          <div class="home-sec-hd">
+            <div class="home-sec-ttl">Gov Updates</div>
+            <div class="home-sec-all" onclick="showToast('All updates')">See all</div>
+          </div>
+
+          <!-- Text post -->
+          <div class="post-card">
+            <div class="post-hd">
+              <div class="post-av post-av-finance"><img src="/photos/04c650c856d772ae1ae7340d9d016e0f.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
+              <div>
+                <div class="post-org">Ministry of Finance</div>
+                <div class="post-time">2 hours ago</div>
+              </div>
+              <div class="post-tag">Finance</div>
+            </div>
+            <div class="post-body">The government has approved a $2.4B infrastructure bond program to fund road and bridge construction across all 47 counties. Applications open May 1st.</div>
+            <div class="post-footer">
+              <div class="post-foot-btn like" onclick="showToast('Liked!')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>1.2K</div>
+              <div class="post-foot-btn comment" onclick="showToast('Comments')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>348</div>
+              <div class="post-foot-btn share" onclick="showToast('Shared!')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Share</div>
+            </div>
+          </div>
+
+          <!-- Photo post -->
+          <div class="post-card">
+            <div class="post-hd">
+              <div class="post-av post-av-roads"><img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
+              <div>
+                <div class="post-org">Roads Authority</div>
+                <div class="post-time">Yesterday</div>
+              </div>
+              <div class="post-tag">Completed</div>
+            </div>
+            <img class="post-img" src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="Road project">
+            <div class="post-img-caption">✅ Phase 1 of the Northern Highway expansion is officially complete — 340 km of road connecting 12 rural districts now open to traffic.</div>
+            <div class="post-footer">
+              <div class="post-foot-btn like" onclick="showToast('Liked!')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>4.8K</div>
+              <div class="post-foot-btn comment" onclick="showToast('Comments')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>912</div>
+              <div class="post-foot-btn share" onclick="showToast('Shared!')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Share</div>
+            </div>
+          </div>
+
+          <!-- Text post 2 -->
+          <div class="post-card">
+            <div class="post-hd">
+              <div class="post-av post-av-digital"><img src="/photos/d9ea4590cb72568ebe7649357839f72d.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
+              <div>
+                <div class="post-org">Digital Agency</div>
+                <div class="post-time">2 days ago</div>
+              </div>
+              <div class="post-tag">Digital</div>
+            </div>
+            <div class="post-body">🚀 The new e-Government portal is now live. Citizens can access 200+ services online — tax filings, permits, certificates and more — without visiting any office.</div>
+            <div class="post-footer">
+              <div class="post-foot-btn like" onclick="showToast('Liked!')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>2.1K</div>
+              <div class="post-foot-btn comment" onclick="showToast('Comments')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>507</div>
+              <div class="post-foot-btn share" onclick="showToast('Shared!')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Share</div>
+            </div>
+          </div>
+
+          <!-- Photo post 2 -->
+          <div class="post-card">
+            <div class="post-hd">
+              <div class="post-av post-av-health"><img src="/photos/baf129cb71ea45fab3ff3b664f9f42d5.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
+              <div>
+                <div class="post-org">Ministry of Health</div>
+                <div class="post-time">3 days ago</div>
+              </div>
+              <div class="post-tag">Health</div>
+            </div>
+            <img class="post-img" src="/photos/d9ea4590cb72568ebe7649357839f72d.jpg" alt="Health initiative" style="object-position:center 30%">
+            <div class="post-img-caption">🏥 50 new primary health clinics have been opened across rural regions as part of the Universal Healthcare initiative, serving over 1.2 million citizens.</div>
+            <div class="post-footer">
+              <div class="post-foot-btn like" onclick="showToast('Liked!')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>3.3K</div>
+              <div class="post-foot-btn comment" onclick="showToast('Comments')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>741</div>
+              <div class="post-foot-btn share" onclick="showToast('Shared!')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Share</div>
+            </div>
+          </div>
+
+          <!-- Video Reels -->
+          <div class="home-sec-hd" style="margin-top:4px">
+            <div class="home-sec-ttl">Reels</div>
+            <div class="home-sec-all" onclick="showToast('All reels')">See all</div>
+          </div>
+          <div class="home-reels-scroll">
+            <div class="home-reel" onclick="showToast('Playing: Road Project Update')">
+              <img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="">
+              <div class="home-reel-overlay"></div>
+              <div class="home-reel-play"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+              <div class="home-reel-lbl">Northern Highway Complete</div>
+            </div>
+            <div class="home-reel" onclick="showToast('Playing: Healthcare Expansion')">
+              <img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="" style="object-position:top">
+              <div class="home-reel-overlay"></div>
+              <div class="home-reel-play"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+              <div class="home-reel-lbl">50 New Clinics Open</div>
+            </div>
+            <div class="home-reel" onclick="showToast('Playing: Digital ID Launch')">
+              <img src="/photos/d9ea4590cb72568ebe7649357839f72d.jpg" alt="">
+              <div class="home-reel-overlay"></div>
+              <div class="home-reel-play"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+              <div class="home-reel-lbl">Digital ID Now Available</div>
+            </div>
+            <div class="home-reel" onclick="showToast('Playing: Agriculture Program')">
+              <img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="" style="object-position:bottom">
+              <div class="home-reel-overlay"></div>
+              <div class="home-reel-play"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+              <div class="home-reel-lbl">Farm Support Grants 2024</div>
+            </div>
+          </div>
+
+          <!-- Rates table -->
+          <div class="home-sec-hd">
+            <div class="home-sec-ttl">Live Rates</div>
+          </div>
+          <div class="rates-card">
+            <div class="rates-hd" style="display:none"></div>
+            <div class="rates-thead">
+              <div class="rates-thead-spacer"></div>
+              <div class="rates-col-lbl">Buy</div>
+              <div class="rates-col-lbl">Sell</div>
+              <div class="rates-col-lbl" style="width:40px">24h</div>
+            </div>
+            <div class="rate-row">
+              <div class="rate-flag">🇳🇬</div>
+              <div class="rate-info"><div class="rate-code">NGN</div><div class="rate-name">Nigerian Naira</div></div>
+              <div class="rate-buy">1,575</div><div class="rate-sell">1,585</div><div class="rate-chg pos" style="width:40px">+0.4%</div>
+            </div>
+            <div class="rate-row">
+              <div class="rate-flag">🇪🇺</div>
+              <div class="rate-info"><div class="rate-code">EUR</div><div class="rate-name">Euro</div></div>
+              <div class="rate-buy">0.914</div><div class="rate-sell">0.926</div><div class="rate-chg neg" style="width:40px">-0.1%</div>
+            </div>
+            <div class="rate-row">
+              <div class="rate-flag">🇬🇧</div>
+              <div class="rate-info"><div class="rate-code">GBP</div><div class="rate-name">British Pound</div></div>
+              <div class="rate-buy">0.785</div><div class="rate-sell">0.795</div><div class="rate-chg pos" style="width:40px">+0.2%</div>
+            </div>
+            <div class="rate-row">
+              <div class="rate-flag">🇰🇪</div>
+              <div class="rate-info"><div class="rate-code">KES</div><div class="rate-name">Kenyan Shilling</div></div>
+              <div class="rate-buy">128.4</div><div class="rate-sell">132.1</div><div class="rate-chg neg" style="width:40px">-0.3%</div>
+            </div>
+            <div class="rate-row">
+              <div class="rate-flag">🇬🇭</div>
+              <div class="rate-info"><div class="rate-code">GHS</div><div class="rate-name">Ghanaian Cedi</div></div>
+              <div class="rate-buy">15.1</div><div class="rate-sell">15.4</div><div class="rate-chg pos" style="width:40px">+0.6%</div>
+            </div>
+          </div>
+
+          </div><!-- /home-scroll -->
+        </div>
+
+        <!-- PAY -->
+        <div class="isc" id="s-pay">
+          <div class="ops-wrap">
+
+            <!-- Header -->
+            <div class="ops-hd">
+              <div class="ops-hd-user" onclick="goTo('profile')">
+                <img src="/photos/7d3b5efa94a09bc99cfb59cc5c0c1a0b.jpg" alt="avatar"/>
+              </div>
+              <div class="ops-hd-title">Operations</div>
+              <div style="width:36px"></div>
+            </div>
+
+            <!-- Balance + Actions hero -->
+            <div class="bc">
+              <div class="bc-top">
+                <div class="bc-currency" onclick="showToast('Currency: US Dollar')">
+                  <div class="bc-currency-flag"><img src="https://flagcdn.com/w40/us.png" alt="US"/></div>
+                  <div class="bc-currency-name">US Dollar</div>
+                </div>
+                <div class="bc-visa">VISA</div>
+              </div>
+              <div class="bc-lbl">Your balance</div>
+              <div class="bc-bal-row">
+                <div class="bc-amt">$742.45</div>
+                <div class="bc-eye" onclick="showToast('Balance hidden')">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
+              </div>
+              <div class="act-wrap">
+                <div class="act-btn" onclick="showToast('Card blocked')">
+                  <div class="act-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+                  <div class="act-lbl">Block</div>
+                </div>
+                <div class="act-btn" onclick="showToast('Order new card')">
+                  <div class="act-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/><path d="M12 14.5h.01M7 14.5h.01"/></svg></div>
+                  <div class="act-lbl">New Card</div>
+                </div>
+                <div class="act-btn" onclick="showToast('Card limits')">
+                  <div class="act-ico"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h6"/><circle cx="19" cy="12" r="3"/><path d="M19 9v2M19 13v2" stroke-width="1.6"/></svg></div>
+                  <div class="act-lbl">Limits</div>
+                </div>
+                <div class="act-btn" onclick="showToast('Card settings')">
+                  <div class="act-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+                  <div class="act-lbl">Settings</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Transfers -->
+            <div class="ops-section">
+              <div class="ops-sec-hd">
+                <div class="ops-sec-lbl">Transfers</div>
+              </div>
+              <div class="ops-transfer-scroll">
+                <div class="ops-tr-item" onclick="showToast('Card to Card transfer')">
+                  <div class="ops-tr-ico">
+                    <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/><path d="M15 15.5l2.5-2.5-2.5-2.5" stroke-width="1.9"/></svg>
+                  </div>
+                  <div class="ops-tr-lbl">Card to Card</div>
+                </div>
+                <div class="ops-tr-item" onclick="showToast('Transfer to bank client')">
+                  <div class="ops-tr-ico">
+                    <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M19 8l2 2 2-2M21 10V6"/></svg>
+                  </div>
+                  <div class="ops-tr-lbl">To Client</div>
+                </div>
+                <div class="ops-tr-item" onclick="showToast('Transfer by phone number')">
+                  <div class="ops-tr-ico">
+                    <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012.88 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 9.91a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.574 2.81.7A2 2 0 0122 16.92z"/></svg>
+                  </div>
+                  <div class="ops-tr-lbl">By Phone</div>
+                </div>
+                <div class="ops-tr-item" onclick="showToast('Between my accounts')">
+                  <div class="ops-tr-ico">
+                    <svg viewBox="0 0 24 24"><path d="M7 16V4m0 0L4 7m3-3l3 3M17 8v12m0 0l3-3m-3 3l-3-3"/></svg>
+                  </div>
+                  <div class="ops-tr-lbl">My Accounts</div>
+                </div>
+                <div class="ops-tr-item" onclick="showToast('International transfer')">
+                  <div class="ops-tr-ico">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 2.5C12 2.5 8 7 8 12s4 9.5 4 9.5M12 2.5C12 2.5 16 7 16 12s-4 9.5-4 9.5M2.5 12h19"/></svg>
+                  </div>
+                  <div class="ops-tr-lbl">International</div>
+                </div>
+                <div class="ops-tr-item" onclick="showToast('Transfer by QR code')">
+                  <div class="ops-tr-ico">
+                    <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="5" y="5" width="3" height="3"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="16" y="5" width="3" height="3"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="5" y="16" width="3" height="3"/><path d="M14 14h3M17 17h3M14 20h3M20 14v.01M20 20v.01"/></svg>
+                  </div>
+                  <div class="ops-tr-lbl">By QR</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Chart + Activity row -->
+            <div class="ops-two-col">
+
+              <!-- Chart Stats -->
+              <div class="ops-chart-card">
+                <div class="ops-chart-hd">
+                  <div class="ops-chart-ttl">Spending</div>
+                  <div class="ops-chart-chg">↑ +12%</div>
+                </div>
+                <div class="ops-chart-amt">$1,284</div>
+                <div class="ops-chart-wrap">
+                  <svg viewBox="0 0 320 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+                    <defs>
+                      <linearGradient id="chartGrad" x1="0" y1="0" x2="0" y2="1">
+                        <stop offset="0%" stop-color="#D4830A" stop-opacity="0.45"/>
+                        <stop offset="100%" stop-color="#D4830A" stop-opacity="0"/>
+                      </linearGradient>
+                    </defs>
+                    <path d="M0 78 C15 74 25 70 40 62 C55 54 65 66 80 56 C95 46 105 52 120 42 C135 32 145 44 162 34 C178 24 188 38 205 28 C220 19 232 12 248 16 C264 20 278 14 295 10 L320 8 L320 90 L0 90 Z" fill="url(#chartGrad)"/>
+                    <path d="M0 78 C15 74 25 70 40 62 C55 54 65 66 80 56 C95 46 105 52 120 42 C135 32 145 44 162 34 C178 24 188 38 205 28 C220 19 232 12 248 16 C264 20 278 14 295 10 L320 8" fill="none" stroke="#D4830A" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/>
+                    <line x1="0" y1="34" x2="320" y2="34" stroke="rgba(255,255,255,.1)" stroke-width="1" stroke-dasharray="5 4"/>
+                    <circle cx="320" cy="8" r="5" fill="#fff" stroke="#D4830A" stroke-width="2.5"/>
+                    <circle cx="320" cy="8" r="9" fill="rgba(212,131,10,.25)"/>
+                  </svg>
+                </div>
+                <div class="ops-chart-periods">
+                  <div class="ops-chart-per active" onclick="showToast('7 days')">7D</div>
+                  <div class="ops-chart-per" onclick="showToast('1 month')">1M</div>
+                  <div class="ops-chart-per" onclick="showToast('3 months')">3M</div>
+                  <div class="ops-chart-per" onclick="showToast('6 months')">6M</div>
+                  <div class="ops-chart-per" onclick="showToast('1 year')">1Y</div>
+                </div>
+                <div class="ops-chart-stats">
+                  <div class="ops-chart-stat">
+                    <div class="ops-chart-stat-lbl">Spent</div>
+                    <div class="ops-chart-stat-val">$1,284</div>
+                  </div>
+                  <div class="ops-chart-stat">
+                    <div class="ops-chart-stat-lbl">Saved</div>
+                    <div class="ops-chart-stat-val">$1,915</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Activity -->
+              <div class="ops-act-card">
+                <div class="ops-act-hd">
+                  <div class="ops-act-ttl">Activity</div>
+                  <div class="ops-act-all" onclick="showToast('All activity')">All</div>
+                </div>
+                <div class="ops-act-row" onclick="showToast('YouTube · −$13.99')">
+                  <div class="ops-act-ico" style="background:#FF0000;border-radius:8px">
+                    <svg viewBox="0 0 24 24" width="16" height="16"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.1 2.8 12 2.8 12 2.8s-4.1 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.1.7 11.2v2c0 2 .3 4.1.3 4.1s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.3 21.4 12 21.5 12 21.5s4.1 0 6.8-.3c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.1.3-4.1v-2C23.3 9.1 23 7 23 7zM9.7 15.5V8.6l8.1 3.5-8.1 3.4z" fill="#fff"/></svg>
+                  </div>
+                  <div class="ops-act-info">
+                    <div class="ops-act-name">YouTube</div>
+                    <div class="ops-act-date">Today, 14:32</div>
+                  </div>
+                  <div class="ops-act-amt minus">−$14</div>
+                </div>
+                <div class="ops-act-row" onclick="showToast('Netflix · −$15.99')">
+                  <div class="ops-act-ico" style="background:#E50914;border-radius:8px;font-size:15px;font-weight:900;color:#fff;font-family:Georgia,serif;justify-content:center">N</div>
+                  <div class="ops-act-info">
+                    <div class="ops-act-name">Netflix</div>
+                    <div class="ops-act-date">Today, 11:05</div>
+                  </div>
+                  <div class="ops-act-amt minus">−$16</div>
+                </div>
+                <div class="ops-act-row" onclick="showToast('Starbucks · −$6.50')">
+                  <div class="ops-act-ico" style="background:#00704A;border-radius:8px">
+                    <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" fill="#fff"/></svg>
+                  </div>
+                  <div class="ops-act-info">
+                    <div class="ops-act-name">Starbucks</div>
+                    <div class="ops-act-date">Today, 09:18</div>
+                  </div>
+                  <div class="ops-act-amt minus">−$7</div>
+                </div>
+                <div class="ops-act-row" onclick="showToast('Uber · −$12.40')">
+                  <div class="ops-act-ico" style="background:#000;border-radius:8px;font-size:14px;font-weight:900;color:#fff;letter-spacing:-1px">U</div>
+                  <div class="ops-act-info">
+                    <div class="ops-act-name">Uber</div>
+                    <div class="ops-act-date">17 Apr, 20:10</div>
+                  </div>
+                  <div class="ops-act-amt minus">−$12</div>
+                </div>
+                <div class="ops-act-row" onclick="showToast('Salary · +$3,200.00')">
+                  <div class="ops-act-ico" style="background:#10b981;border-radius:8px">
+                    <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
+                  </div>
+                  <div class="ops-act-info">
+                    <div class="ops-act-name">Salary</div>
+                    <div class="ops-act-date">17 Apr, 09:00</div>
+                  </div>
+                  <div class="ops-act-amt plus">+$3.2k</div>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- Payments -->
+            <div class="ops-section">
+              <div class="ops-sec-hd">
+                <div class="ops-sec-lbl">Payments</div>
+                <div class="ops-sec-all" onclick="showToast('All payments')">See all</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('QR Payments')">
+                <div class="ops-pay-ico">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="5" y="5" width="3" height="3"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="16" y="5" width="3" height="3"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="5" y="16" width="3" height="3"/><path d="M14 14h3M14 17h.01M14 20h3M17 17h3M20 14v.01M20 20v.01"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">QR Payments</div>
+                  <div class="ops-pay-sub">Scan & pay at checkout</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('Mobile Service')">
+                <div class="ops-pay-ico">
+                  <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M10 18h4"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">Mobile Service</div>
+                  <div class="ops-pay-sub">Top up & data plans</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('Internet, TV & Phone')">
+                <div class="ops-pay-ico">
+                  <svg viewBox="0 0 24 24"><path d="M1 6.5a10.5 10.5 0 0122 0M5 10.5a7.5 7.5 0 0114 0M9 14.5a3.5 3.5 0 016 0"/><circle cx="12" cy="18" r="1.5" fill="#1c1c1e" stroke="none"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">Internet & TV</div>
+                  <div class="ops-pay-sub">Internet, cable, telephone</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('Utilities')">
+                <div class="ops-pay-ico">
+                  <svg viewBox="0 0 24 24"><path d="M13 2L4.09 12.26a1 1 0 00.91 1.74H11l-1 8 8.91-10.26a1 1 0 00-.91-1.74H13l1-8z"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">Utilities</div>
+                  <div class="ops-pay-sub">Electricity, water & gas</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('Education')">
+                <div class="ops-pay-ico">
+                  <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3.33 2 8.67 2 12 0v-5"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">Education</div>
+                  <div class="ops-pay-sub">School & university fees</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('E-Wallets')">
+                <div class="ops-pay-ico">
+                  <svg viewBox="0 0 24 24"><path d="M19 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/><circle cx="16.5" cy="13.5" r="1.5" fill="#1c1c1e" stroke="none"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">E-Wallets</div>
+                  <div class="ops-pay-sub">PayPal, MoMo, Airtel</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('Entertainment')">
+                <div class="ops-pay-ico">
+                  <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.5l6 3.5-6 3.5V8.5z"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">Entertainment</div>
+                  <div class="ops-pay-sub">Netflix, Spotify & more</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('E-Shops')">
+                <div class="ops-pay-ico">
+                  <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">E-Shops</div>
+                  <div class="ops-pay-sub">Jumia, Konga & online stores</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+            </div>
+
+
+
+          </div>
+        </div>
+
+        <!-- GOV -->
+        <div class="isc" id="s-gov">
+          <div class="ops-wrap">
+
+            <!-- Header -->
+            <div class="ops-hd">
+              <div class="ops-hd-title">Gov Services</div>
+            </div>
+
+            <!-- Search -->
+            <div class="gov-search" onclick="showToast('Search government services...')">
+              <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="M17 17l3.5 3.5"/></svg>
+              <div class="gov-search-txt">Сервисы</div>
+            </div>
+
+            <!-- News banner -->
+            <div class="gov-news-banner" onclick="showToast('Community Initiative · Food Aid Distribution')">
+              <img src="/photos/04c650c856d772ae1ae7340d9d016e0f.jpg" alt="news"/>
+              <div class="gov-news-overlay">
+                <div class="gov-news-tag">Community News</div>
+                <div class="gov-news-title">Food Aid for 200+ Families</div>
+                <div class="gov-news-sub">SuperApp supports Orphelinat Vio Dada — April 2026</div>
+              </div>
+            </div>
+
+            <!-- Video carousel -->
+            <div class="gov-vid-wrap">
+              <div class="gov-vid-hd">
+                <div class="gov-vid-ttl">Gov TV</div>
+                <div style="font-size:12px;font-weight:700;color:var(--p);cursor:pointer" onclick="showToast('All gov videos')">See all</div>
+              </div>
+              <div class="gov-vid-scroll">
+
+                <div class="gov-vid-card" onclick="showToast('Free Healthcare Clinic · Ministry of Health')">
+                  <img src="/photos/baf129cb71ea45fab3ff3b664f9f42d5.jpg" alt="healthcare"/>
+                  <div class="gov-vid-overlay"></div>
+                  <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
+                  <div class="gov-vid-dur">4:32</div>
+                  <div class="gov-vid-info">
+                    <div class="gov-vid-label">Healthcare</div>
+                    <div class="gov-vid-name">Free Clinic for 500 Citizens</div>
+                  </div>
+                </div>
+
+                <div class="gov-vid-card" onclick="showToast('Urban Farming Initiative · Ministry of Agriculture')">
+                  <img src="/photos/279b963a1603813406c3f6efec942fe2.jpg" alt="farming"/>
+                  <div class="gov-vid-overlay"></div>
+                  <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
+                  <div class="gov-vid-dur">6:14</div>
+                  <div class="gov-vid-info">
+                    <div class="gov-vid-label">Agriculture</div>
+                    <div class="gov-vid-name">Urban Farming Initiative</div>
+                  </div>
+                </div>
+
+                <div class="gov-vid-card" onclick="showToast('Local Medicine Production · Ministry of Industry')">
+                  <img src="/photos/c4508e507c47bceedccea4fa96cc3859.jpg" alt="pharma"/>
+                  <div class="gov-vid-overlay"></div>
+                  <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
+                  <div class="gov-vid-dur">8:05</div>
+                  <div class="gov-vid-info">
+                    <div class="gov-vid-label">Industry</div>
+                    <div class="gov-vid-name">Local Medicine Production</div>
+                  </div>
+                </div>
+
+                <div class="gov-vid-card" onclick="showToast('Skills & Employment Training · Ministry of Labour')">
+                  <img src="/photos/d05575b11d069b56086a22fdc7e9905f.jpg" alt="training"/>
+                  <div class="gov-vid-overlay"></div>
+                  <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
+                  <div class="gov-vid-dur">5:48</div>
+                  <div class="gov-vid-info">
+                    <div class="gov-vid-label">Employment</div>
+                    <div class="gov-vid-name">Skills Training Program</div>
+                  </div>
+                </div>
+
+                <div class="gov-vid-card" onclick="showToast('Youth Support Program · Ministry of Youth')">
+                  <img src="/photos/a9f9226070f7fa2ce76db677738e4f61.jpg" alt="youth"/>
+                  <div class="gov-vid-overlay"></div>
+                  <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
+                  <div class="gov-vid-dur">3:21</div>
+                  <div class="gov-vid-info">
+                    <div class="gov-vid-label">Youth</div>
+                    <div class="gov-vid-name">Youth Support Program</div>
+                  </div>
+                </div>
+
+              </div>
+            </div>
+
+            <!-- Quick access 2-col -->
+            <div class="gov-quick-grid">
+              <div class="gov-quick-card" onclick="showToast('My Documents & Licences')">
+                <div class="gov-quick-ico">
+                  <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6M9 9h1"/></svg>
+                </div>
+                <div class="gov-quick-name">My Documents</div>
+                <div class="gov-quick-sub">ID, Passport, Licences</div>
+              </div>
+              <div class="gov-quick-card" onclick="showToast('Benefits & Social Support')">
+                <div class="gov-quick-ico">
+                  <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                </div>
+                <div class="gov-quick-name">Benefits</div>
+                <div class="gov-quick-sub">Social support</div>
+              </div>
+            </div>
+
+            <!-- Documents -->
+            <div class="gov-cat-section" id="gov-docs">
+              <div class="gov-cat-lbl">Documents</div>
+              <div class="gov-cat-grid">
+                <div class="gov-cat-item" onclick="showToast('Certificates & Statements')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Certificates</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Driver\'s License')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><circle cx="8" cy="12" r="2.5"/><path d="M13 9h5M13 12h5M13 15h3"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Driver's Lic.</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Place of Residence')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Residence</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Marriage Online')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div>
+                  <div class="gov-cat-badge gold">NEW</div>
+                  <div class="gov-cat-lbl-txt">Marriage</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Finance -->
+            <div class="gov-cat-section" id="gov-finance">
+              <div class="gov-cat-lbl">Finance</div>
+              <div class="gov-cat-grid">
+                <div class="gov-cat-item" onclick="showToast('Taxes — Income & VAT')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M9 14l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18"/></svg></div>
+                  <div class="gov-cat-badge gold">DUE</div>
+                  <div class="gov-cat-lbl-txt">Taxes</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Deposit Returns')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M19 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/><path d="M12 12v4M10 14l2 2 2-2"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Deposit Return</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Government Bonds')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="3" y="13" width="4" height="8" rx="1"/><rect x="10" y="9" width="4" height="12" rx="1"/><rect x="17" y="4" width="4" height="17" rx="1"/><path d="M5 11l5-5 4 4 6-6" stroke-linecap="round"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Gov Bonds</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Government Card')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20M6 15h4"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Social Card</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Legal & Social -->
+            <div class="gov-cat-section" id="gov-legal">
+              <div class="gov-cat-lbl">Legal & Social</div>
+              <div class="gov-cat-grid">
+                <div class="gov-cat-item" onclick="showToast('Court Services')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 1v22M3 9h18M3 15h18"/><path d="M5 3l14 4M5 21l14-4"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Courts</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Enforcement Proceedings')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Enforcement</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Unemployment Aid')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2M12 12v4M10 14h4"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Unemployment</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Government Aid & Support')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Gov Aid</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Lifestyle & Culture -->
+            <div class="gov-cat-section" id="gov-lifestyle">
+              <div class="gov-cat-lbl">Lifestyle & Culture</div>
+              <div class="gov-cat-grid">
+                <div class="gov-cat-item" onclick="showToast('Surveys & Feedback')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Surveys</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Culture & Events')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Culture</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Tourism & Travel')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Tourism</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Sports & Fitness')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 2.5c0 0 4.5 4.5 4.5 9.5s-4.5 9.5-4.5 9.5M12 2.5c0 0-4.5 4.5-4.5 9.5S12 21.5 12 21.5M2.5 12h19"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Sports</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- MESSAGES -->
+        <div class="isc" id="s-invest">
+          <div class="msg-wrap">
+
+            <!-- Header -->
+            <div class="msg-hd">
+              <div class="msg-hd-title">Messages</div>
+            </div>
+
+            <!-- Pinned label -->
+            <div class="msg-pin-lbl">Pinned</div>
+
+            <!-- Support (pinned) -->
+            <div class="msg-support" onclick="showToast('SuperApp Support — always here to help')">
+              <div class="msg-support-av">
+                <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+              </div>
+              <div class="msg-support-info">
+                <div class="msg-support-name">SuperApp Support</div>
+                <div class="msg-support-sub">Always ready to help you</div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
+                <div style="font-size:11px;color:#bbb;font-weight:500">Now</div>
+                <div style="display:flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#10b981"><span style="width:6px;height:6px;border-radius:50%;background:#10b981;display:inline-block"></span>Online</div>
+              </div>
+            </div>
+
+            <!-- Promo banner -->
+            <div class="msg-promo" onclick="showToast('Explore Africa — book tours & wildlife experiences')">
+              <img src="/photos/938d48d039e0750642d3bbb0b35079e5.jpg" alt="Africa Wildlife"/>
+              <div class="msg-promo-overlay">
+                <div class="msg-promo-tag">Explore Africa</div>
+                <div class="msg-promo-title">Wildlife Tours<br>& Adventures</div>
+                <div class="msg-promo-sub">Book via SuperApp — from $49</div>
+              </div>
+            </div>
+
+            <!-- Channels label -->
+            <div class="msg-sec-lbl">Channels</div>
+
+            <!-- Channels card -->
+            <div class="msg-card">
+              <div class="msg-row" onclick="showToast('Special Offers — 1 new offer')">
+                <div class="msg-av" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+                  <svg viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
+                </div>
+                <div class="msg-info">
+                  <div class="msg-name">Special Offers</div>
+                  <div class="msg-preview">Get 5% cashback on all transfers this week</div>
+                </div>
+                <div class="msg-right">
+                  <div class="msg-time">Today</div>
+                  <div class="msg-badge gold">1</div>
+                </div>
+              </div>
+
+              <div class="msg-row" onclick="showToast('Notifications — account activity')">
+                <div class="msg-av" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">
+                  <svg viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-5-5.917V4a1 1 0 00-2 0v1.083A6 6 0 006 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+                </div>
+                <div class="msg-info">
+                  <div class="msg-name">Notifications</div>
+                  <div class="msg-preview">Your account level — Standard</div>
+                </div>
+                <div class="msg-right">
+                  <div class="msg-time">Yesterday</div>
+                </div>
+              </div>
+
+              <div class="msg-row" onclick="showToast('Operations — 7 new updates')">
+                <div class="msg-av" style="background:linear-gradient(135deg,#D4830A,#F2C94C)">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+                </div>
+                <div class="msg-info">
+                  <div class="msg-name">Operations</div>
+                  <div class="msg-preview">Transfer to Kwame A. — confirmed</div>
+                </div>
+                <div class="msg-right">
+                  <div class="msg-time">21 Mar</div>
+                  <div class="msg-badge">7</div>
+                </div>
+              </div>
+
+              <div class="msg-row" onclick="showToast('Gov Services — new update')">
+                <div class="msg-av" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">
+                  <svg viewBox="0 0 24 24"><path d="M3 22h18M12 2l9 5H3l9-5z"/><path d="M5 9v11M9 9v11M15 9v11M19 9v11"/><path d="M3 7h18"/></svg>
+                </div>
+                <div class="msg-info">
+                  <div class="msg-name">Gov Services</div>
+                  <div class="msg-preview">Income Tax Q2 due June 30 — $240.00</div>
+                </div>
+                <div class="msg-right">
+                  <div class="msg-time">1 Apr</div>
+                  <div class="msg-badge">3</div>
+                </div>
+              </div>
+
+              <div class="msg-row" onclick="showToast('Security Alerts — all clear')">
+                <div class="msg-av" style="background:linear-gradient(135deg,#10b981,#059669)">
+                  <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                </div>
+                <div class="msg-info">
+                  <div class="msg-name">Security</div>
+                  <div class="msg-preview">New login from Lagos, Nigeria ✓</div>
+                </div>
+                <div class="msg-right">
+                  <div class="msg-time">2 Apr</div>
+                </div>
+              </div>
+
+              <div class="msg-row" onclick="showToast('SuperApp News — community update')">
+                <div class="msg-av" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
+                  <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
+                </div>
+                <div class="msg-info">
+                  <div class="msg-name">SuperApp News</div>
+                  <div class="msg-preview">Food Aid: 200+ families supported this month</div>
+                </div>
+                <div class="msg-right">
+                  <div class="msg-time">5 Apr</div>
+                </div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- PROFILE -->
+        <div class="isc" id="s-profile">
+          <div class="prf-wrap">
+
+            <!-- Top: avatar + name -->
+            <div class="prf-top">
+              <div class="prf-av-wrap">
+                <img src="/photos/7d3b5efa94a09bc99cfb59cc5c0c1a0b.jpg" alt="avatar"/>
+              </div>
+              <div class="prf-name">John Ubabu</div>
+              <div class="prf-email">john.ubabu@superapp.africa</div>
+              <button class="prf-edit-btn" onclick="showToast('Edit profile')">Edit profile</button>
+            </div>
+
+
+            <!-- Documents -->
+            <div class="prf-section">
+              <div class="prf-sec-ttl">Documents</div>
+              <div class="prf-row" onclick="showToast('International Passport')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="3" y="2" width="18" height="20" rx="2.5"/><circle cx="12" cy="10" r="3"/><path d="M6 20c0-3.31 2.69-5 6-5s6 1.69 6 5"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Passport</div><div class="prf-row-sub">Expires 2028</div></div>
+                <div class="prf-row-badge gold">Active</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Driver\'s License')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><circle cx="8" cy="12" r="2.5"/><path d="M13 9h5M13 12h5M13 15h3"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Driver's License</div><div class="prf-row-sub">Category B · Valid</div></div>
+                <div class="prf-row-badge gold">Active</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Residence Certificate')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Place of Residence</div><div class="prf-row-sub">Lagos, Nigeria</div></div>
+                <div class="prf-row-badge" style="background:#10b981">Verified</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Marriage Certificate')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Marriage Certificate</div><div class="prf-row-sub">Registered 2019</div></div>
+                <div class="prf-row-badge gold">Active</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Birth Certificate')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Birth Certificate</div><div class="prf-row-sub">Original document</div></div>
+                <div class="prf-row-badge" style="background:#10b981">Verified</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Education Documents')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3.33 2 8.67 2 12 0v-5"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Education Documents</div><div class="prf-row-sub">Diploma, Certificates</div></div>
+                <div class="prf-row-arr">›</div>
+              </div>
+            </div>
+
+            <!-- Finance -->
+            <div class="prf-section">
+              <div class="prf-sec-ttl">Finance & Benefits</div>
+              <div class="prf-row" onclick="showToast('Social Aid Card — SuperApp')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20M6 15h4"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Social Aid Card</div><div class="prf-row-sub">Government benefits</div></div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Government Bonds')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="3" y="13" width="4" height="8" rx="1"/><rect x="10" y="9" width="4" height="12" rx="1"/><rect x="17" y="4" width="4" height="17" rx="1"/><path d="M5 11l5-5 4 4 6-6" stroke-linecap="round"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Gov Bonds</div><div class="prf-row-sub">Prospective investments</div></div>
+                <div class="prf-row-badge gold">NEW</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('National Cashback — scan receipt')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="5" y="5" width="3" height="3"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="16" y="5" width="3" height="3"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="5" y="16" width="3" height="3"/><path d="M14 14h3M17 17h3M14 20h3M20 14v.01M20 20v.01"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">National Cashback</div><div class="prf-row-sub">Scan receipt & earn back</div></div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Deposit Insurance · Bankrupt bank claims')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Deposit Insurance</div><div class="prf-row-sub">Bankrupt bank claims</div></div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Housing Aid — purchase support')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/><path d="M12 8v4M10 10h4"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Housing Aid</div><div class="prf-row-sub">Help buying property</div></div>
+                <div class="prf-row-arr">›</div>
+              </div>
+            </div>
+
+            <!-- Security & Settings -->
+            <div class="prf-section">
+              <div class="prf-sec-ttl">Security & Settings</div>
+              <div class="prf-row" onclick="showToast('Digital Signature — EDS')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Digital Signature</div><div class="prf-row-sub">EDS · Active</div></div>
+                <div class="prf-row-badge gold">EDS</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Signing History')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Signing History</div><div class="prf-row-sub">12 documents signed</div></div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('App Settings')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Settings</div><div class="prf-row-sub">Language · Theme · Notifications</div></div>
+                <div class="prf-row-val">English</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Connected Sessions')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M10 18h4"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Sessions</div><div class="prf-row-sub">2 active devices</div></div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('App updated · v2.4.1')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9m-9 9a9 9 0 019-9"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">App Update</div><div class="prf-row-sub">v2.4.1 — Up to date</div></div>
+                <div class="prf-row-val">✓</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('FAQ — Frequently Asked Questions')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">FAQ</div><div class="prf-row-sub">Help & support</div></div>
+                <div class="prf-row-arr">›</div>
+              </div>
+            </div>
+
+            <!-- Logout -->
+            <button class="prf-logout" onclick="showToast('Logged out')">Log Out</button>
+
+          </div>
+        </div>
+
+      </div><!-- /screen-viewport -->
+
+      <!-- Bottom Nav fill (covers corner gaps) -->
+      <div class="bnav-fill"></div>
+      <!-- Bottom Nav -->
+      <div class="bnav">
+        <div class="bni active" onclick="goTo('home')" data-sc="home">
+          <div class="bni-inner">
+            <svg viewBox="0 0 24 24"><path d="M2.25 12l8.954-8.955a1.126 1.126 0 011.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
+            <div class="bni-lbl">Home</div>
+          </div>
+        </div>
+        <div class="bni" onclick="goTo('pay')" data-sc="pay">
+          <div class="bni-inner">
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+            <div class="bni-lbl">Operations</div>
+          </div>
+        </div>
+        <div class="bni" onclick="goTo('gov')" data-sc="gov">
+          <div class="bni-inner">
+            <svg viewBox="0 0 24 24"><path d="M3 22h18M12 2l9 5H3l9-5z"/><path d="M5 9v11M9 9v11M15 9v11M19 9v11"/><path d="M3 7h18"/></svg>
+            <div class="bni-lbl">Gov</div>
+          </div>
+        </div>
+        <div class="bni" onclick="goTo('invest')" data-sc="invest">
+          <div class="bni-inner">
+            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+            <div class="bni-lbl">Messages</div>
+          </div>
+        </div>
+        <div class="bni" onclick="goTo('profile')" data-sc="profile">
+          <div class="bni-inner">
+            <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>
+            <div class="bni-lbl">Profile</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="home-ind"></div>
+
+      <!-- Toast -->
+      <div class="toast" id="toastEl"></div>
+
+    </div><!-- /iphone-screen -->
+  </div><!-- /iphone16 -->
+</div>
+
+<script>
+/* ── Navigation ── */
+const SCREENS = ['home','pay','gov','invest','profile'];
+let cur = 0;
+let navigating = false;
+
+function goTo(name) {
+  const ni = SCREENS.indexOf(name);
+  if (ni === cur || navigating) return;
+  navigating = true;
+
+  const dir = ni > cur ? 1 : -1;
+  const ca = document.querySelector('.isc.active');
+  const nx = document.getElementById('s-' + name);
+  if (!ca || !nx) { navigating = false; return; }
+
+  // position next screen off-screen instantly (no transition)
+  nx.style.transition = 'none';
+  nx.style.transform = `translateX(${dir * 100}%)`;
+
+  // force reflow so browser commits position before enabling transition
+  void nx.offsetWidth;
+
+  // enable transitions and animate
+  const ease = 'transform .34s cubic-bezier(.25,.46,.45,.94)';
+  nx.style.transition = ease;
+  ca.style.transition = ease;
+  nx.style.transform = 'translateX(0)';
+  ca.style.transform = `translateX(${dir * -28}%)`;
+
+  ca.addEventListener('transitionend', function handler() {
+    // FIX: clear transition BEFORE resetting transform to avoid ghost animation
+    ca.style.transition = 'none';
+    ca.style.transform = '';
+    ca.classList.remove('active');
+
+    nx.style.transition = 'none';
+    nx.style.transform = '';
+    nx.classList.add('active');
+    nx.scrollTop = 0;
+    navigating = false;
+  }, { once: true });
+
+  cur = ni;
+  document.querySelectorAll('.bni').forEach(b => b.classList.toggle('active', b.dataset.sc === name));
+  document.querySelectorAll('.tb-tab').forEach((t, i) => t.classList.toggle('active', i === ni));
+  document.querySelector('.status-bar').style.background = name === 'home' ? '#f5f6f8' : '#fff';
+}
+
+/* ── Clock ── */
+function updateClock() {
+  const now = new Date();
+  const h = now.getHours().toString().padStart(2,'0');
+  const m = now.getMinutes().toString().padStart(2,'0');
+  document.getElementById('clockEl').textContent = h + ':' + m;
+}
+updateClock();
+setInterval(updateClock, 10000);
+
+/* ── Exchange ── */
+const RATES = { USD_NGN: 1580, USD_EUR: 0.92, USD_GBP: 0.79 };
+let exchFrom = 'USD', exchTo = 'NGN';
+function calcExchange() {
+  const amt = parseFloat(document.getElementById('exch-from').value) || 0;
+  const rate = exchFrom === 'USD' && exchTo === 'NGN' ? RATES.USD_NGN
+             : exchTo === 'USD' && exchFrom === 'NGN' ? 1 / RATES.USD_NGN
+             : 1;
+  document.getElementById('exch-to').value = (amt * rate).toLocaleString('en', {maximumFractionDigits: 2});
+  document.getElementById('exch-rate-lbl').textContent = `1 ${exchFrom} = ${rate.toLocaleString('en', {maximumFractionDigits: 4})} ${exchTo}`;
+}
+function swapCurrencies(btn) {
+  [exchFrom, exchTo] = [exchTo, exchFrom];
+  btn.style.transform = 'rotate(180deg)';
+  setTimeout(() => btn.style.transform = '', 300);
+  const fromEl = document.querySelector('.exch-row:first-child .exch-cur-code');
+  const toEl   = document.querySelector('.exch-row:last-of-type .exch-cur-code');
+  const fromFlag = document.querySelector('.exch-row:first-child .exch-flag-wrap');
+  const toFlag   = document.querySelector('.exch-row:last-of-type .exch-flag-wrap');
+  if (exchFrom === 'NGN') {
+    fromEl.textContent = 'NGN'; fromEl.nextElementSibling.textContent = 'Nigerian Naira';
+    fromFlag.textContent = '🇳🇬';
+    toEl.textContent = 'USD'; toEl.nextElementSibling.textContent = 'US Dollar';
+    toFlag.textContent = '🇺🇸';
+  } else {
+    fromEl.textContent = 'USD'; fromEl.nextElementSibling.textContent = 'US Dollar';
+    fromFlag.textContent = '🇺🇸';
+    toEl.textContent = 'NGN'; toEl.nextElementSibling.textContent = 'Nigerian Naira';
+    toFlag.textContent = '🇳🇬';
+  }
+  calcExchange();
+}
+
+/* ── Toast ── */
+let toastTimer;
+function showToast(msg) {
+  const el = document.getElementById('toastEl');
+  el.textContent = msg;
+  el.classList.add('show');
+  clearTimeout(toastTimer);
+  toastTimer = setTimeout(() => el.classList.remove('show'), 2200);
+}
+
+/* ── Numpad (Pay screen) ── */
+let amtRaw = '500';
+function openNumpad() {
+  amtRaw = '';
+  updateAmt();
+  document.getElementById('numpad').classList.add('show');
+}
+function closeNumpad() {
+  if (!amtRaw || amtRaw === '0') amtRaw = '500';
+  updateAmt();
+  document.getElementById('numpad').classList.remove('show');
+}
+function npKey(k) {
+  if (k === 'del') {
+    amtRaw = amtRaw.slice(0, -1);
+  } else {
+    if (amtRaw.length >= 6) return;
+    amtRaw += k;
+  }
+  updateAmt();
+}
+function updateAmt() {
+  const v = amtRaw || '0';
+  document.getElementById('amtDisplay').textContent = v;
+  document.getElementById('sendAmt').textContent = v;
+}
+
+/* ── Contact selection ── */
+function selectContact(el) {
+  document.querySelectorAll('#s-pay .contact').forEach(c => c.classList.remove('selected'));
+  el.classList.add('selected');
+  document.getElementById('recipientField').textContent = el.dataset.name;
+}
+
+/* ── Send flow ── */
+function doSend() {
+  const btn = document.getElementById('sendBtn');
+  const amt = document.getElementById('amtDisplay').textContent;
+  const recipient = document.getElementById('recipientField').textContent;
+  btn.textContent = 'Sending...';
+  btn.disabled = true;
+  setTimeout(() => {
+    document.getElementById('successSub').textContent = `$${amt} sent to ${recipient}`;
+    const circle = document.getElementById('successCircle');
+    circle.classList.remove('pop');
+    void circle.offsetWidth;
+    circle.classList.add('pop');
+    document.getElementById('sendSuccess').classList.add('show');
+    btn.textContent = `Send $${amt}.00 →`;
+    btn.disabled = false;
+  }, 1400);
+}
+function closeSendSuccess() {
+  document.getElementById('sendSuccess').classList.remove('show');
+  amtRaw = '500';
+  updateAmt();
+  goTo('home');
+}
+
+/* ── Gov tile click ── */
+function govTileClick(tile) {
+  if (tile.classList.contains('loading') || tile.classList.contains('done')) return;
+  const stateEl = tile.querySelector('.gov-tile-state');
+  stateEl.innerHTML = '<div class="gov-spinner"></div>Processing...';
+  tile.classList.add('loading');
+  setTimeout(() => {
+    tile.classList.remove('loading');
+    tile.classList.add('done');
+    stateEl.innerHTML = '✓ Submitted';
+    setTimeout(() => {
+      tile.classList.remove('done');
+      stateEl.innerHTML = '<div class="gov-spinner"></div>Processing...';
+    }, 2500);
+  }, 1500);
+}
+
+/* ── Dark / Light theme toggle ── */
+function toggleTheme() {
+  const screen = document.getElementById('phoneScreen');
+  const body = document.body;
+  const isDark = screen.classList.toggle('dark-theme');
+  body.classList.toggle('dark-body', isDark);
+  const btn = document.getElementById('themeToggle');
+  const icon = document.getElementById('themeIcon');
+  const lbl = document.getElementById('themeLabel');
+  if (isDark) {
+    lbl.textContent = 'Light';
+    icon.innerHTML = '<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>';
+    btn.style.background = '#1c1c1e';
+    btn.style.color = '#fff';
+    btn.style.borderColor = '#3a3a3c';
+  } else {
+    lbl.textContent = 'Dark';
+    icon.innerHTML = '<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>';
+    btn.style.background = '#fff';
+    btn.style.color = '#333';
+    btn.style.borderColor = '#ddd';
+  }
+}
+
+/* ── Chart period tabs ── */
+document.querySelectorAll('.ops-chart-per').forEach(btn => {
+  btn.addEventListener('click', function() {
+    this.closest('.ops-chart-periods').querySelectorAll('.ops-chart-per').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+  });
+});
+
+/* ── Swipe gesture between screens ── */
+(function() {
+  const vp = document.querySelector('.screen-viewport');
+  let startX = 0, startY = 0, locked = false;
+  vp.addEventListener('touchstart', e => {
+    startX = e.touches[0].clientX;
+    startY = e.touches[0].clientY;
+    locked = false;
+  }, { passive: true });
+  vp.addEventListener('touchend', e => {
+    if (locked) return;
+    const dx = e.changedTouches[0].clientX - startX;
+    const dy = e.changedTouches[0].clientY - startY;
+    if (Math.abs(dx) < 50 || Math.abs(dy) > Math.abs(dx)) return;
+    if (dx < 0 && cur < SCREENS.length - 1) goTo(SCREENS[cur + 1]);
+    if (dx > 0 && cur > 0) goTo(SCREENS[cur - 1]);
+  }, { passive: true });
+  vp.addEventListener('touchmove', e => {
+    const dy = Math.abs(e.touches[0].clientY - startY);
+    const dx = Math.abs(e.touches[0].clientX - startX);
+    if (dy > dx) locked = true;
+  }, { passive: true });
+})();
+/* ── Standalone phone init ── */
+(function() {
+  var NAV_ITEMS = [
+    { sc: 'home',    lbl: 'Home',       svg: '<path d="M2.25 12l8.954-8.955a1.126 1.126 0 011.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/>' },
+    { sc: 'pay',     lbl: 'Operations', svg: '<rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/>' },
+    { sc: 'gov',     lbl: 'Gov',        svg: '<path d="M3 22h18M12 2l9 5H3l9-5z"/><path d="M5 9v11M9 9v11M15 9v11M19 9v11"/><path d="M3 7h18"/>' },
+    { sc: 'invest',  lbl: 'Messages',   svg: '<path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/>' },
+    { sc: 'profile', lbl: 'Profile',    svg: '<circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/>' }
+  ];
+  var SCREEN_LABELS = { home:'Home', pay:'Operations', gov:'Gov Services', invest:'Messages', profile:'Profile' };
+  var STATUS_SVG =
+    '<svg width="17" height="12" viewBox="0 0 17 12" fill="currentColor"><rect x="0" y="8.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>' +
+    '<svg width="16" height="12" viewBox="0 0 16 12" fill="none"><path d="M1 4.2a9.5 9.5 0 0114 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M3.2 6.8a6 6 0 019.6 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><path d="M5.6 9.4a3 3 0 014.8 0" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/><circle cx="8" cy="11.4" r="1.2" fill="currentColor"/></svg>' +
+    '<svg width="25" height="12" viewBox="0 0 25 12" fill="none"><rect x="0.5" y="0.5" width="21" height="11" rx="3.3" stroke="currentColor" stroke-opacity="0.35"/><rect x="1.5" y="1.5" width="16" height="9" rx="2.2" fill="currentColor"/><path d="M22.5 4v4a2 2 0 000-4z" fill="currentColor" fill-opacity="0.45"/></svg>';
+
+  function buildPhone(screenId, activeNavIdx) {
+    var wrap = document.createElement('div');
+    wrap.className = 'sp-phone-wrap';
+    var phone = document.createElement('div');
+    phone.className = 'iphone16';
+    phone.innerHTML =
+      '<div class="sb-mute"></div><div class="sb-vol-up"></div><div class="sb-vol-dn"></div><div class="sb-power"></div>';
+    var screen = document.createElement('div');
+    screen.className = 'iphone-screen sp-screen';
+    /* dynamic island */
+    screen.innerHTML = '<div class="dynamic-island"><div class="di-cam"></div></div>';
+    /* status bar */
+    var sb = document.createElement('div');
+    sb.className = 'status-bar';
+    sb.innerHTML = '<span class="sb-time">9:41</span><div class="sb-icons">' + STATUS_SVG + '</div>';
+    screen.appendChild(sb);
+    /* viewport */
+    var vp = document.createElement('div');
+    vp.className = 'screen-viewport';
+    vp.id = 'spvp-' + screenId;
+    screen.appendChild(vp);
+    /* nav fill */
+    var fill = document.createElement('div');
+    fill.className = 'bnav-fill';
+    screen.appendChild(fill);
+    /* bottom nav */
+    var nav = document.createElement('div');
+    nav.className = 'bnav';
+    NAV_ITEMS.forEach(function(item, i) {
+      var btn = document.createElement('div');
+      btn.className = 'bni' + (i === activeNavIdx ? ' active' : '');
+      btn.setAttribute('onclick', "showToast('Use the main phone above to navigate')");
+      var inner = document.createElement('div');
+      inner.className = 'bni-inner';
+      if (i === activeNavIdx) {
+        inner.style.cssText = 'background:linear-gradient(135deg,#D4830A,#F2C94C);border-radius:14px;padding:6px 14px;box-shadow:0 4px 14px rgba(212,131,10,.4)';
+        btn.style.color = '#fff';
+      }
+      inner.innerHTML = '<svg viewBox="0 0 24 24">' + item.svg + '</svg><div class="bni-lbl">' + item.lbl + '</div>';
+      btn.appendChild(inner);
+      nav.appendChild(btn);
+    });
+    screen.appendChild(nav);
+    /* home indicator */
+    var ind = document.createElement('div');
+    ind.className = 'home-ind';
+    screen.appendChild(ind);
+    phone.appendChild(screen);
+    wrap.appendChild(phone);
+    return wrap;
+  }
+
+  function cloneContent(srcId, vpId) {
+    var src = document.getElementById(srcId);
+    var vp = document.getElementById(vpId);
+    if (!src || !vp) return;
+    var clone = src.cloneNode(true);
+    clone.removeAttribute('id');
+    clone.style.cssText = 'position:absolute;top:0;left:0;right:0;bottom:0;overflow-y:auto;overflow-x:hidden;background:inherit;transform:translateX(0);transition:none;scrollbar-width:none;';
+    /* defuse ID conflicts */
+    ['amtDisplay','sendAmt','sendBtn','sendSuccess','successSub','successCircle','recipientField','numpad','chartGrad'].forEach(function(id) {
+      var el = clone.querySelector('#' + id);
+      if (el) el.setAttribute('id', 'sp_' + id);
+    });
+    /* replace goTo with toast */
+    clone.querySelectorAll('[onclick]').forEach(function(el) {
+      var attr = el.getAttribute('onclick') || '';
+      if (attr.indexOf('goTo(') !== -1) {
+        el.setAttribute('onclick', "showToast('Use the main phone to navigate')");
+      }
+    });
+    vp.appendChild(clone);
+  }
+
+  function init() {
+    var row = document.getElementById('spRow');
+    if (!row) return;
+    var items = [
+      { id: 'home',    nav: 0 },
+      { id: 'pay',     nav: 1 },
+      { id: 'gov',     nav: 2 },
+      { id: 'invest',  nav: 3 },
+      { id: 'profile', nav: 4 }
+    ];
+    items.forEach(function(item) {
+      var spItem = document.createElement('div');
+      spItem.className = 'sp-item';
+      var lbl = document.createElement('div');
+      lbl.className = 'sp-item-label';
+      lbl.textContent = SCREEN_LABELS[item.id];
+      spItem.appendChild(lbl);
+      spItem.appendChild(buildPhone(item.id, item.nav));
+      row.appendChild(spItem);
+      cloneContent('s-' + item.id, 'spvp-' + item.id);
+    });
+
+    /* add onboarding screen previews */
+    var obSlides = [
+      {
+        label: 'Onboarding 1',
+        grad: 'linear-gradient(160deg,#0FA84E,#1DD16A 50%,#0FA84E)',
+        badge: 'SuperApp Africa',
+        title: 'Banking on<br>your phone',
+        photo: '/photos/c67881c0dbb873b1970d95321a5c7e92.jpg',
+        inner: 'Fast &amp; secure service.',
+        sub: 'Transfers &amp; payments across Africa.'
+      },
+      {
+        label: 'Onboarding 2',
+        grad: 'linear-gradient(160deg,#0A7A6E,#13A896 50%,#0A7A6E)',
+        badge: 'Gov Services',
+        title: 'Government<br>in your pocket',
+        photo: '/photos/232fa43ef3485bbe8b3ef21f4f71ec65.jpg',
+        inner: 'No queues.<br>No office visits.',
+        sub: 'Documents &amp; taxes online.'
+      },
+      {
+        label: 'Onboarding 3',
+        grad: 'linear-gradient(160deg,#1A3A6E,#1E52AA 50%,#1A3A6E)',
+        badge: '40M+ Users',
+        title: 'Your financial<br>future starts today',
+        photo: '/photos/5c7bbe95709e909fe2b08cc5866f7337.jpg',
+        inner: 'Join 40 million<br>Africans.',
+        sub: 'Money, wealth &amp; gov — one app.'
+      }
+    ];
+
+    obSlides.forEach(function(ob) {
+      var spItem = document.createElement('div');
+      spItem.className = 'sp-item';
+
+      var lbl = document.createElement('div');
+      lbl.className = 'sp-item-label';
+      lbl.textContent = ob.label;
+      spItem.appendChild(lbl);
+
+      var wrap = document.createElement('div');
+      wrap.className = 'sp-phone-wrap';
+      var phone = document.createElement('div');
+      phone.className = 'iphone16';
+      phone.innerHTML = '<div class="sb-mute"></div><div class="sb-vol-up"></div><div class="sb-vol-dn"></div><div class="sb-power"></div>';
+
+      var screen = document.createElement('div');
+      screen.className = 'iphone-screen sp-ob-screen';
+      screen.style.cssText = 'background:' + ob.grad + ';overflow:hidden;position:relative;display:flex;flex-direction:column;';
+
+      screen.innerHTML =
+        '<div class="dynamic-island"><div class="di-cam"></div></div>' +
+        '<div style="position:absolute;top:0;left:0;right:0;height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 10px;z-index:25;background:transparent">' +
+          '<span style="font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px">9:41</span>' +
+          '<div style="display:flex;gap:4px;align-items:center">' +
+            '<svg width="13" height="10" viewBox="0 0 17 12" fill="#fff" opacity=".9"><rect x="0" y="8.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>' +
+            '<svg width="13" height="10" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#fff" stroke-opacity=".8" stroke-width="1.5"/><rect x="1.5" y="2.5" width="14" height="7" rx="1" fill="#fff" opacity=".8"/></svg>' +
+          '</div>' +
+        '</div>' +
+        '<div style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;border-radius:inherit">' +
+          '<div style="position:absolute;width:420px;height:420px;top:-130px;right:-110px;border-radius:50%;background:rgba(255,255,255,.06)"></div>' +
+          '<div style="position:absolute;width:300px;height:300px;bottom:-70px;left:-90px;border-radius:50%;background:rgba(255,255,255,.04)"></div>' +
+        '</div>' +
+        '<div style="position:relative;z-index:2;padding:60px 22px 0;flex-shrink:0">' +
+          '<div style="display:inline-block;background:rgba(255,255,255,.18);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;backdrop-filter:blur(8px);margin-bottom:10px">' + ob.badge + '</div>' +
+          '<div style="color:#fff;font-size:20px;font-weight:800;line-height:1.2;letter-spacing:-.3px">' + ob.title + '</div>' +
+        '</div>' +
+        '<div style="position:relative;z-index:2;flex:1;margin:14px 14px 0;border-radius:18px;overflow:hidden;min-height:0">' +
+          '<img src="' + ob.photo + '" alt="" style="width:100%;height:100%;object-fit:cover;display:block">' +
+          '<div style="position:absolute;inset:0;background:linear-gradient(to top,rgba(0,0,0,.72) 0%,rgba(0,0,0,.1) 55%,transparent 100%)"></div>' +
+          '<div style="position:absolute;bottom:0;left:0;right:0;padding:18px 16px 22px">' +
+            '<div style="color:#fff;font-size:14px;font-weight:800;line-height:1.3;margin-bottom:5px">' + ob.inner + '</div>' +
+            '<div style="color:rgba(255,255,255,.75);font-size:11px;line-height:1.4">' + ob.sub + '</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="position:relative;z-index:2;padding:12px 22px 18px">' +
+          '<div style="background:rgba(255,255,255,.22);backdrop-filter:blur(8px);border-radius:14px;padding:11px 18px;color:#fff;font-size:13px;font-weight:700;text-align:center;border:1px solid rgba(255,255,255,.25)">Next →</div>' +
+        '</div>' +
+        '<div style="height:20px"></div>';
+
+      phone.appendChild(screen);
+      wrap.appendChild(phone);
+      spItem.appendChild(wrap);
+      row.appendChild(spItem);
+    });
+
+    /* sync dark theme toggle to standalone phones */
+    var origToggle = window.toggleTheme;
+    window.toggleTheme = function() {
+      origToggle && origToggle();
+      var isDark = document.getElementById('phoneScreen').classList.contains('dark-theme');
+      document.querySelectorAll('.sp-screen').forEach(function(s) {
+        s.classList.toggle('dark-theme', isDark);
+      });
+    };
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
+
+</script>
+
+<!-- ── STANDALONE SCREENS SECTION ── -->
+<div class="sp-section">
+  <div class="sp-section-head">
+    <div class="sp-section-title">All Screens</div>
+    <div class="sp-section-sub">Scroll to browse each screen as a standalone interactive phone</div>
+    <div class="sp-divider"></div>
+  </div>
+  <div class="sp-row" id="spRow"></div>
+</div>
+
+</body>
+</html>

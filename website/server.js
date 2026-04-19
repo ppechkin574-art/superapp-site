@@ -11,5 +11,7 @@ app.get('/superapp-app.html', (req, res) => res.sendFile(path.join(__dirname, 'a
 app.get('/superapp.html', (req, res) => res.sendFile(path.join(__dirname, 'index.html')));
 app.get('/onboarding', (req, res) => res.sendFile(path.join(__dirname, 'onboarding.html')));
 app.get('/onboarding.html', (req, res) => res.sendFile(path.join(__dirname, 'onboarding.html')));
+app.get('/presentation', (req, res) => res.redirect('/presentation/'));
+app.get('/presentation/pitch.pdf', (req, res) => res.sendFile(path.join(__dirname, 'presentation', 'superapp-africa-pitch.pdf')));
 
 app.listen(PORT, () => console.log(`Server running on port ${PORT}`));
