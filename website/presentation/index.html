@@ -227,9 +227,9 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
       <div class="stamp"><span class="dt"></span>Produit en ligne · Tour de table 2026</div>
     </div>
     <div class="phones" aria-hidden="true">
-      <iframe class="phn-frame p1" src="../app.html?screen=home&embed=1" loading="lazy" title="Accueil"></iframe>
-      <iframe class="phn-frame p2" src="../app.html?screen=pay&embed=1"  loading="lazy" title="Portefeuille"></iframe>
-      <iframe class="phn-frame p3" src="../app.html?screen=gov&embed=1"  loading="lazy" title="Services publics"></iframe>
+      <iframe class="phn-frame p1" data-src="../app.html?screen=home&embed=1" loading="lazy" title="Accueil"></iframe>
+      <iframe class="phn-frame p2" data-src="../app.html?screen=pay&embed=1"  loading="lazy" title="Portefeuille"></iframe>
+      <iframe class="phn-frame p3" data-src="../app.html?screen=gov&embed=1"  loading="lazy" title="Services publics"></iframe>
     </div>
     <div class="bar">
       <div class="bi"><div class="n">12</div><div class="l">Ministères</div></div>
@@ -270,7 +270,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
       </div>
     </div>
     <div class="phone" aria-hidden="true">
-      <iframe src="../app.html?screen=pay&embed=1" loading="lazy" title="Portefeuille"></iframe>
+      <iframe data-src="../app.html?screen=pay&embed=1" loading="lazy" title="Portefeuille"></iframe>
     </div>
   </div>
 </section>
@@ -293,7 +293,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
       </div>
     </div>
     <div class="phoneslot">
-      <iframe src="../app.html?screen=home&embed=1" loading="lazy" title="Accueil SuperApp"></iframe>
+      <iframe data-src="../app.html?screen=home&embed=1" loading="lazy" title="Accueil SuperApp"></iframe>
     </div>
     <div class="callouts">
       <div class="co">
@@ -328,7 +328,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
       </div>
     </div>
     <div class="phones" aria-hidden="true">
-      <iframe src="../app.html?screen=home&embed=1&scroll=0" loading="lazy" title="Accueil"></iframe>
+      <iframe data-src="../app.html?screen=home&embed=1&scroll=0" loading="lazy" title="Accueil"></iframe>
     </div>
   </div>
 </section>
@@ -352,7 +352,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
       </div>
     </div>
     <div class="phones" aria-hidden="true">
-      <iframe src="../app.html?screen=pay&embed=1&scroll=1850" loading="lazy" title="Portefeuille"></iframe>
+      <iframe data-src="../app.html?screen=pay&embed=1&scroll=1850" loading="lazy" title="Portefeuille"></iframe>
     </div>
   </div>
 </section>
@@ -374,7 +374,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
       </div>
     </div>
     <div class="phones" aria-hidden="true">
-      <iframe src="../app.html?screen=gov&embed=1&scroll=1100" loading="lazy" title="Services publics"></iframe>
+      <iframe data-src="../app.html?screen=gov&embed=1&scroll=1100" loading="lazy" title="Services publics"></iframe>
     </div>
   </div>
 </section>
@@ -401,7 +401,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
       </div>
     </div>
     <div class="phoneslot">
-      <iframe src="../app.html?screen=profile&embed=1&scroll=700" loading="lazy" title="Profil"></iframe>
+      <iframe data-src="../app.html?screen=profile&embed=1&scroll=700" loading="lazy" title="Profil"></iframe>
     </div>
   </div>
 </section>
@@ -423,7 +423,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
       </div>
     </div>
     <div class="phoneslot">
-      <iframe src="../app.html?screen=invest&embed=1&scroll=0" loading="lazy" title="Notifications"></iframe>
+      <iframe data-src="../app.html?screen=invest&embed=1&scroll=0" loading="lazy" title="Notifications"></iframe>
     </div>
   </div>
 </section>
@@ -447,7 +447,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
       </div>
     </div>
     <div class="phoneslot">
-      <iframe src="../app.html?screen=profile&embed=1&scroll=450" loading="lazy" title="Sécurité"></iframe>
+      <iframe data-src="../app.html?screen=profile&embed=1&scroll=450" loading="lazy" title="Sécurité"></iframe>
     </div>
   </div>
 </section>
@@ -471,7 +471,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
       </div>
     </div>
     <div class="phones" aria-hidden="true">
-      <iframe src="../app.html?screen=home&embed=1&scroll=0" loading="lazy" title="Accueil avec IA"></iframe>
+      <iframe data-src="../app.html?screen=home&embed=1&scroll=0" loading="lazy" title="Accueil avec IA"></iframe>
     </div>
   </div>
 </section>
@@ -493,7 +493,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
       </div>
     </div>
     <div class="phoneslot">
-      <iframe src="../app.html?screen=gov&embed=1&scroll=2400" loading="lazy" title="Espace agents publics"></iframe>
+      <iframe data-src="../app.html?screen=gov&embed=1&scroll=2400" loading="lazy" title="Espace agents publics"></iframe>
     </div>
   </div>
 </section>
@@ -536,5 +536,23 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
 </section>
 
 </deck-stage>
+<script>
+(function(){
+  var frames = document.querySelectorAll('iframe[data-src]');
+  if (!('IntersectionObserver' in window)) {
+    frames.forEach(function(f){ f.src = f.dataset.src; });
+    return;
+  }
+  var io = new IntersectionObserver(function(entries){
+    entries.forEach(function(e){
+      if (e.isIntersecting && !e.target.src) {
+        e.target.src = e.target.dataset.src;
+        io.unobserve(e.target);
+      }
+    });
+  }, { rootMargin: '600px 0px' });
+  frames.forEach(function(f){ io.observe(f); });
+})();
+</script>
 <script src="../i18n.js"></script>
 </body></html>
