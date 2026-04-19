@@ -1,6 +1,6 @@
 <!doctype html>
-<html lang="en"><head>
-<meta charset="utf-8"><title>SuperApp Africa — Investor Deck</title>
+<html lang="fr"><head>
+<meta charset="utf-8"><title>SuperApp — Pitch Investisseurs</title>
 <script src="deck-stage.js"></script>
 <style>
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
@@ -13,7 +13,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
 .slide.deep .bg::after{background:linear-gradient(135deg,rgba(11,11,12,.72) 0%,rgba(11,11,12,.92) 100%)}
 .inner{position:relative;z-index:2;width:100%;height:100%}
 
-/* Page indicator (no brand name) */
+/* Page indicator */
 .pg{position:absolute;top:56px;right:84px;display:flex;gap:18px;align-items:center;font-size:13px;z-index:5;font-weight:600}
 .pg .sec{padding:8px 18px;border:1px solid rgba(255,255,255,.22);border-radius:50px;font-weight:700;text-transform:uppercase;font-size:11px;letter-spacing:.16em}
 .pg .num{opacity:.7;font-variant-numeric:tabular-nums;font-size:12px;letter-spacing:.08em}
@@ -22,7 +22,6 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
 .eyebrow{display:inline-flex;align-items:center;gap:12px;font-size:13px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:#F2C94C}
 .eyebrow::before{content:'';width:24px;height:1px;background:currentColor;opacity:.85}
 
-/* Cut-out phone png — no frame wrapper. Just drop-shadow. */
 .phn{display:block;filter:drop-shadow(0 30px 60px rgba(0,0,0,.55)) drop-shadow(0 10px 20px rgba(0,0,0,.4))}
 
 /* ── s1 hero ── */
@@ -76,7 +75,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
 #s3 .arch-nodes{font-size:13px;font-weight:600;opacity:.82;line-height:1.35}
 #s3 .arch-arr{align-self:center;color:#F2C94C;font-weight:800;font-size:18px;opacity:.6}
 
-/* s4 home feed — dual phone */
+/* s4 home feed */
 #s4 .wrap{position:absolute;left:120px;top:200px;z-index:3;max-width:760px}
 #s4 h2{font-size:92px;line-height:.94;font-weight:900;letter-spacing:-.03em}
 #s4 h2 em{font-style:normal;color:#F2C94C}
@@ -90,7 +89,7 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
 #s4 .phones{position:absolute;right:240px;top:50%;transform:translateY(-50%);z-index:3;width:512px;height:900px;filter:drop-shadow(0 30px 60px rgba(0,0,0,.55)) drop-shadow(0 10px 20px rgba(0,0,0,.4))}
 #s4 .phones iframe{position:absolute;top:0;left:0;width:553px;height:972px;border:0;background:transparent;transform:scale(.927);transform-origin:top left;display:block;color-scheme:light}
 
-/* s5 operations */
+/* s5 wallet (civic) */
 #s5 .wrap{position:absolute;left:120px;top:200px;z-index:3;max-width:780px}
 #s5 h2{font-size:92px;line-height:.94;font-weight:900;letter-spacing:-.03em}
 #s5 h2 em{font-style:normal;color:#F2C94C}
@@ -143,22 +142,62 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
 #s8 .phoneslot{position:absolute;right:280px;top:50%;transform:translateY(-50%);z-index:3;width:512px;height:900px;filter:drop-shadow(0 30px 60px rgba(0,0,0,.55)) drop-shadow(0 10px 20px rgba(0,0,0,.4))}
 #s8 .phoneslot iframe{position:absolute;top:0;left:0;width:553px;height:972px;border:0;background:transparent;transform:scale(.927);transform-origin:top left;display:block;color-scheme:light}
 
-/* s11 cta + roadmap */
-#s11 .wrap{position:absolute;left:120px;top:140px;max-width:1680px;z-index:3}
-#s11 h2{font-size:108px;line-height:.88;font-weight:900;letter-spacing:-.045em}
-#s11 h2 em{font-style:normal;color:#F2C94C}
-#s11 .sub{margin-top:22px;font-size:22px;color:rgba(255,255,255,.82);max-width:1100px;line-height:1.38}
-#s11 .rmap{position:absolute;left:120px;right:120px;top:560px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;z-index:3}
-#s11 .rm-ph{padding:22px 26px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:18px;backdrop-filter:blur(14px);min-height:180px;display:flex;flex-direction:column}
-#s11 .rm-ph.cur{background:linear-gradient(145deg,rgba(212,131,10,.22),rgba(212,131,10,.03));border-color:rgba(242,201,76,.4)}
-#s11 .rm-tg{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#F2C94C;margin-bottom:10px}
-#s11 .rm-tg .dt{width:8px;height:8px;border-radius:50%;background:#F2C94C}
-#s11 .rm-ph h4{font-size:22px;font-weight:800;letter-spacing:-.015em;margin-bottom:10px}
-#s11 .rm-ph p{font-size:14px;font-weight:500;line-height:1.45;opacity:.78}
-#s11 .cta{position:absolute;left:120px;right:120px;bottom:80px;padding:28px 44px;background:linear-gradient(135deg,#D4830A,#F2C94C);border-radius:22px;color:#0B0B0C;display:flex;align-items:center;justify-content:space-between;box-shadow:0 20px 60px rgba(212,131,10,.35);z-index:3}
-#s11 .cta .ct{font-size:13px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.7}
-#s11 .cta h3{font-size:30px;font-weight:800;letter-spacing:-.015em;margin-top:4px}
-#s11 .cta .em{font-size:18px;font-weight:700}
+/* s9 biometrics & ECP (NEW) — same layout as s7 docs */
+#s9 .wrap{position:absolute;left:120px;top:200px;z-index:3;max-width:900px}
+#s9 h2{font-size:96px;line-height:.94;font-weight:900;letter-spacing:-.03em}
+#s9 h2 em{font-style:normal;color:#F2C94C}
+#s9 .sub{margin-top:26px;font-size:22px;color:rgba(255,255,255,.78);max-width:700px;line-height:1.45}
+#s9 .docs{margin-top:44px;display:grid;grid-template-columns:repeat(3,1fr);gap:14px;max-width:820px}
+#s9 .dc{padding:20px 22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px}
+#s9 .dc .ic{width:34px;height:34px;border-radius:9px;background:rgba(242,201,76,.14);display:flex;align-items:center;justify-content:center;margin-bottom:12px}
+#s9 .dc .ic svg{width:17px;height:17px;stroke:#F2C94C;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#s9 .dc h5{font-size:15px;font-weight:800;margin-bottom:4px}
+#s9 .dc p{font-size:12px;opacity:.55;line-height:1.35}
+#s9 .phoneslot{position:absolute;right:280px;top:50%;transform:translateY(-50%);z-index:3;width:512px;height:900px;filter:drop-shadow(0 30px 60px rgba(0,0,0,.55)) drop-shadow(0 10px 20px rgba(0,0,0,.4))}
+#s9 .phoneslot iframe{position:absolute;top:0;left:0;width:553px;height:972px;border:0;background:transparent;transform:scale(.927);transform-origin:top left;display:block;color-scheme:light}
+
+/* s10 IA + suivi (NEW) */
+#s10 .wrap{position:absolute;left:120px;top:200px;z-index:3;max-width:780px}
+#s10 h2{font-size:92px;line-height:.94;font-weight:900;letter-spacing:-.03em}
+#s10 h2 em{font-style:normal;color:#F2C94C}
+#s10 .sub{margin-top:22px;font-size:22px;color:rgba(255,255,255,.78);max-width:680px;line-height:1.45}
+#s10 .grid{margin-top:44px;display:grid;grid-template-columns:repeat(2,1fr);gap:14px;max-width:700px}
+#s10 .gi{padding:18px 22px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.1);border-radius:14px;display:flex;align-items:center;gap:14px}
+#s10 .gi .ic{width:38px;height:38px;border-radius:10px;background:rgba(242,201,76,.14);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+#s10 .gi .ic svg{width:18px;height:18px;stroke:#F2C94C;fill:none;stroke-width:2;stroke-linecap:round;stroke-linejoin:round}
+#s10 .gi .tx h5{font-size:15px;font-weight:800}
+#s10 .gi .tx p{font-size:12px;opacity:.55;margin-top:2px}
+#s10 .phones{position:absolute;right:240px;top:50%;transform:translateY(-50%);z-index:3;width:512px;height:900px;filter:drop-shadow(0 30px 60px rgba(0,0,0,.55)) drop-shadow(0 10px 20px rgba(0,0,0,.4))}
+#s10 .phones iframe{position:absolute;top:0;left:0;width:553px;height:972px;border:0;background:transparent;transform:scale(.927);transform-origin:top left;display:block;color-scheme:light}
+
+/* s11 back-office (NEW) */
+#s11n .wrap{position:absolute;left:120px;top:200px;z-index:3;max-width:820px}
+#s11n h2{font-size:92px;line-height:.94;font-weight:900;letter-spacing:-.03em}
+#s11n h2 em{font-style:normal;color:#F2C94C}
+#s11n .sub{margin-top:24px;font-size:22px;color:rgba(255,255,255,.78);max-width:700px;line-height:1.45}
+#s11n .feats{margin-top:40px;display:grid;grid-template-columns:repeat(2,1fr);gap:18px;max-width:700px}
+#s11n .fe{padding:22px 26px;background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.12);border-radius:14px}
+#s11n .fe h5{font-size:17px;font-weight:800;color:#F2C94C}
+#s11n .fe p{font-size:14px;opacity:.72;margin-top:6px;line-height:1.45}
+#s11n .phoneslot{position:absolute;right:280px;top:50%;transform:translateY(-50%);z-index:3;width:512px;height:900px;filter:drop-shadow(0 30px 60px rgba(0,0,0,.55)) drop-shadow(0 10px 20px rgba(0,0,0,.4))}
+#s11n .phoneslot iframe{position:absolute;top:0;left:0;width:553px;height:972px;border:0;background:transparent;transform:scale(.927);transform-origin:top left;display:block;color-scheme:light}
+
+/* s12 cta + roadmap */
+#s12 .wrap{position:absolute;left:120px;top:140px;max-width:1680px;z-index:3}
+#s12 h2{font-size:108px;line-height:.88;font-weight:900;letter-spacing:-.045em}
+#s12 h2 em{font-style:normal;color:#F2C94C}
+#s12 .sub{margin-top:22px;font-size:22px;color:rgba(255,255,255,.82);max-width:1100px;line-height:1.38}
+#s12 .rmap{position:absolute;left:120px;right:120px;top:560px;display:grid;grid-template-columns:repeat(3,1fr);gap:20px;z-index:3}
+#s12 .rm-ph{padding:22px 26px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.15);border-radius:18px;backdrop-filter:blur(14px);min-height:180px;display:flex;flex-direction:column}
+#s12 .rm-ph.cur{background:linear-gradient(145deg,rgba(212,131,10,.22),rgba(212,131,10,.03));border-color:rgba(242,201,76,.4)}
+#s12 .rm-tg{display:inline-flex;align-items:center;gap:10px;font-size:11px;font-weight:800;letter-spacing:.16em;text-transform:uppercase;color:#F2C94C;margin-bottom:10px}
+#s12 .rm-tg .dt{width:8px;height:8px;border-radius:50%;background:#F2C94C}
+#s12 .rm-ph h4{font-size:22px;font-weight:800;letter-spacing:-.015em;margin-bottom:10px}
+#s12 .rm-ph p{font-size:14px;font-weight:500;line-height:1.45;opacity:.78}
+#s12 .cta{position:absolute;left:120px;right:120px;bottom:80px;padding:28px 44px;background:linear-gradient(135deg,#D4830A,#F2C94C);border-radius:22px;color:#0B0B0C;display:flex;align-items:center;justify-content:space-between;box-shadow:0 20px 60px rgba(212,131,10,.35);z-index:3}
+#s12 .cta .ct{font-size:13px;font-weight:800;letter-spacing:.2em;text-transform:uppercase;opacity:.7}
+#s12 .cta h3{font-size:30px;font-weight:800;letter-spacing:-.015em;margin-top:4px}
+#s12 .cta .em{font-size:18px;font-weight:700}
 </style>
 </head>
 <body>
@@ -172,245 +211,318 @@ html,body{height:100%;background:#000;font-family:-apple-system,BlinkMacSystemFo
 @media print{.deck-hud{display:none}}
 </style>
 <div class="deck-hud">
-  <a class="back" href="/">← Back</a>
-  <a class="dl" href="/presentation/pitch.pdf" download>⬇ Download PDF</a>
+  <a class="back" href="/">← Retour</a>
+  <a class="dl" href="/presentation/pitch.pdf" download>⬇ Télécharger PDF</a>
 </div>
 <deck-stage width="1920" height="1080">
 
 <!-- 1 HERO -->
 <section class="slide" id="s1" data-label="Hero">
-  <div class="bg blur"><img src="photos/banking.jpg" alt=""></div>
-  <div class="pg"><span class="sec">Investor Pitch</span><span class="num">01 / 09</span></div>
+  <div class="bg blur"><img src="../photos/banking.jpg" alt=""></div>
+  <div class="pg"><span class="sec">Pitch Investisseurs</span><span class="num">01 / 12</span></div>
   <div class="inner">
     <div class="wrap">
-      <h1>One app.<br>All of <em>Africa.</em></h1>
-      <div class="sub">Banking, government services, payments and community — designed for 40&nbsp;million Africans on a single mobile platform.</div>
-      <div class="stamp"><span class="dt"></span>Live product · Pitch round 2026</div>
+      <h1>Une app.<br>Tout l'<em>État.</em></h1>
+      <div class="sub">Identité, services publics, paiements, justice et sécurité sociale — réunis dans une plateforme unique pour 40&nbsp;millions de citoyens.</div>
+      <div class="stamp"><span class="dt"></span>Produit en ligne · Tour de table 2026</div>
     </div>
     <div class="phones" aria-hidden="true">
-      <iframe class="phn-frame p1" src="superapp-embed.html?screen=home&embed=1" loading="lazy" title="Home"></iframe>
-      <iframe class="phn-frame p2" src="superapp-embed.html?screen=pay&embed=1"  loading="lazy" title="Operations"></iframe>
-      <iframe class="phn-frame p3" src="superapp-embed.html?screen=gov&embed=1"  loading="lazy" title="Gov Services"></iframe>
+      <iframe class="phn-frame p1" src="../app.html?screen=home&embed=1" loading="lazy" title="Accueil"></iframe>
+      <iframe class="phn-frame p2" src="../app.html?screen=pay&embed=1"  loading="lazy" title="Portefeuille"></iframe>
+      <iframe class="phn-frame p3" src="../app.html?screen=gov&embed=1"  loading="lazy" title="Services publics"></iframe>
     </div>
     <div class="bar">
-      <div class="bi"><div class="n">54</div><div class="l">Countries</div></div>
-      <div class="bi"><div class="n">1.4B</div><div class="l">Population</div></div>
-      <div class="bi"><div class="n">$3.3T</div><div class="l">GDP by 2028</div></div>
+      <div class="bi"><div class="n">12</div><div class="l">Ministères</div></div>
+      <div class="bi"><div class="n">60+</div><div class="l">Services publics</div></div>
+      <div class="bi"><div class="n">iOS · Android · Web</div><div class="l">Plateformes</div></div>
     </div>
   </div>
 </section>
 
 <!-- 2 PROBLEM -->
-<section class="slide deep" id="s2" data-label="The Problem">
-  <div class="bg"><img src="photos/africa-city.jpg" alt=""></div>
-  <div class="pg"><span class="sec">01 · Problem</span><span class="num">02 / 09</span></div>
+<section class="slide deep" id="s2" data-label="Le problème">
+  <div class="bg"><img src="../photos/africa-city.jpg" alt=""></div>
+  <div class="pg"><span class="sec">01 · Problème</span><span class="num">02 / 12</span></div>
   <div class="inner">
     <div class="wrap">
-      <div class="eyebrow">The problem</div>
-      <h2 style="margin-top:22px">Daily life is <em>fragmented</em><br>across a dozen apps and offices.</h2>
-      <div class="sub">Africans juggle cash, mobile money, paper documents and queues at ministries — with no single source of truth for their financial or civic identity.</div>
+      <div class="eyebrow">Le problème</div>
+      <h2 style="margin-top:22px">L'État reste <em>fragmenté.</em></h2>
+      <div class="sub">Les citoyens jonglent entre guichets, papiers et applications. Les administrations ne partagent pas leurs bases — aucune source unique pour l'identité, la fiscalité ou la justice.</div>
     </div>
     <div class="cards">
       <div class="c">
-        <div class="num">01 · MONEY</div>
-        <div class="h">Five apps to pay a bill</div>
-        <div class="p">Mobile money, bank apps, agents, cash — every transaction requires a different tool, and none of them talk to each other.</div>
-        <div class="stat">57% unbanked across region</div>
+        <div class="num">01 · CITOYEN</div>
+        <div class="h">Cinq guichets pour un acte</div>
+        <div class="p">Renouveler un permis, déclarer un impôt, enregistrer un mariage — chaque démarche exige un déplacement, des formulaires papier et des heures perdues.</div>
+        <div class="stat">≈ 4,2 h par démarche</div>
       </div>
       <div class="c">
-        <div class="num">02 · GOVERNMENT</div>
-        <div class="h">Queues that cost a day</div>
-        <div class="p">Renewing an ID, paying a tax, registering a marriage — all require an in-person visit, paper forms and hours of waiting.</div>
-        <div class="stat">Avg. 4.2 hrs per service</div>
+        <div class="num">02 · IDENTITÉ</div>
+        <div class="h">Pas d'identité numérique</div>
+        <div class="p">Sans documents vérifiés sur le téléphone, impossible d'accéder au crédit, aux aides ou aux services trans­frontaliers — et l'État ne peut pas les joindre.</div>
+        <div class="stat">1 citoyen sur 4 a un ID numérique</div>
       </div>
       <div class="c">
-        <div class="num">03 · TRUST</div>
-        <div class="h">No digital identity</div>
-        <div class="p">Without verified documents on a phone, citizens can't access credit, benefits or cross-border services — and governments can't reach them.</div>
-        <div class="stat">Only 1 in 4 has digital ID</div>
+        <div class="num">03 · INSTITUTIONS</div>
+        <div class="h">Bases qui ne se parlent pas</div>
+        <div class="p">Fisc, justice, ZAGS, sécurité sociale — chaque institution gère ses propres dossiers. Aucun back-office unifié pour les agents publics.</div>
+        <div class="stat">12+ silos institutionnels</div>
       </div>
     </div>
     <div class="phone" aria-hidden="true">
-      <iframe src="superapp-embed.html?screen=pay&embed=1" loading="lazy" title="Operations"></iframe>
+      <iframe src="../app.html?screen=pay&embed=1" loading="lazy" title="Portefeuille"></iframe>
     </div>
   </div>
 </section>
 
 <!-- 3 SOLUTION -->
-<section class="slide" id="s3" data-label="The Solution">
-  <div class="bg blur"><img src="photos/africa5.jpg" alt=""></div>
-  <div class="pg"><span class="sec">02 · Solution</span><span class="num">03 / 09</span></div>
+<section class="slide" id="s3" data-label="La solution">
+  <div class="bg blur"><img src="../photos/africa5.jpg" alt=""></div>
+  <div class="pg"><span class="sec">02 · Solution</span><span class="num">03 / 12</span></div>
   <div class="inner">
     <div class="wrap">
-      <div class="eyebrow">The solution</div>
-      <h2 style="margin-top:22px">Africa's first <em>civic superapp.</em></h2>
-      <div class="sub">A single verified account that unifies banking, mobile money, government services and community — so a passport renewal, a school tuition payment and an FX transfer all happen in the same place.</div>
+      <div class="eyebrow">La solution</div>
+      <h2 style="margin-top:22px">Le premier <em>SuperApp civique.</em></h2>
+      <div class="sub">Un compte vérifié unique qui réunit identité, services publics, portefeuille civique et communication État-citoyen — un renouvellement de passeport, un paiement d'impôt et une audience judiciaire au même endroit.</div>
       <div class="arch">
-        <div class="arch-ly"><span class="arch-lbl">Experience</span><span class="arch-nodes">iOS · Android · Web · USSD</span></div>
+        <div class="arch-ly"><span class="arch-lbl">Expérience</span><span class="arch-nodes">iOS · Android · Web · USSD</span></div>
         <div class="arch-arr">→</div>
-        <div class="arch-ly core"><span class="arch-lbl">SuperApp Core</span><span class="arch-nodes">Identity · Wallet · Services · KYC</span></div>
+        <div class="arch-ly core"><span class="arch-lbl">Noyau SuperApp</span><span class="arch-nodes">ID · ECP · Portefeuille · Services</span></div>
         <div class="arch-arr">→</div>
-        <div class="arch-ly"><span class="arch-lbl">Partners &amp; Gov</span><span class="arch-nodes">12 Ministries · Visa · Telcos</span></div>
+        <div class="arch-ly"><span class="arch-lbl">Institutions</span><span class="arch-nodes">12 ministères · Tribunaux · Fisc · ZAGS</span></div>
       </div>
     </div>
     <div class="phoneslot">
-      <iframe src="superapp-embed.html?screen=home&embed=1" loading="lazy" title="SuperApp home"></iframe>
+      <iframe src="../app.html?screen=home&embed=1" loading="lazy" title="Accueil SuperApp"></iframe>
     </div>
     <div class="callouts">
       <div class="co">
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M20 6 9 17l-5-5"/></svg></div>
-        <div><h5>Verified once</h5><p>KYC &amp; gov-ID on signup — works everywhere.</p></div>
+        <div><h5>Vérifié une fois</h5><p>KYC + ID + ECP à l'inscription — valable partout.</p></div>
       </div>
       <div class="co">
         <div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/></svg></div>
-        <div><h5>One balance</h5><p>Multi-currency wallet, cards, transfers &amp; FX.</p></div>
+        <div><h5>Un portefeuille</h5><p>Carte civique, aides sociales, obligations, cashback.</p></div>
       </div>
       <div class="co">
         <div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2 3 7v5c0 5 4 9 9 10 5-1 9-5 9-10V7z"/></svg></div>
-        <div><h5>Gov inside</h5><p>60+ services from 12 ministries, APIs public.</p></div>
+        <div><h5>État intégré</h5><p>60+ services de 12 ministères, API publique.</p></div>
       </div>
     </div>
   </div>
 </section>
 
 <!-- 4 HOME FEED -->
-<section class="slide deep" id="s4" data-label="Home Feed">
-  <div class="bg"><img src="photos/africa2.jpg" alt=""></div>
-  <div class="pg"><span class="sec">03 · Home Feed</span><span class="num">04 / 09</span></div>
+<section class="slide deep" id="s4" data-label="Fil & accueil">
+  <div class="bg"><img src="../photos/africa2.jpg" alt=""></div>
+  <div class="pg"><span class="sec">03 · Fil d'accueil</span><span class="num">04 / 12</span></div>
   <div class="inner">
     <div class="wrap">
-      <div class="eyebrow">Product — Home</div>
-      <h2 style="margin-top:22px">A home feed that <em>actually informs.</em></h2>
-      <div class="sub">Not a chat list. Not a banking app. A living feed of every ministry, every update, every number that matters — right where citizens open their phone.</div>
+      <div class="eyebrow">Produit — Accueil</div>
+      <h2 style="margin-top:22px">Un fil qui <em>informe vraiment.</em></h2>
+      <div class="sub">Pas une liste de chats. Pas une app bancaire. Un fil vivant : annonces officielles de chaque ministère, scan QR, carte sociale, services populaires — à l'ouverture de l'app.</div>
       <div class="feats">
-        <div class="fe"><div class="k">12</div><div class="tx"><h5>Ministries in your pocket</h5><p>Pinned circles across the top — every ministry has a live channel.</p></div></div>
-        <div class="fe"><div class="k">48h</div><div class="tx"><h5>Fresh content daily</h5><p>Gov updates, reels &amp; local news push within hours of publishing.</p></div></div>
-        <div class="fe"><div class="k">47</div><div class="tx"><h5>Live FX &amp; rates</h5><p>NGN, KES, GHS, EUR, USD — updated every minute, right on home.</p></div></div>
+        <div class="fe"><div class="k">12</div><div class="tx"><h5>Ministères en direct</h5><p>Annonces officielles du Ministère des Finances, Justice, Numérique — vérifiées.</p></div></div>
+        <div class="fe"><div class="k">8</div><div class="tx"><h5>Services populaires</h5><p>Impôts, Justice, Mariage, Domicile, Sondages, Certificats, Permis — un tap.</p></div></div>
+        <div class="fe"><div class="k">∞</div><div class="tx"><h5>Recherche unifiée</h5><p>Une barre — services, documents, démarches, agents publics. Tout indexé.</p></div></div>
       </div>
     </div>
     <div class="phones" aria-hidden="true">
-      <iframe src="superapp-embed.html?screen=home&embed=1" loading="lazy" title="Home"></iframe>
+      <iframe src="../app.html?screen=home&embed=1&scroll=0" loading="lazy" title="Accueil"></iframe>
     </div>
   </div>
 </section>
 
-<!-- 5 OPERATIONS -->
-<section class="slide" id="s5" data-label="Operations">
-  <div class="bg blur"><img src="photos/africa-city.jpg" alt=""></div>
-  <div class="pg"><span class="sec">04 · Money</span><span class="num">05 / 09</span></div>
+<!-- 5 WALLET (civic) -->
+<section class="slide" id="s5" data-label="Portefeuille civique">
+  <div class="bg blur"><img src="../photos/africa-city.jpg" alt=""></div>
+  <div class="pg"><span class="sec">04 · Portefeuille</span><span class="num">05 / 12</span></div>
   <div class="inner">
     <div class="wrap">
-      <div class="eyebrow">Product — Operations</div>
-      <h2 style="margin-top:22px">Banking that <em>feels native.</em></h2>
-      <div class="sub">Multi-currency accounts, Visa-issued cards, six transfer rails and a real spending tracker — built into a single Operations screen.</div>
+      <div class="eyebrow">Produit — Portefeuille</div>
+      <h2 style="margin-top:22px">Portefeuille <em>civique.</em></h2>
+      <div class="sub">Carte sociale, aides, obligations d'État, garantie des dépôts, cashback national, aide au logement — un seul écran réunit tous les flux financiers liés à l'État.</div>
       <div class="grid">
-        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg></div><div class="tx"><h5>Multi-currency card</h5><p>USD · EUR · NGN · KES</p></div></div>
-        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 5v14M5 12h14"/></svg></div><div class="tx"><h5>Card-to-card</h5><p>Instant, any issuer</p></div></div>
-        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20a8 8 0 0 1 16 0"/></svg></div><div class="tx"><h5>To client</h5><p>By name, phone, @tag</p></div></div>
-        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20"/></svg></div><div class="tx"><h5>International</h5><p>54 countries, FX inline</p></div></div>
-        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><rect x="4" y="4" width="6" height="6"/><rect x="14" y="4" width="6" height="6"/><rect x="4" y="14" width="6" height="6"/><rect x="14" y="14" width="3" height="3"/></svg></div><div class="tx"><h5>QR payments</h5><p>Scan at checkout</p></div></div>
-        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 17l6-6 4 4 8-8"/><path d="M14 7h7v7"/></svg></div><div class="tx"><h5>Spending insights</h5><p>7D / 1M / 1Y trends</p></div></div>
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M3 10h18"/></svg></div><div class="tx"><h5>Carte civique</h5><p>Visa officielle, multi-devises</p></div></div>
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="13" width="4" height="8"/><rect x="10" y="9" width="4" height="12"/><rect x="17" y="4" width="4" height="17"/></svg></div><div class="tx"><h5>Obligations d'État</h5><p>Rendement 7,5 %</p></div></div>
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><div class="tx"><h5>Garantie des dépôts</h5><p>Banque en faillite — recours</p></div></div>
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7"/><rect x="14" y="3" width="7" height="7"/><rect x="3" y="14" width="7" height="7"/></svg></div><div class="tx"><h5>Cashback national</h5><p>Scan reçu · récompense</p></div></div>
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20H3z"/></svg></div><div class="tx"><h5>Aide au logement</h5><p>Subvention 1ᵉʳ achat</p></div></div>
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20"/></svg></div><div class="tx"><h5>Transferts internationaux</h5><p>54 pays, FX intégré</p></div></div>
       </div>
     </div>
     <div class="phones" aria-hidden="true">
-      <iframe src="superapp-embed.html?screen=pay&embed=1" loading="lazy" title="Operations"></iframe>
+      <iframe src="../app.html?screen=pay&embed=1&scroll=1850" loading="lazy" title="Portefeuille"></iframe>
     </div>
   </div>
 </section>
 
 <!-- 6 GOV -->
-<section class="slide deep" id="s6" data-label="Gov Services">
-  <div class="bg"><img src="photos/gov.jpg" alt=""></div>
-  <div class="pg"><span class="sec">05 · Government</span><span class="num">06 / 09</span></div>
+<section class="slide deep" id="s6" data-label="Services publics">
+  <div class="bg"><img src="../photos/gov.jpg" alt=""></div>
+  <div class="pg"><span class="sec">05 · Services publics</span><span class="num">06 / 12</span></div>
   <div class="inner">
     <div class="wrap">
-      <div class="eyebrow">Product — Gov services</div>
-      <h2 style="margin-top:22px">60+ services. <em>Zero queues.</em></h2>
-      <div class="sub">Every major government service — from passport renewals to tax filings — replaced with an in-app flow that completes in minutes, not days.</div>
+      <div class="eyebrow">Produit — Services publics</div>
+      <h2 style="margin-top:22px">60+ services. <em>Zéro file.</em></h2>
+      <div class="sub">Chaque service de l'État — du renouvellement de passeport à la déclaration d'impôt — remplacé par un parcours intégré qui s'achève en minutes, pas en jours.</div>
       <div class="cats">
-        <div class="cc"><div class="lb">Documents</div><ul><li>Certificates</li><li>Driver's licence</li><li>Place of residence</li><li>Marriage</li></ul></div>
-        <div class="cc"><div class="lb">Finance</div><ul><li>Taxes</li><li>Deposit return</li><li>Gov bonds</li><li>Social card</li></ul></div>
-        <div class="cc"><div class="lb">Legal &amp; Social</div><ul><li>Courts</li><li>Enforcement</li><li>Unemployment</li><li>Gov aid</li></ul></div>
-        <div class="cc"><div class="lb">Lifestyle &amp; Culture</div><ul><li>Surveys</li><li>Culture</li><li>Tourism</li><li>Sports</li></ul></div>
+        <div class="cc"><div class="lb">Documents</div><ul><li>Certificats &amp; extraits</li><li>Permis de conduire</li><li>Place de résidence</li><li>Mariage en ligne</li></ul></div>
+        <div class="cc"><div class="lb">Finance &amp; garanties</div><ul><li>Impôts &amp; déclarations</li><li>Obligations d'État</li><li>Garantie des dépôts</li><li>Carte sociale</li></ul></div>
+        <div class="cc"><div class="lb">Justice &amp; social</div><ul><li>Tribunaux &amp; visio-audiences</li><li>Exécution judiciaire</li><li>Aide chômage</li><li>Services aux PDI</li></ul></div>
+        <div class="cc"><div class="lb">Vie quotidienne</div><ul><li>Santé · RDV · vaccins</li><li>Éducation · diplômes</li><li>Transport · amendes</li><li>Défense &amp; service militaire</li></ul></div>
       </div>
     </div>
     <div class="phones" aria-hidden="true">
-      <iframe src="superapp-embed.html?screen=gov&embed=1" loading="lazy" title="Gov Services"></iframe>
+      <iframe src="../app.html?screen=gov&embed=1&scroll=1100" loading="lazy" title="Services publics"></iframe>
     </div>
   </div>
 </section>
 
 <!-- 7 DOCS -->
 <section class="slide" id="s7" data-label="Documents">
-  <div class="bg blur"><img src="photos/africa2.jpg" alt=""></div>
-  <div class="pg"><span class="sec">06 · Identity</span><span class="num">07 / 09</span></div>
+  <div class="bg blur"><img src="../photos/africa2.jpg" alt=""></div>
+  <div class="pg"><span class="sec">06 · Identité</span><span class="num">07 / 12</span></div>
   <div class="inner">
     <div class="wrap">
-      <div class="eyebrow">Product — Profile &amp; documents</div>
-      <h2 style="margin-top:22px">Your life, <em>on one page.</em></h2>
-      <div class="sub">Passport, driver's licence, marriage certificate, benefits — every document the state issues, verified and accessible from the Profile tab.</div>
+      <div class="eyebrow">Produit — Profil &amp; documents</div>
+      <h2 style="margin-top:22px">Votre vie, <em>sur une page.</em></h2>
+      <div class="sub">Passeport, permis, certificat de mariage, diplômes, attestation PDI — chaque document délivré par l'État, vérifié et accessible depuis l'onglet Profil.</div>
       <div class="docs">
-        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="11" r="3"/><path d="M6 20c1-3 4-4 6-4s5 1 6 4"/></svg></div><h5>Passport</h5><p>Biometric-linked, scan at border</p></div>
-        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h4M7 14h6"/></svg></div><h5>Driver's Licence</h5><p>Category B · Valid</p></div>
-        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12 12 4l9 8v8H3z"/><path d="M9 20v-5h6v5"/></svg></div><h5>Place of Residence</h5><p>Verified — Lagos</p></div>
-        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4-7-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 7-7 11-7 11z"/></svg></div><h5>Marriage Cert.</h5><p>Registered 2019</p></div>
-        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c1-4 3-6 6-6M15 20c1-4 3-6 6-6"/><circle cx="15" cy="8" r="3"/></svg></div><h5>Birth Cert.</h5><p>Original document</p></div>
-        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 8 12 3l9 5-9 5z"/><path d="M6 10v6c0 2 3 3 6 3s6-1 6-3v-6"/></svg></div><h5>Education</h5><p>Diplomas &amp; certificates</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="12" cy="11" r="3"/><path d="M6 20c1-3 4-4 6-4s5 1 6 4"/></svg></div><h5>Passeport / CNI</h5><p>Biométrique · scan frontalier</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="6" width="18" height="12" rx="2"/><path d="M7 10h4M7 14h6"/></svg></div><h5>Permis de conduire</h5><p>Catégorie B · Valide</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12 12 4l9 8v8H3z"/><path d="M9 20v-5h6v5"/></svg></div><h5>Place de résidence</h5><p>Vérifié</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 21s-7-4-7-11a5 5 0 0 1 9-3 5 5 0 0 1 9 3c0 7-7 11-7 11z"/></svg></div><h5>Acte de mariage</h5><p>Enregistré 2019</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><path d="M3 20c1-4 3-6 6-6M15 20c1-4 3-6 6-6"/><circle cx="15" cy="8" r="3"/></svg></div><h5>Acte de naissance</h5><p>Document original</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 8 12 3l9 5-9 5z"/><path d="M6 10v6c0 2 3 3 6 3s6-1 6-3v-6"/></svg></div><h5>Diplômes</h5><p>Éducation &amp; certificats</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4M5 21V11M19 21V11M3 21h18"/></svg></div><h5>Attestation PDI</h5><p>Personne déplacée interne</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M3 9h18M9 21V9"/></svg></div><h5>Titre de séjour</h5><p>Permanent · vérifié</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M9 12l2 2 4-4"/></svg></div><h5>ID Numérique</h5><p>Niveau 3 · vérifié</p></div>
       </div>
     </div>
     <div class="phoneslot">
-      <iframe src="superapp-embed.html?screen=profile&embed=1" loading="lazy" title="Profile"></iframe>
+      <iframe src="../app.html?screen=profile&embed=1&scroll=700" loading="lazy" title="Profil"></iframe>
     </div>
   </div>
 </section>
 
-<!-- 8 MESSAGES -->
-<section class="slide deep" id="s8" data-label="Messages">
-  <div class="bg"><img src="photos/africa5.jpg" alt=""></div>
-  <div class="pg"><span class="sec">07 · Engagement</span><span class="num">08 / 09</span></div>
+<!-- 8 MESSAGES & SUIVI -->
+<section class="slide deep" id="s8" data-label="Notifications">
+  <div class="bg"><img src="../photos/africa5.jpg" alt=""></div>
+  <div class="pg"><span class="sec">07 · Notifications</span><span class="num">08 / 12</span></div>
   <div class="inner">
     <div class="wrap">
-      <div class="eyebrow">Product — Messages</div>
-      <h2 style="margin-top:22px">A channel for <em>every citizen.</em></h2>
-      <div class="sub">Push notifications, dedicated channels per ministry, special offers and first-party support — all in one inbox that replaces SMS, email and paper mail.</div>
+      <div class="eyebrow">Produit — Notifications &amp; suivi</div>
+      <h2 style="margin-top:22px">Un canal pour <em>chaque démarche.</em></h2>
+      <div class="sub">Notifications push, canal dédié par ministère, suivi temps-réel des demandes (envoyée → en examen → décision) — tout dans une seule boîte qui remplace SMS, e-mail et courrier papier.</div>
       <div class="feats">
-        <div class="fe"><h5>Gov channels</h5><p>Tax deadlines, benefit updates, civic announcements — directly from the source, verified.</p></div>
-        <div class="fe"><h5>Live support</h5><p>In-app chat with human agents. Average response &lt; 2 minutes.</p></div>
-        <div class="fe"><h5>Partner offers</h5><p>Cashback, discounts and tourism promotions curated for verified users.</p></div>
-        <div class="fe"><h5>Security alerts</h5><p>Real-time fraud notifications and device-login checks.</p></div>
+        <div class="fe"><h5>Suivi demandes</h5><p>Barre de progression visuelle pour chaque dossier — du dépôt à la décision.</p></div>
+        <div class="fe"><h5>Canaux officiels</h5><p>Échéances fiscales, mises à jour d'aides, annonces civiques — directement de la source.</p></div>
+        <div class="fe"><h5>Support 24/7</h5><p>Chat &amp; vidéo avec agents humains. Temps de réponse moyen &lt; 2 minutes.</p></div>
+        <div class="fe"><h5>Alertes sécurité</h5><p>Notifications de fraude temps-réel et contrôles de connexion d'appareil.</p></div>
       </div>
     </div>
     <div class="phoneslot">
-      <iframe src="superapp-embed.html?screen=invest&embed=1" loading="lazy" title="Messages"></iframe>
+      <iframe src="../app.html?screen=invest&embed=1&scroll=0" loading="lazy" title="Notifications"></iframe>
     </div>
   </div>
 </section>
 
-<!-- 11 CTA + ROADMAP -->
-<section class="slide" id="s11" data-label="Join Us">
-  <div class="bg"><img src="photos/people.jpg" alt=""></div>
-  <div class="pg"><span class="sec">08 · Join us</span><span class="num">09 / 09</span></div>
+<!-- 9 BIOMETRIE & ECP (NEW) -->
+<section class="slide" id="s9" data-label="Biométrie &amp; ECP">
+  <div class="bg blur"><img src="../photos/banking.jpg" alt=""></div>
+  <div class="pg"><span class="sec">08 · Sécurité</span><span class="num">09 / 12</span></div>
   <div class="inner">
     <div class="wrap">
-      <div class="eyebrow">Join us — three phases, three years</div>
-      <h2 style="margin-top:18px">Build the <em>first</em> digital<br>nation, together.</h2>
-      <div class="sub">We're raising a seed round to scale the product in the anchor market and prepare the regional launch — from 1M users in 2026 to all 54 African markets by 2028.</div>
+      <div class="eyebrow">Produit — Sécurité &amp; signature</div>
+      <h2 style="margin-top:22px">Signer, <em>en deux secondes.</em></h2>
+      <div class="sub">Signature électronique (ECP) à valeur juridique équivalente au manuscrit. Authentification biométrique multi-modale. Historique complet des signatures et sessions actives.</div>
+      <div class="docs">
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M8 9.5a4 4 0 018 0M9 14c.7 1 1.8 1.6 3 1.6s2.3-.6 3-1.6"/></svg></div><h5>Face ID</h5><p>Reconnaissance faciale</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 11v6M9 14h6M5 18a7 7 0 0114 0M3 11.5C3 7.36 7.03 4 12 4s9 3.36 9 7.5"/></svg></div><h5>Touch ID</h5><p>Empreinte digitale</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0014 0M12 19v3"/></svg></div><h5>Voix</h5><p>Authentification vocale</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div><h5>ECP active</h5><p>Expire 2028</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg></div><h5>Historique</h5><p>12 documents signés</p></div>
+        <div class="dc"><div class="ic"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M10 18h4"/></svg></div><h5>Sessions actives</h5><p>Multi-appareils</p></div>
+      </div>
+    </div>
+    <div class="phoneslot">
+      <iframe src="../app.html?screen=profile&embed=1&scroll=450" loading="lazy" title="Sécurité"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- 10 IA + ACCESSIBILITE (NEW) -->
+<section class="slide deep" id="s10" data-label="IA &amp; accessibilité">
+  <div class="bg"><img src="../photos/africa-city.jpg" alt=""></div>
+  <div class="pg"><span class="sec">09 · Inclusion</span><span class="num">10 / 12</span></div>
+  <div class="inner">
+    <div class="wrap">
+      <div class="eyebrow">Produit — IA &amp; accessibilité</div>
+      <h2 style="margin-top:22px">Compris par <em>chaque citoyen.</em></h2>
+      <div class="sub">Recherche unifiée. Assistant IA pour répondre aux « Comment obtenir X ? ». Multi-langue (FR / EN / langues locales). Conformité WCAG : police XL, voix, lecteur d'écran, contraste élevé.</div>
+      <div class="grid">
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="M21 21l-4.35-4.35"/></svg></div><div class="tx"><h5>Recherche unifiée</h5><p>Services, documents, agents</p></div></div>
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><path d="M12 2a3 3 0 013 3v1a4 4 0 014 4v3a6 6 0 01-6 6h-2a6 6 0 01-6-6v-3a4 4 0 014-4V5a3 3 0 013-3z"/></svg></div><div class="tx"><h5>Assistant IA</h5><p>« Demander à l'État »</p></div></div>
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="M2.5 12h19M12 2.5c2.5 3 4 6.5 4 9.5s-1.5 6.5-4 9.5M12 2.5c-2.5 3-4 6.5-4 9.5s1.5 6.5 4 9.5"/></svg></div><div class="tx"><h5>Multi-langue</h5><p>FR · EN · HA · YO · IG</p></div></div>
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M5 9.5L12 7l7 2.5M12 7v6.5M9 22l3-8.5L15 22"/></svg></div><div class="tx"><h5>Accessibilité WCAG</h5><p>Police XL, voix, lecteur</p></div></div>
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><path d="M3 12h4l3-9 4 18 3-9h4"/></svg></div><div class="tx"><h5>Suivi temps-réel</h5><p>Barre progression demandes</p></div></div>
+        <div class="gi"><div class="ic"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div><div class="tx"><h5>Support humain</h5><p>Chat &amp; visio 24/7</p></div></div>
+      </div>
+    </div>
+    <div class="phones" aria-hidden="true">
+      <iframe src="../app.html?screen=home&embed=1&scroll=0" loading="lazy" title="Accueil avec IA"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- 11 BACK-OFFICE (NEW) -->
+<section class="slide" id="s11n" data-label="Espace agents publics">
+  <div class="bg blur"><img src="../photos/gov.jpg" alt=""></div>
+  <div class="pg"><span class="sec">10 · Institutions</span><span class="num">11 / 12</span></div>
+  <div class="inner">
+    <div class="wrap">
+      <div class="eyebrow">Produit — Back-office</div>
+      <h2 style="margin-top:22px">Les <em>institutions</em> aussi.</h2>
+      <div class="sub">Pas seulement une app citoyen. Un back-office sécurisé pour les juges, greffiers, inspecteurs fiscaux, agents ZAGS et services sociaux — la même plateforme, l'autre côté du guichet.</div>
+      <div class="feats">
+        <div class="fe"><h5>Cabinets juridiques</h5><p>Juges &amp; greffiers : registre judiciaire, audiences visio, dossiers, signatures.</p></div>
+        <div class="fe"><h5>Inspecteurs fiscaux</h5><p>Contrôle des paiements, notifications, dialogue contribuable, statistiques.</p></div>
+        <div class="fe"><h5>Agents ZAGS</h5><p>Mariages, naissances, décès — traitement des actes, planning, archive.</p></div>
+        <div class="fe"><h5>Services sociaux</h5><p>Examen des demandes d'aide, décisions, retours aux bénéficiaires.</p></div>
+      </div>
+    </div>
+    <div class="phoneslot">
+      <iframe src="../app.html?screen=gov&embed=1&scroll=2400" loading="lazy" title="Espace agents publics"></iframe>
+    </div>
+  </div>
+</section>
+
+<!-- 12 CTA + ROADMAP -->
+<section class="slide" id="s12" data-label="Rejoignez-nous">
+  <div class="bg"><img src="../photos/people.jpg" alt=""></div>
+  <div class="pg"><span class="sec">11 · Rejoindre</span><span class="num">12 / 12</span></div>
+  <div class="inner">
+    <div class="wrap">
+      <div class="eyebrow">Rejoignez-nous — trois phases, trois ans</div>
+      <h2 style="margin-top:18px">Bâtir la première<br><em>nation numérique.</em></h2>
+      <div class="sub">Nous levons un tour d'amorçage pour passer à l'échelle dans le marché ancre et préparer l'expansion régionale — de 1 M d'utilisateurs en 2026 à 54 marchés africains d'ici 2028.</div>
     </div>
     <div class="rmap">
       <div class="rm-ph cur">
-        <div class="rm-tg"><span class="dt"></span>Phase I · 2026 — Now</div>
-        <h4>Anchor country launch</h4>
-        <p>1M downloads · 12 ministries · Visa card · 60+ gov services · seed round</p>
+        <div class="rm-tg"><span class="dt"></span>Phase I · 2026 — Maintenant</div>
+        <h4>Marché ancre</h4>
+        <p>1 M téléchargements · 12 ministères · ECP &amp; biométrie · 60+ services · tour d'amorçage</p>
       </div>
       <div class="rm-ph">
         <div class="rm-tg"><span class="dt"></span>Phase II · 2027</div>
-        <h4>Regional expansion</h4>
-        <p>6 West &amp; East markets · FX liquidity · USSD · credit &amp; lending · Series A</p>
+        <h4>Expansion régionale</h4>
+        <p>6 marchés ouest &amp; est · USSD · IA conversationnelle · Série A</p>
       </div>
       <div class="rm-ph">
         <div class="rm-tg"><span class="dt"></span>Phase III · 2028</div>
-        <h4>Pan-African platform</h4>
-        <p>54 countries · 40M users · open Service Catalog API · Series B · IPO path</p>
+        <h4>Plateforme pan-africaine</h4>
+        <p>54 pays · 40 M utilisateurs · API publique du Catalogue de services · Série B</p>
       </div>
     </div>
     <div class="cta">

@@ -129,12 +129,14 @@ body{
 .card-sub{font-size:10px;opacity:.6;margin-bottom:2px}
 .card-val{font-size:12px;font-weight:700}
 
-.quick-acts{display:flex;gap:8px;padding:0 20px 12px}
-.qa{flex:1;background:#f7f7f7;border:1px solid #eee;border-radius:14px;padding:12px 4px;text-align:center;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;user-select:none}
+.quick-acts{display:flex;gap:10px;padding:14px 20px 14px}
+.qa{flex:1;background:#fff;border:1.5px solid #ececec;border-radius:18px;padding:14px 4px 12px;text-align:center;cursor:pointer;transition:all .15s;-webkit-tap-highlight-color:transparent;user-select:none;box-shadow:0 2px 10px rgba(0,0,0,.04)}
 .qa:active{background:var(--p-g);border-color:transparent;transform:scale(.94)}
 .qa:active .qa-lbl{color:#fff}
-.qa-ico{font-size:19px;margin-bottom:4px;display:block;line-height:1}
-.qa-lbl{font-size:11px;font-weight:700;color:#555;transition:color .15s}
+.qa:active .qa-ico-wrap{background:rgba(255,255,255,.22)}
+.qa-ico-wrap{width:38px;height:38px;border-radius:12px;background:linear-gradient(135deg,#FFF1DC,#FFE4B8);display:flex;align-items:center;justify-content:center;margin:0 auto 8px;transition:background .15s}
+.qa-ico{font-size:20px;display:block;line-height:1}
+.qa-lbl{font-size:11px;font-weight:800;color:#1c1c1e;transition:color .15s;letter-spacing:-.01em}
 
 .tx-row{display:flex;align-items:center;gap:12px;padding:11px 20px;border-bottom:1px solid #f4f4f4;cursor:pointer;transition:background .12s;-webkit-tap-highlight-color:transparent;user-select:none}
 .tx-row:active{background:#f9f9f9}
@@ -277,6 +279,37 @@ body{
 .msg-promo-sub{font-size:11px;color:rgba(255,255,255,.72);font-weight:500}
 
 .msg-pin-lbl{font-size:11px;font-weight:700;color:#bbb;padding:0 16px;margin-bottom:6px;letter-spacing:.04em;text-transform:uppercase}
+
+/* Notifs: request progress card */
+.msg-req-card{margin:0 16px 10px;background:#fff;border-radius:16px;padding:14px;box-shadow:0 2px 10px rgba(0,0,0,.05);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s}
+.msg-req-card:active{transform:scale(.99)}
+.msg-req-hd{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+.msg-req-ico{width:36px;height:36px;border-radius:10px;background:var(--p-g);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.msg-req-ico svg{width:18px;height:18px}
+.msg-req-info{flex:1;min-width:0}
+.msg-req-name{font-size:13px;font-weight:700;color:#1c1c1e;margin-bottom:2px;line-height:1.25}
+.msg-req-id{font-size:10.5px;color:#999;font-weight:500}
+.msg-req-step{font-size:11px;font-weight:800;color:var(--p);background:rgba(212,131,10,.12);padding:3px 8px;border-radius:50px;flex-shrink:0;white-space:nowrap}
+.msg-req-step.done{color:#10b981;background:rgba(16,185,129,.12)}
+.msg-req-bar{height:4px;background:#f0f0f2;border-radius:50px;overflow:hidden;margin-bottom:10px}
+.msg-req-fill{height:100%;background:var(--p-g);border-radius:50px;transition:width .3s}
+.msg-req-steps{display:flex;justify-content:space-between;align-items:center;margin-bottom:8px}
+.msg-req-st{display:flex;align-items:center;gap:5px;flex:1}
+.msg-req-st:nth-child(2){justify-content:center}
+.msg-req-st:nth-child(3){justify-content:flex-end}
+.msg-req-st-dot{width:6px;height:6px;border-radius:50%;background:#e0e0e0;flex-shrink:0}
+.msg-req-st.done .msg-req-st-dot{background:var(--c,var(--p))}
+.msg-req-st.active .msg-req-st-dot{background:var(--p);box-shadow:0 0 0 3px rgba(212,131,10,.18)}
+.msg-req-st span{font-size:10px;font-weight:600;color:#999}
+.msg-req-st.done span,.msg-req-st.active span{color:#1c1c1e}
+.msg-req-eta{font-size:11px;color:#666;font-weight:500;padding-top:8px;border-top:1px solid #f0f0f2}
+.msg-req-eta b{color:#1c1c1e;font-weight:700}
+.dark-theme .msg-req-card{background:#2c2c2e}
+.dark-theme .msg-req-name{color:#fff}
+.dark-theme .msg-req-bar{background:#3a3a3c}
+.dark-theme .msg-req-st.done span,.dark-theme .msg-req-st.active span{color:#fff}
+.dark-theme .msg-req-eta{color:#aaa;border-top-color:#3a3a3c}
+.dark-theme .msg-req-eta b{color:#fff}
 .msg-sec-lbl{font-size:11px;font-weight:700;color:#bbb;padding:4px 16px;margin-bottom:8px;letter-spacing:.04em;text-transform:uppercase}
 .msg-card{margin:0 16px 10px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}
 .msg-row{display:flex;align-items:center;gap:12px;padding:13px 16px;border-bottom:1px solid #f5f5f7;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .1s}
@@ -317,6 +350,25 @@ body{
 .gov-cat-badge{position:absolute;top:0;left:50%;transform:translateX(-50%);background:#ef4444;color:#fff;font-size:8px;font-weight:800;padding:2px 6px;border-radius:50px;white-space:nowrap;letter-spacing:.02em}
 .gov-cat-badge.gold{background:var(--p)}
 .gov-cat-lbl-txt{font-size:10px;font-weight:600;color:#333;text-align:center;line-height:1.3;max-width:64px}
+
+/* Espace agents publics (back-office) */
+.agents-card{display:flex;align-items:center;gap:12px;background:linear-gradient(135deg,#1c1c1e,#2c2c2e);border-radius:16px;padding:14px;cursor:pointer;-webkit-tap-highlight-color:transparent;margin-bottom:10px;transition:transform .12s}
+.agents-card:active{transform:scale(.98)}
+.agents-card-ico{width:42px;height:42px;border-radius:12px;background:rgba(212,131,10,.22);display:flex;align-items:center;justify-content:center;flex-shrink:0}
+.agents-card-ico svg{width:22px;height:22px}
+.agents-card-info{flex:1;min-width:0}
+.agents-card-title{font-size:13px;font-weight:700;color:#fff;margin-bottom:2px}
+.agents-card-sub{font-size:10.5px;color:rgba(255,255,255,.6);font-weight:500;line-height:1.35}
+.agents-card-arrow{flex-shrink:0;width:18px;height:18px;display:flex;align-items:center;justify-content:center}
+.agents-card-arrow svg{width:14px;height:14px;stroke:rgba(255,255,255,.5)}
+.agents-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;margin-bottom:8px}
+.agents-mini{display:flex;flex-direction:column;align-items:center;gap:6px;background:#f5f5f7;border-radius:12px;padding:10px 4px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .12s}
+.agents-mini:active{background:#ececec}
+.agents-mini svg{width:20px;height:20px;fill:none}
+.agents-mini span{font-size:10px;font-weight:600;color:#444}
+.dark-theme .agents-mini{background:#3a3a3c}
+.dark-theme .agents-mini span{color:#e5e5e7}
+.dark-theme .agents-mini svg{stroke:#e5e5e7}
 
 /* ── INVEST ── */
 .chart-card{margin:8px 20px 12px;background:#f9f9f9;border-radius:16px;padding:14px 16px;border:1px solid #eee;cursor:pointer;transition:background .15s}
@@ -463,6 +515,31 @@ body{
 
 .prf-section{margin:0 16px 12px;background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 2px 10px rgba(0,0,0,.05)}
 .prf-sec-ttl{font-size:12px;font-weight:700;color:#aaa;padding:14px 16px 6px;letter-spacing:.02em}
+.prf-mode{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;padding:4px 12px 14px}
+.prf-mode-item{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;background:#f5f5f7;border:1.5px solid transparent;border-radius:14px;padding:14px 6px;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:all .15s;min-height:78px}
+.prf-mode-item:active{transform:scale(.96)}
+.prf-mode-item.active{background:var(--p-g);border-color:transparent;box-shadow:0 4px 12px rgba(212,131,10,.28)}
+.prf-mode-ico{font-size:22px;line-height:1}
+.prf-mode-lbl{font-size:11px;font-weight:800;color:#1c1c1e;text-align:center;letter-spacing:-.01em;line-height:1.2}
+.prf-mode-item.active .prf-mode-lbl{color:#fff}
+.dark-theme .prf-mode-item{background:#3a3a3c}
+.dark-theme .prf-mode-lbl{color:#fff}
+
+/* Profile toggle (biometrics) */
+.prf-row-toggle{cursor:pointer}
+.prf-toggle{width:42px;height:24px;border-radius:50px;background:#e0e0e0;position:relative;transition:background .2s;flex-shrink:0;cursor:pointer}
+.prf-toggle.on{background:var(--p)}
+.prf-toggle-knob{position:absolute;top:2px;left:2px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.18);transition:transform .2s}
+.prf-toggle.on .prf-toggle-knob{transform:translateX(18px)}
+.dark-theme .prf-toggle{background:#3a3a3c}
+
+/* Profile language pills */
+.prf-row-lang{align-items:flex-start;padding-top:14px;padding-bottom:14px}
+.prf-lang-pills{display:flex;gap:6px;flex-wrap:wrap;margin-top:6px}
+.prf-lang-pill{font-size:10px;font-weight:800;color:#666;background:#f0f0f2;padding:5px 10px;border-radius:50px;cursor:pointer;letter-spacing:.04em;transition:all .15s;-webkit-tap-highlight-color:transparent}
+.prf-lang-pill.active{background:var(--p);color:#fff;box-shadow:0 2px 6px rgba(212,131,10,.32)}
+.prf-lang-pill:active{transform:scale(.94)}
+.dark-theme .prf-lang-pill{background:#3a3a3c;color:#e5e5e7}
 .prf-row{display:flex;align-items:center;gap:13px;padding:12px 16px;border-bottom:1px solid #f5f5f7;cursor:pointer;-webkit-tap-highlight-color:transparent;transition:background .1s}
 .prf-row:last-child{border-bottom:none}
 .prf-row:active{background:#fafafa}
@@ -614,9 +691,9 @@ body{
 .story-lbl{font-size:10px;font-weight:600;color:#333;max-width:64px;text-align:center;line-height:1.25;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 
 /* Home section header */
-.home-sec-hd{display:flex;align-items:center;justify-content:space-between;padding:0 16px 8px}
-.home-sec-ttl{font-size:15px;font-weight:900;color:#111;letter-spacing:-.02em}
-.home-sec-all{font-size:12px;font-weight:700;color:var(--p)}
+.home-sec-hd{display:flex;align-items:center;justify-content:space-between;padding:6px 22px 10px}
+.home-sec-ttl{font-size:11px;font-weight:700;color:#bbb;letter-spacing:.04em;text-transform:uppercase}
+.home-sec-all{font-size:12px;font-weight:700;color:var(--p);cursor:pointer}
 
 /* Post cards */
 .post-card{margin:0 16px 12px;background:#fff;border-radius:20px;overflow:hidden;box-shadow:0 2px 12px rgba(0,0,0,.06)}
@@ -642,6 +719,41 @@ body{
 .post-foot-btn svg{width:16px;height:16px;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 
 /* Home promo banner */
+/* Home: active request progress */
+.req-progress{margin:0 16px 14px;background:#fff;border-radius:18px;padding:14px 16px;box-shadow:0 2px 12px rgba(0,0,0,.06);cursor:pointer;-webkit-tap-highlight-color:transparent;transition:transform .12s}
+.req-progress:active{transform:scale(.99)}
+.req-progress-hd{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:10px;gap:10px}
+.req-progress-lbl{font-size:10px;font-weight:700;color:#bbb;letter-spacing:.04em;text-transform:uppercase;margin-bottom:3px}
+.req-progress-title{font-size:13px;font-weight:700;color:#1c1c1e;line-height:1.3}
+.req-progress-pct{font-size:11px;font-weight:800;color:var(--p);background:rgba(212,131,10,.12);padding:3px 8px;border-radius:50px;flex-shrink:0;white-space:nowrap}
+.req-progress-bar{height:4px;background:#f0f0f2;border-radius:50px;overflow:hidden;margin-bottom:10px}
+.req-progress-fill{height:100%;background:var(--p-g);border-radius:50px;transition:width .3s}
+.req-progress-steps{display:flex;justify-content:space-between;align-items:center}
+.req-step{display:flex;align-items:center;gap:5px;flex:1}
+.req-step:nth-child(2){justify-content:center}
+.req-step:nth-child(3){justify-content:flex-end}
+.req-step-dot{width:6px;height:6px;border-radius:50%;background:#e0e0e0;flex-shrink:0}
+.req-step.done .req-step-dot{background:var(--p)}
+.req-step.active .req-step-dot{background:var(--p);box-shadow:0 0 0 3px rgba(212,131,10,.18)}
+.req-step span{font-size:10px;font-weight:600;color:#999}
+.req-step.done span,.req-step.active span{color:#1c1c1e}
+
+/* Home: AI assistant */
+.ai-assist{display:flex;align-items:center;gap:12px;margin:0 16px 14px;background:linear-gradient(135deg,#1c1c1e,#3a2a14);border-radius:18px;padding:14px;cursor:pointer;-webkit-tap-highlight-color:transparent;position:relative;overflow:hidden;transition:transform .12s}
+.ai-assist:active{transform:scale(.99)}
+.ai-assist-ico{width:42px;height:42px;border-radius:12px;background:var(--p-g);display:flex;align-items:center;justify-content:center;flex-shrink:0;box-shadow:0 2px 8px rgba(212,131,10,.4)}
+.ai-assist-ico svg{width:22px;height:22px}
+.ai-assist-info{flex:1;min-width:0}
+.ai-assist-title{font-size:14px;font-weight:800;color:#fff;margin-bottom:2px}
+.ai-assist-sub{font-size:11px;color:rgba(255,255,255,.7);font-weight:500;line-height:1.35}
+.ai-assist-pulse{position:absolute;top:-30px;right:-30px;width:80px;height:80px;border-radius:50%;background:radial-gradient(circle,rgba(212,131,10,.35),transparent 70%);pointer-events:none}
+.dark-theme .req-progress{background:#2c2c2e}
+.dark-theme .req-progress-title{color:#fff}
+.dark-theme .req-progress-bar{background:#3a3a3c}
+.dark-theme .req-step.done span,.dark-theme .req-step.active span{color:#fff}
+.dark-theme .home-search{background:#3a3a3c}
+.dark-theme .home-search span{color:#8e8e93}
+
 .home-promo{margin:0 16px 14px;border-radius:20px;overflow:hidden;position:relative;height:130px;cursor:pointer}
 .home-promo img{width:100%;height:100%;object-fit:cover;object-position:center;display:block}
 .home-promo-overlay{position:absolute;inset:0;background:linear-gradient(to right,rgba(0,0,0,.72) 50%,rgba(0,0,0,.15) 100%);padding:18px}
@@ -662,7 +774,7 @@ body{
 
 /* ── Operations page ── */
 .ops-wrap{padding-bottom:100px;background:#f5f5f7;min-height:100%}
-.ops-hd{display:flex;align-items:center;justify-content:space-between;padding:14px 16px 6px}
+.ops-hd{display:flex;align-items:center;justify-content:center;padding:14px 16px 6px}
 .ops-hd-user{width:36px;height:36px;border-radius:50%;overflow:hidden;flex-shrink:0;box-shadow:0 2px 10px rgba(0,0,0,.15);cursor:pointer;-webkit-tap-highlight-color:transparent}
 .ops-hd-user img{width:100%;height:100%;object-fit:cover;object-position:top center;display:block}
 .ops-hd-title{font-size:24px;font-weight:900;color:#111;letter-spacing:-.03em;flex:1;text-align:center}
@@ -675,6 +787,13 @@ body{
 .ops-sec-lbl{font-size:12px;font-weight:600;color:#aaa;letter-spacing:.02em}
 .ops-sec-all{font-size:12px;font-weight:700;color:var(--p);cursor:pointer}
 
+.serv-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px 6px;padding:4px 16px 18px}
+.serv-item{display:flex;flex-direction:column;align-items:center;gap:7px;cursor:pointer;-webkit-tap-highlight-color:transparent;user-select:none}
+.serv-item:active{transform:scale(.93);transition:transform .12s}
+.serv-ico{width:54px;height:54px;border-radius:16px;display:flex;align-items:center;justify-content:center;box-shadow:0 3px 10px rgba(0,0,0,.06)}
+.serv-ico svg{width:24px;height:24px;fill:none;stroke:#C97A18;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+.serv-lbl{font-size:10.5px;font-weight:700;color:#1c1c1e;text-align:center;line-height:1.2;letter-spacing:-.01em}
+.dark-theme .serv-lbl{color:#fff}
 .ops-transfer-scroll{display:flex;flex-wrap:wrap;gap:10px 0;padding:10px 12px 14px}
 .ops-tr-item{display:flex;flex-direction:column;align-items:center;gap:8px;cursor:pointer;flex-shrink:0;-webkit-tap-highlight-color:transparent;width:33.333%}
 .ops-tr-ico{width:60px;height:60px;border-radius:18px;background:#f0f0f2;border:none;display:flex;align-items:center;justify-content:center;transition:background .12s;box-shadow:none}
@@ -1047,18 +1166,18 @@ body{
 <div class="top-bar">
   <a href="superapp.html" class="tb-back">
     <svg viewBox="0 0 16 16" fill="none"><path d="M10 3L5 8l5 5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></svg>
-    Back
+    Retour
   </a>
-  <div class="tb-title">App Preview</div>
+  <div class="tb-title">Aperçu de l'app</div>
   <div class="tb-tabs">
-    <button type="button" class="tb-tab active" onclick="goTo('home')">Home</button>
-    <button type="button" class="tb-tab" onclick="goTo('pay')">Pay</button>
-    <button type="button" class="tb-tab" onclick="goTo('gov')">Gov</button>
-    <button type="button" class="tb-tab" onclick="goTo('invest')">Invest</button>
-    <button type="button" class="tb-tab" onclick="goTo('profile')">Profile</button>
+    <button type="button" class="tb-tab active" onclick="goTo('home')">Fil</button>
+    <button type="button" class="tb-tab" onclick="goTo('pay')">Portefeuille</button>
+    <button type="button" class="tb-tab" onclick="goTo('gov')">Services</button>
+    <button type="button" class="tb-tab" onclick="goTo('invest')">Notifications</button>
+    <button type="button" class="tb-tab" onclick="goTo('profile')">Profil</button>
     <button type="button" class="theme-toggle" id="themeToggle" onclick="toggleTheme()">
       <svg id="themeIcon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/></svg>
-      <span id="themeLabel">Dark</span>
+      <span id="themeLabel">Sombre</span>
     </button>
   </div>
 </div>
@@ -1108,52 +1227,87 @@ body{
 
           <div class="home-scroll">
 
-          <!-- Stories -->
-          <div class="stories-scroll">
-            <div class="story-item" onclick="showToast('Ministry of Finance')">
-              <div class="story-ring"><div class="story-av"><img src="/photos/7fb534a17f18ce55211709414585c664.jpg" alt=""></div></div>
-              <div class="story-lbl">MoF</div>
+          <!-- Search bar -->
+          <div class="gov-search" onclick="showToast('Rechercher un service, un document...')">
+            <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="M17 17l3.5 3.5"/></svg>
+            <div class="gov-search-txt">Rechercher un service, un document…</div>
+          </div>
+
+          <!-- Active request progress -->
+          <div class="req-progress" onclick="showToast('Demande #2026-04231 \u2014 D\u00e9tails')">
+            <div class="req-progress-hd">
+              <div>
+                <div class="req-progress-lbl">Demande active</div>
+                <div class="req-progress-title">Permis de conduire — renouvellement</div>
+              </div>
+              <div class="req-progress-pct">2/3</div>
             </div>
-            <div class="story-item" onclick="showToast('Ministry of Health')">
-              <div class="story-ring"><div class="story-av"><img src="/photos/baf129cb71ea45fab3ff3b664f9f42d5.jpg" alt=""></div></div>
-              <div class="story-lbl">Health</div>
-            </div>
-            <div class="story-item" onclick="showToast('Infrastructure')">
-              <div class="story-ring"><div class="story-av"><img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt=""></div></div>
-              <div class="story-lbl">Roads</div>
-            </div>
-            <div class="story-item" onclick="showToast('Agriculture')">
-              <div class="story-ring"><div class="story-av"><img src="/photos/279b963a1603813406c3f6efec942fe2.jpg" alt=""></div></div>
-              <div class="story-lbl">Agriculture</div>
-            </div>
-            <div class="story-item" onclick="showToast('Ministry of Education')">
-              <div class="story-ring seen"><div class="story-av"><img src="/photos/d05575b11d069b56086a22fdc7e9905f.jpg" alt=""></div></div>
-              <div class="story-lbl">Education</div>
-            </div>
-            <div class="story-item" onclick="showToast('Jobs & Labour')">
-              <div class="story-ring seen"><div class="story-av"><img src="/photos/c4508e507c47bceedccea4fa96cc3859.jpg" alt=""></div></div>
-              <div class="story-lbl">Jobs</div>
-            </div>
-            <div class="story-item" onclick="showToast('Security')">
-              <div class="story-ring seen"><div class="story-av"><img src="/photos/a9f9226070f7fa2ce76db677738e4f61.jpg" alt=""></div></div>
-              <div class="story-lbl">Security</div>
+            <div class="req-progress-bar"><div class="req-progress-fill" style="width:66%"></div></div>
+            <div class="req-progress-steps">
+              <div class="req-step done"><div class="req-step-dot"></div><span>Envoyée</span></div>
+              <div class="req-step active"><div class="req-step-dot"></div><span>En examen</span></div>
+              <div class="req-step"><div class="req-step-dot"></div><span>Décision</span></div>
             </div>
           </div>
 
           <!-- Promo banner -->
-          <div class="home-promo" onclick="showToast('Digital ID — Apply now')">
+          <div class="home-promo" onclick="showToast('ID Numérique — Demander maintenant')">
             <img src="/photos/d9ea4590cb72568ebe7649357839f72d.jpg" alt="">
             <div class="home-promo-overlay">
-              <div class="home-promo-tag">New</div>
-              <div class="home-promo-title">Digital ID<br>Now Available</div>
-              <div class="home-promo-sub">Apply in 2 minutes · Free</div>
+              <div class="home-promo-tag">Nouveau</div>
+              <div class="home-promo-title">ID Numérique<br>Disponible</div>
+              <div class="home-promo-sub">Demande en 2 minutes · Gratuit</div>
+            </div>
+          </div>
+
+          <!-- Services populaires (gov-style) -->
+          <div class="gov-cat-section">
+            <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:12px">
+              <div class="gov-cat-lbl" style="margin-bottom:0">Services populaires</div>
+              <div class="ops-sec-all" onclick="goTo('gov')">Tout voir</div>
+            </div>
+            <div class="gov-cat-grid">
+              <div class="gov-cat-item" onclick="showToast('Impôts \u2014 Déclarer & payer')">
+                <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M9 14l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18"/></svg></div>
+                <div class="gov-cat-badge gold">DÛ</div>
+                <div class="gov-cat-lbl-txt">Impôts</div>
+              </div>
+              <div class="gov-cat-item" onclick="showToast('Justice \u2014 Mes affaires')">
+                <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M14.5 5.5l4 4M9.5 10.5l-6 6 4 4 6-6M12 7l5-5 5 5-5 5M3 21h8"/></svg></div>
+                <div class="gov-cat-lbl-txt">Justice</div>
+              </div>
+              <div class="gov-cat-item" onclick="showToast('Mariage en ligne')">
+                <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div>
+                <div class="gov-cat-badge gold">NEW</div>
+                <div class="gov-cat-lbl-txt">Mariage</div>
+              </div>
+              <div class="gov-cat-item" onclick="showToast('Aide chômage')">
+                <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div>
+                <div class="gov-cat-lbl-txt">Chômage</div>
+              </div>
+              <div class="gov-cat-item" onclick="showToast('Domicile \u2014 Enregistrement')">
+                <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div>
+                <div class="gov-cat-lbl-txt">Domicile</div>
+              </div>
+              <div class="gov-cat-item" onclick="showToast('Sondages publics')">
+                <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
+                <div class="gov-cat-lbl-txt">Sondages</div>
+              </div>
+              <div class="gov-cat-item" onclick="showToast('Certificats & extraits')">
+                <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M8 13h8M8 17h5"/></svg></div>
+                <div class="gov-cat-lbl-txt">Certificats</div>
+              </div>
+              <div class="gov-cat-item" onclick="showToast('Permis de conduire')">
+                <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><circle cx="8" cy="12" r="2.5"/><path d="M14 10h5M14 14h5"/></svg></div>
+                <div class="gov-cat-lbl-txt">Permis</div>
+              </div>
             </div>
           </div>
 
           <!-- Gov Posts -->
           <div class="home-sec-hd">
-            <div class="home-sec-ttl">Gov Updates</div>
-            <div class="home-sec-all" onclick="showToast('All updates')">See all</div>
+            <div class="home-sec-ttl">Annonces officielles</div>
+            <div class="home-sec-all" onclick="showToast('Toutes les annonces')">Tout voir</div>
           </div>
 
           <!-- Text post -->
@@ -1161,16 +1315,16 @@ body{
             <div class="post-hd">
               <div class="post-av post-av-finance"><img src="/photos/04c650c856d772ae1ae7340d9d016e0f.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
               <div>
-                <div class="post-org">Ministry of Finance</div>
-                <div class="post-time">2 hours ago</div>
+                <div class="post-org">Ministère des Finances</div>
+                <div class="post-time">il y a 2 heures</div>
               </div>
-              <div class="post-tag">Finance</div>
+              <div class="post-tag">Fiscalité</div>
             </div>
-            <div class="post-body">The government has approved a $2.4B infrastructure bond program to fund road and bridge construction across all 47 counties. Applications open May 1st.</div>
+            <div class="post-body">📋 Déclaration d'impôts 2026 ouverte. Déposez votre déclaration directement depuis l'app — calcul automatique pour les particuliers, EI et organisations. Échéance : 30 juin.</div>
             <div class="post-footer">
-              <div class="post-foot-btn like" onclick="showToast('Liked!')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>1.2K</div>
-              <div class="post-foot-btn comment" onclick="showToast('Comments')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>348</div>
-              <div class="post-foot-btn share" onclick="showToast('Shared!')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Share</div>
+              <div class="post-foot-btn like" onclick="showToast('J\u2019aime')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>1,2K</div>
+              <div class="post-foot-btn comment" onclick="showToast('Commentaires')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>348</div>
+              <div class="post-foot-btn share" onclick="showToast('Partagé')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Partager</div>
             </div>
           </div>
 
@@ -1179,17 +1333,17 @@ body{
             <div class="post-hd">
               <div class="post-av post-av-roads"><img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
               <div>
-                <div class="post-org">Roads Authority</div>
-                <div class="post-time">Yesterday</div>
+                <div class="post-org">Ministère de la Justice</div>
+                <div class="post-time">hier</div>
               </div>
-              <div class="post-tag">Completed</div>
+              <div class="post-tag">Justice</div>
             </div>
-            <img class="post-img" src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="Road project">
-            <div class="post-img-caption">✅ Phase 1 of the Northern Highway expansion is officially complete — 340 km of road connecting 12 rural districts now open to traffic.</div>
+            <img class="post-img" src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="Justice numérique">
+            <div class="post-img-caption">⚖️ Le tribunal en ligne est lancé. Audiences par visioconférence, registre électronique des décisions et cabinet personnel pour chaque partie au procès — désormais accessibles dans l'app.</div>
             <div class="post-footer">
-              <div class="post-foot-btn like" onclick="showToast('Liked!')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>4.8K</div>
-              <div class="post-foot-btn comment" onclick="showToast('Comments')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>912</div>
-              <div class="post-foot-btn share" onclick="showToast('Shared!')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Share</div>
+              <div class="post-foot-btn like" onclick="showToast('J\u2019aime')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>4,8K</div>
+              <div class="post-foot-btn comment" onclick="showToast('Commentaires')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>912</div>
+              <div class="post-foot-btn share" onclick="showToast('Partagé')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Partager</div>
             </div>
           </div>
 
@@ -1198,16 +1352,16 @@ body{
             <div class="post-hd">
               <div class="post-av post-av-digital"><img src="/photos/d9ea4590cb72568ebe7649357839f72d.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
               <div>
-                <div class="post-org">Digital Agency</div>
-                <div class="post-time">2 days ago</div>
+                <div class="post-org">Agence Numérique</div>
+                <div class="post-time">il y a 2 jours</div>
               </div>
-              <div class="post-tag">Digital</div>
+              <div class="post-tag">Numérique</div>
             </div>
-            <div class="post-body">🚀 The new e-Government portal is now live. Citizens can access 200+ services online — tax filings, permits, certificates and more — without visiting any office.</div>
+            <div class="post-body">🚀 Signature électronique (ECP) disponible pour tous. Signez vos contrats, déclarations et actes juridiques depuis votre téléphone — valeur légale équivalente à la signature manuscrite.</div>
             <div class="post-footer">
-              <div class="post-foot-btn like" onclick="showToast('Liked!')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>2.1K</div>
-              <div class="post-foot-btn comment" onclick="showToast('Comments')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>507</div>
-              <div class="post-foot-btn share" onclick="showToast('Shared!')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Share</div>
+              <div class="post-foot-btn like" onclick="showToast('J\u2019aime')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>2,1K</div>
+              <div class="post-foot-btn comment" onclick="showToast('Commentaires')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>507</div>
+              <div class="post-foot-btn share" onclick="showToast('Partagé')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Partager</div>
             </div>
           </div>
 
@@ -1216,184 +1370,180 @@ body{
             <div class="post-hd">
               <div class="post-av post-av-health"><img src="/photos/baf129cb71ea45fab3ff3b664f9f42d5.jpg" alt="" style="width:100%;height:100%;object-fit:cover;object-position:center;display:block"></div>
               <div>
-                <div class="post-org">Ministry of Health</div>
-                <div class="post-time">3 days ago</div>
+                <div class="post-org">Ministère du Travail</div>
+                <div class="post-time">il y a 3 jours</div>
               </div>
-              <div class="post-tag">Health</div>
+              <div class="post-tag">Aide sociale</div>
             </div>
-            <img class="post-img" src="/photos/d9ea4590cb72568ebe7649357839f72d.jpg" alt="Health initiative" style="object-position:center 30%">
-            <div class="post-img-caption">🏥 50 new primary health clinics have been opened across rural regions as part of the Universal Healthcare initiative, serving over 1.2 million citizens.</div>
+            <img class="post-img" src="/photos/d9ea4590cb72568ebe7649357839f72d.jpg" alt="Aide sociale" style="object-position:center 30%">
+            <div class="post-img-caption">🤝 Aide au chômage en 3 jours : déposez votre demande en ligne, recevez la décision et le versement directement sur votre carte sociale. 50 000 bénéficiaires depuis janvier.</div>
             <div class="post-footer">
-              <div class="post-foot-btn like" onclick="showToast('Liked!')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>3.3K</div>
-              <div class="post-foot-btn comment" onclick="showToast('Comments')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>741</div>
-              <div class="post-foot-btn share" onclick="showToast('Shared!')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Share</div>
+              <div class="post-foot-btn like" onclick="showToast('J\u2019aime')"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>3,3K</div>
+              <div class="post-foot-btn comment" onclick="showToast('Commentaires')"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>741</div>
+              <div class="post-foot-btn share" onclick="showToast('Partagé')"><svg viewBox="0 0 24 24"><circle cx="18" cy="5" r="3"/><circle cx="6" cy="12" r="3"/><circle cx="18" cy="19" r="3"/><path d="M8.59 13.51l6.83 3.98M15.41 6.51l-6.82 3.98"/></svg>Partager</div>
             </div>
           </div>
 
           <!-- Video Reels -->
           <div class="home-sec-hd" style="margin-top:4px">
-            <div class="home-sec-ttl">Reels</div>
-            <div class="home-sec-all" onclick="showToast('All reels')">See all</div>
+            <div class="home-sec-ttl">Vidéos publiques</div>
+            <div class="home-sec-all" onclick="showToast('Toutes les vidéos')">Tout voir</div>
           </div>
           <div class="home-reels-scroll">
-            <div class="home-reel" onclick="showToast('Playing: Road Project Update')">
-              <img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="">
-              <div class="home-reel-overlay"></div>
-              <div class="home-reel-play"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-              <div class="home-reel-lbl">Northern Highway Complete</div>
-            </div>
-            <div class="home-reel" onclick="showToast('Playing: Healthcare Expansion')">
-              <img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="" style="object-position:top">
-              <div class="home-reel-overlay"></div>
-              <div class="home-reel-play"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-              <div class="home-reel-lbl">50 New Clinics Open</div>
-            </div>
-            <div class="home-reel" onclick="showToast('Playing: Digital ID Launch')">
+            <div class="home-reel" onclick="showToast('Lecture: ID Numérique')">
               <img src="/photos/d9ea4590cb72568ebe7649357839f72d.jpg" alt="">
               <div class="home-reel-overlay"></div>
               <div class="home-reel-play"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-              <div class="home-reel-lbl">Digital ID Now Available</div>
+              <div class="home-reel-lbl">ID Numérique en 2 min</div>
             </div>
-            <div class="home-reel" onclick="showToast('Playing: Agriculture Program')">
-              <img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="" style="object-position:bottom">
+            <div class="home-reel" onclick="showToast('Lecture: Tribunal en ligne')">
+              <img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="">
               <div class="home-reel-overlay"></div>
               <div class="home-reel-play"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg></div>
-              <div class="home-reel-lbl">Farm Support Grants 2024</div>
+              <div class="home-reel-lbl">Tribunal en ligne</div>
+            </div>
+            <div class="home-reel" onclick="showToast('Lecture: Aide sociale')">
+              <img src="/photos/c4508e507c47bceedccea4fa96cc3859.jpg" alt="">
+              <div class="home-reel-overlay"></div>
+              <div class="home-reel-play"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+              <div class="home-reel-lbl">Aide sociale en 3 jours</div>
+            </div>
+            <div class="home-reel" onclick="showToast('Lecture: Mariage en ligne')">
+              <img src="/photos/938d48d039e0750642d3bbb0b35079e5.jpg" alt="">
+              <div class="home-reel-overlay"></div>
+              <div class="home-reel-play"><svg viewBox="0 0 24 24"><path d="M5 3l14 9-14 9V3z"/></svg></div>
+              <div class="home-reel-lbl">Mariage en ligne — 1ère union</div>
             </div>
           </div>
 
           <!-- Rates table -->
           <div class="home-sec-hd">
-            <div class="home-sec-ttl">Live Rates</div>
+            <div class="home-sec-ttl">Taux de change</div>
           </div>
           <div class="rates-card">
             <div class="rates-hd" style="display:none"></div>
             <div class="rates-thead">
               <div class="rates-thead-spacer"></div>
-              <div class="rates-col-lbl">Buy</div>
-              <div class="rates-col-lbl">Sell</div>
+              <div class="rates-col-lbl">Achat</div>
+              <div class="rates-col-lbl">Vente</div>
               <div class="rates-col-lbl" style="width:40px">24h</div>
             </div>
             <div class="rate-row">
               <div class="rate-flag">🇳🇬</div>
-              <div class="rate-info"><div class="rate-code">NGN</div><div class="rate-name">Nigerian Naira</div></div>
-              <div class="rate-buy">1,575</div><div class="rate-sell">1,585</div><div class="rate-chg pos" style="width:40px">+0.4%</div>
+              <div class="rate-info"><div class="rate-code">NGN</div><div class="rate-name">Naira nigérian</div></div>
+              <div class="rate-buy">1 575</div><div class="rate-sell">1 585</div><div class="rate-chg pos" style="width:40px">+0,4%</div>
             </div>
             <div class="rate-row">
               <div class="rate-flag">🇪🇺</div>
               <div class="rate-info"><div class="rate-code">EUR</div><div class="rate-name">Euro</div></div>
-              <div class="rate-buy">0.914</div><div class="rate-sell">0.926</div><div class="rate-chg neg" style="width:40px">-0.1%</div>
+              <div class="rate-buy">0,914</div><div class="rate-sell">0,926</div><div class="rate-chg neg" style="width:40px">−0,1%</div>
             </div>
             <div class="rate-row">
               <div class="rate-flag">🇬🇧</div>
-              <div class="rate-info"><div class="rate-code">GBP</div><div class="rate-name">British Pound</div></div>
-              <div class="rate-buy">0.785</div><div class="rate-sell">0.795</div><div class="rate-chg pos" style="width:40px">+0.2%</div>
+              <div class="rate-info"><div class="rate-code">GBP</div><div class="rate-name">Livre sterling</div></div>
+              <div class="rate-buy">0,785</div><div class="rate-sell">0,795</div><div class="rate-chg pos" style="width:40px">+0,2%</div>
             </div>
             <div class="rate-row">
               <div class="rate-flag">🇰🇪</div>
-              <div class="rate-info"><div class="rate-code">KES</div><div class="rate-name">Kenyan Shilling</div></div>
-              <div class="rate-buy">128.4</div><div class="rate-sell">132.1</div><div class="rate-chg neg" style="width:40px">-0.3%</div>
+              <div class="rate-info"><div class="rate-code">KES</div><div class="rate-name">Shilling kenyan</div></div>
+              <div class="rate-buy">128,4</div><div class="rate-sell">132,1</div><div class="rate-chg neg" style="width:40px">−0,3%</div>
             </div>
             <div class="rate-row">
               <div class="rate-flag">🇬🇭</div>
-              <div class="rate-info"><div class="rate-code">GHS</div><div class="rate-name">Ghanaian Cedi</div></div>
-              <div class="rate-buy">15.1</div><div class="rate-sell">15.4</div><div class="rate-chg pos" style="width:40px">+0.6%</div>
+              <div class="rate-info"><div class="rate-code">GHS</div><div class="rate-name">Cedi ghanéen</div></div>
+              <div class="rate-buy">15,1</div><div class="rate-sell">15,4</div><div class="rate-chg pos" style="width:40px">+0,6%</div>
             </div>
           </div>
 
           </div><!-- /home-scroll -->
         </div>
 
-        <!-- PAY -->
+        <!-- PAY → PORTEFEUILLE -->
         <div class="isc" id="s-pay">
           <div class="ops-wrap">
 
             <!-- Header -->
             <div class="ops-hd">
-              <div class="ops-hd-user" onclick="goTo('profile')">
-                <img src="/photos/7d3b5efa94a09bc99cfb59cc5c0c1a0b.jpg" alt="avatar"/>
-              </div>
-              <div class="ops-hd-title">Operations</div>
-              <div style="width:36px"></div>
+              <div class="ops-hd-title">Opérations</div>
             </div>
 
             <!-- Balance + Actions hero -->
             <div class="bc">
               <div class="bc-top">
-                <div class="bc-currency" onclick="showToast('Currency: US Dollar')">
+                <div class="bc-currency" onclick="showToast('Devise : Dollar US')">
                   <div class="bc-currency-flag"><img src="https://flagcdn.com/w40/us.png" alt="US"/></div>
-                  <div class="bc-currency-name">US Dollar</div>
+                  <div class="bc-currency-name">Dollar US</div>
                 </div>
                 <div class="bc-visa">VISA</div>
               </div>
-              <div class="bc-lbl">Your balance</div>
+              <div class="bc-lbl">Votre solde</div>
               <div class="bc-bal-row">
-                <div class="bc-amt">$742.45</div>
-                <div class="bc-eye" onclick="showToast('Balance hidden')">
+                <div class="bc-amt">$742,45</div>
+                <div class="bc-eye" onclick="showToast('Solde masqué')">
                   <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
                 </div>
               </div>
               <div class="act-wrap">
-                <div class="act-btn" onclick="showToast('Card blocked')">
+                <div class="act-btn" onclick="showToast('Carte bloquée')">
                   <div class="act-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
-                  <div class="act-lbl">Block</div>
+                  <div class="act-lbl">Bloquer</div>
                 </div>
-                <div class="act-btn" onclick="showToast('Order new card')">
+                <div class="act-btn" onclick="showToast('Commander une nouvelle carte')">
                   <div class="act-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/><path d="M12 14.5h.01M7 14.5h.01"/></svg></div>
-                  <div class="act-lbl">New Card</div>
+                  <div class="act-lbl">Nouvelle Carte</div>
                 </div>
-                <div class="act-btn" onclick="showToast('Card limits')">
+                <div class="act-btn" onclick="showToast('Limites de la carte')">
                   <div class="act-ico"><svg viewBox="0 0 24 24"><path d="M4 6h16M4 12h10M4 18h6"/><circle cx="19" cy="12" r="3"/><path d="M19 9v2M19 13v2" stroke-width="1.6"/></svg></div>
-                  <div class="act-lbl">Limits</div>
+                  <div class="act-lbl">Limites</div>
                 </div>
-                <div class="act-btn" onclick="showToast('Card settings')">
+                <div class="act-btn" onclick="showToast('Paramètres de la carte')">
                   <div class="act-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
-                  <div class="act-lbl">Settings</div>
+                  <div class="act-lbl">Paramètres</div>
                 </div>
               </div>
             </div>
 
-            <!-- Transfers -->
+            <!-- Transferts -->
             <div class="ops-section">
               <div class="ops-sec-hd">
-                <div class="ops-sec-lbl">Transfers</div>
+                <div class="ops-sec-lbl">Transferts</div>
               </div>
               <div class="ops-transfer-scroll">
-                <div class="ops-tr-item" onclick="showToast('Card to Card transfer')">
+                <div class="ops-tr-item" onclick="showToast('Transfert Carte à Carte')">
                   <div class="ops-tr-ico">
                     <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20"/><path d="M15 15.5l2.5-2.5-2.5-2.5" stroke-width="1.9"/></svg>
                   </div>
-                  <div class="ops-tr-lbl">Card to Card</div>
+                  <div class="ops-tr-lbl">Carte à Carte</div>
                 </div>
-                <div class="ops-tr-item" onclick="showToast('Transfer to bank client')">
+                <div class="ops-tr-item" onclick="showToast('Transfert vers client')">
                   <div class="ops-tr-ico">
                     <svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="4"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><path d="M19 8l2 2 2-2M21 10V6"/></svg>
                   </div>
-                  <div class="ops-tr-lbl">To Client</div>
+                  <div class="ops-tr-lbl">Vers Client</div>
                 </div>
-                <div class="ops-tr-item" onclick="showToast('Transfer by phone number')">
+                <div class="ops-tr-item" onclick="showToast('Transfert par téléphone')">
                   <div class="ops-tr-ico">
                     <svg viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.95 11a19.79 19.79 0 01-3.07-8.67A2 2 0 012.88 2h3a2 2 0 012 1.72 12.84 12.84 0 00.7 2.81 2 2 0 01-.45 2.11L7.09 9.91a16 16 0 006.29 6.29l1.27-1.27a2 2 0 012.11-.45c.907.34 1.85.574 2.81.7A2 2 0 0122 16.92z"/></svg>
                   </div>
-                  <div class="ops-tr-lbl">By Phone</div>
+                  <div class="ops-tr-lbl">Par Téléphone</div>
                 </div>
-                <div class="ops-tr-item" onclick="showToast('Between my accounts')">
+                <div class="ops-tr-item" onclick="showToast('Entre mes comptes')">
                   <div class="ops-tr-ico">
                     <svg viewBox="0 0 24 24"><path d="M7 16V4m0 0L4 7m3-3l3 3M17 8v12m0 0l3-3m-3 3l-3-3"/></svg>
                   </div>
-                  <div class="ops-tr-lbl">My Accounts</div>
+                  <div class="ops-tr-lbl">Mes Comptes</div>
                 </div>
-                <div class="ops-tr-item" onclick="showToast('International transfer')">
+                <div class="ops-tr-item" onclick="showToast('Transfert international')">
                   <div class="ops-tr-ico">
                     <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 2.5C12 2.5 8 7 8 12s4 9.5 4 9.5M12 2.5C12 2.5 16 7 16 12s-4 9.5-4 9.5M2.5 12h19"/></svg>
                   </div>
                   <div class="ops-tr-lbl">International</div>
                 </div>
-                <div class="ops-tr-item" onclick="showToast('Transfer by QR code')">
+                <div class="ops-tr-item" onclick="showToast('Transfert par QR')">
                   <div class="ops-tr-ico">
                     <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="5" y="5" width="3" height="3"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="16" y="5" width="3" height="3"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="5" y="16" width="3" height="3"/><path d="M14 14h3M17 17h3M14 20h3M20 14v.01M20 20v.01"/></svg>
                   </div>
-                  <div class="ops-tr-lbl">By QR</div>
+                  <div class="ops-tr-lbl">Par QR</div>
                 </div>
               </div>
             </div>
@@ -1404,10 +1554,10 @@ body{
               <!-- Chart Stats -->
               <div class="ops-chart-card">
                 <div class="ops-chart-hd">
-                  <div class="ops-chart-ttl">Spending</div>
+                  <div class="ops-chart-ttl">Dépenses</div>
                   <div class="ops-chart-chg">↑ +12%</div>
                 </div>
-                <div class="ops-chart-amt">$1,284</div>
+                <div class="ops-chart-amt">$1 284</div>
                 <div class="ops-chart-wrap">
                   <svg viewBox="0 0 320 90" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
                     <defs>
@@ -1424,20 +1574,20 @@ body{
                   </svg>
                 </div>
                 <div class="ops-chart-periods">
-                  <div class="ops-chart-per active" onclick="showToast('7 days')">7D</div>
-                  <div class="ops-chart-per" onclick="showToast('1 month')">1M</div>
-                  <div class="ops-chart-per" onclick="showToast('3 months')">3M</div>
-                  <div class="ops-chart-per" onclick="showToast('6 months')">6M</div>
-                  <div class="ops-chart-per" onclick="showToast('1 year')">1Y</div>
+                  <div class="ops-chart-per active" onclick="showToast('7 jours')">7J</div>
+                  <div class="ops-chart-per" onclick="showToast('1 mois')">1M</div>
+                  <div class="ops-chart-per" onclick="showToast('3 mois')">3M</div>
+                  <div class="ops-chart-per" onclick="showToast('6 mois')">6M</div>
+                  <div class="ops-chart-per" onclick="showToast('1 an')">1A</div>
                 </div>
                 <div class="ops-chart-stats">
                   <div class="ops-chart-stat">
-                    <div class="ops-chart-stat-lbl">Spent</div>
-                    <div class="ops-chart-stat-val">$1,284</div>
+                    <div class="ops-chart-stat-lbl">Dépensé</div>
+                    <div class="ops-chart-stat-val">$1 284</div>
                   </div>
                   <div class="ops-chart-stat">
-                    <div class="ops-chart-stat-lbl">Saved</div>
-                    <div class="ops-chart-stat-val">$1,915</div>
+                    <div class="ops-chart-stat-lbl">Économisé</div>
+                    <div class="ops-chart-stat-val">$1 915</div>
                   </div>
                 </div>
               </div>
@@ -1445,174 +1595,220 @@ body{
               <!-- Activity -->
               <div class="ops-act-card">
                 <div class="ops-act-hd">
-                  <div class="ops-act-ttl">Activity</div>
-                  <div class="ops-act-all" onclick="showToast('All activity')">All</div>
+                  <div class="ops-act-ttl">Activité</div>
+                  <div class="ops-act-all" onclick="showToast('Toute l\u2019activité')">Tout</div>
                 </div>
-                <div class="ops-act-row" onclick="showToast('YouTube · −$13.99')">
+                <div class="ops-act-row" onclick="showToast('YouTube · −$13,99')">
                   <div class="ops-act-ico" style="background:#FF0000;border-radius:8px">
                     <svg viewBox="0 0 24 24" width="16" height="16"><path d="M23 7s-.3-2-1.2-2.8c-1.1-1.2-2.4-1.2-3-1.3C16.1 2.8 12 2.8 12 2.8s-4.1 0-6.8.2c-.6.1-1.9.1-3 1.3C1.3 5 1 7 1 7S.7 9.1.7 11.2v2c0 2 .3 4.1.3 4.1s.3 2 1.2 2.8c1.1 1.2 2.6 1.1 3.3 1.2C7.3 21.4 12 21.5 12 21.5s4.1 0 6.8-.3c.6-.1 1.9-.1 3-1.3.9-.8 1.2-2.8 1.2-2.8s.3-2.1.3-4.1v-2C23.3 9.1 23 7 23 7zM9.7 15.5V8.6l8.1 3.5-8.1 3.4z" fill="#fff"/></svg>
                   </div>
                   <div class="ops-act-info">
                     <div class="ops-act-name">YouTube</div>
-                    <div class="ops-act-date">Today, 14:32</div>
+                    <div class="ops-act-date">Aujourd'hui, 14:32</div>
                   </div>
                   <div class="ops-act-amt minus">−$14</div>
                 </div>
-                <div class="ops-act-row" onclick="showToast('Netflix · −$15.99')">
+                <div class="ops-act-row" onclick="showToast('Netflix · −$15,99')">
                   <div class="ops-act-ico" style="background:#E50914;border-radius:8px;font-size:15px;font-weight:900;color:#fff;font-family:Georgia,serif;justify-content:center">N</div>
                   <div class="ops-act-info">
                     <div class="ops-act-name">Netflix</div>
-                    <div class="ops-act-date">Today, 11:05</div>
+                    <div class="ops-act-date">Aujourd'hui, 11:05</div>
                   </div>
                   <div class="ops-act-amt minus">−$16</div>
                 </div>
-                <div class="ops-act-row" onclick="showToast('Starbucks · −$6.50')">
+                <div class="ops-act-row" onclick="showToast('Starbucks · −$6,50')">
                   <div class="ops-act-ico" style="background:#00704A;border-radius:8px">
                     <svg viewBox="0 0 24 24" width="16" height="16"><path d="M12 2l2.4 7.4H22l-6.2 4.5 2.4 7.4L12 17l-6.2 4.3 2.4-7.4L2 9.4h7.6z" fill="#fff"/></svg>
                   </div>
                   <div class="ops-act-info">
                     <div class="ops-act-name">Starbucks</div>
-                    <div class="ops-act-date">Today, 09:18</div>
+                    <div class="ops-act-date">Aujourd'hui, 09:18</div>
                   </div>
                   <div class="ops-act-amt minus">−$7</div>
                 </div>
-                <div class="ops-act-row" onclick="showToast('Uber · −$12.40')">
+                <div class="ops-act-row" onclick="showToast('Uber · −$12,40')">
                   <div class="ops-act-ico" style="background:#000;border-radius:8px;font-size:14px;font-weight:900;color:#fff;letter-spacing:-1px">U</div>
                   <div class="ops-act-info">
                     <div class="ops-act-name">Uber</div>
-                    <div class="ops-act-date">17 Apr, 20:10</div>
+                    <div class="ops-act-date">17 avr., 20:10</div>
                   </div>
                   <div class="ops-act-amt minus">−$12</div>
                 </div>
-                <div class="ops-act-row" onclick="showToast('Salary · +$3,200.00')">
+                <div class="ops-act-row" onclick="showToast('Salaire · +$3 200,00')">
                   <div class="ops-act-ico" style="background:#10b981;border-radius:8px">
                     <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 19V5M5 12l7-7 7 7"/></svg>
                   </div>
                   <div class="ops-act-info">
-                    <div class="ops-act-name">Salary</div>
-                    <div class="ops-act-date">17 Apr, 09:00</div>
+                    <div class="ops-act-name">Salaire</div>
+                    <div class="ops-act-date">17 avr., 09:00</div>
                   </div>
-                  <div class="ops-act-amt plus">+$3.2k</div>
+                  <div class="ops-act-amt plus">+$3,2k</div>
                 </div>
               </div>
 
             </div>
 
-            <!-- Payments -->
+            <!-- Paiements -->
             <div class="ops-section">
               <div class="ops-sec-hd">
-                <div class="ops-sec-lbl">Payments</div>
-                <div class="ops-sec-all" onclick="showToast('All payments')">See all</div>
+                <div class="ops-sec-lbl">Paiements</div>
+                <div class="ops-sec-all" onclick="showToast('Tous les paiements')">Tout voir</div>
               </div>
-              <div class="ops-pay-row" onclick="showToast('QR Payments')">
+              <div class="ops-pay-row" onclick="showToast('Paiements QR')">
                 <div class="ops-pay-ico">
                   <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="5" y="5" width="3" height="3"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="16" y="5" width="3" height="3"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="5" y="16" width="3" height="3"/><path d="M14 14h3M14 17h.01M14 20h3M17 17h3M20 14v.01M20 20v.01"/></svg>
                 </div>
                 <div class="ops-pay-info">
-                  <div class="ops-pay-name">QR Payments</div>
-                  <div class="ops-pay-sub">Scan & pay at checkout</div>
+                  <div class="ops-pay-name">Paiements QR</div>
+                  <div class="ops-pay-sub">Scanner & payer en caisse</div>
                 </div>
                 <div class="ops-pay-arr">›</div>
               </div>
-              <div class="ops-pay-row" onclick="showToast('Mobile Service')">
+              <div class="ops-pay-row" onclick="showToast('Service Mobile')">
                 <div class="ops-pay-ico">
                   <svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M10 18h4"/></svg>
                 </div>
                 <div class="ops-pay-info">
-                  <div class="ops-pay-name">Mobile Service</div>
-                  <div class="ops-pay-sub">Top up & data plans</div>
+                  <div class="ops-pay-name">Service Mobile</div>
+                  <div class="ops-pay-sub">Recharges & forfaits data</div>
                 </div>
                 <div class="ops-pay-arr">›</div>
               </div>
-              <div class="ops-pay-row" onclick="showToast('Internet, TV & Phone')">
+              <div class="ops-pay-row" onclick="showToast('Internet, TV & Téléphone')">
                 <div class="ops-pay-ico">
                   <svg viewBox="0 0 24 24"><path d="M1 6.5a10.5 10.5 0 0122 0M5 10.5a7.5 7.5 0 0114 0M9 14.5a3.5 3.5 0 016 0"/><circle cx="12" cy="18" r="1.5" fill="#1c1c1e" stroke="none"/></svg>
                 </div>
                 <div class="ops-pay-info">
                   <div class="ops-pay-name">Internet & TV</div>
-                  <div class="ops-pay-sub">Internet, cable, telephone</div>
+                  <div class="ops-pay-sub">Internet, câble, téléphone</div>
                 </div>
                 <div class="ops-pay-arr">›</div>
               </div>
-              <div class="ops-pay-row" onclick="showToast('Utilities')">
+              <div class="ops-pay-row" onclick="showToast('Services publics')">
                 <div class="ops-pay-ico">
                   <svg viewBox="0 0 24 24"><path d="M13 2L4.09 12.26a1 1 0 00.91 1.74H11l-1 8 8.91-10.26a1 1 0 00-.91-1.74H13l1-8z"/></svg>
                 </div>
                 <div class="ops-pay-info">
-                  <div class="ops-pay-name">Utilities</div>
-                  <div class="ops-pay-sub">Electricity, water & gas</div>
+                  <div class="ops-pay-name">Services publics</div>
+                  <div class="ops-pay-sub">Électricité, eau & gaz</div>
                 </div>
                 <div class="ops-pay-arr">›</div>
               </div>
-              <div class="ops-pay-row" onclick="showToast('Education')">
+              <div class="ops-pay-row" onclick="showToast('Éducation')">
                 <div class="ops-pay-ico">
                   <svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3.33 2 8.67 2 12 0v-5"/></svg>
                 </div>
                 <div class="ops-pay-info">
-                  <div class="ops-pay-name">Education</div>
-                  <div class="ops-pay-sub">School & university fees</div>
+                  <div class="ops-pay-name">Éducation</div>
+                  <div class="ops-pay-sub">Frais scolaires & universitaires</div>
                 </div>
                 <div class="ops-pay-arr">›</div>
               </div>
-              <div class="ops-pay-row" onclick="showToast('E-Wallets')">
+              <div class="ops-pay-row" onclick="showToast('Portefeuilles électroniques')">
                 <div class="ops-pay-ico">
                   <svg viewBox="0 0 24 24"><path d="M19 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/><circle cx="16.5" cy="13.5" r="1.5" fill="#1c1c1e" stroke="none"/></svg>
                 </div>
                 <div class="ops-pay-info">
-                  <div class="ops-pay-name">E-Wallets</div>
+                  <div class="ops-pay-name">Portefeuilles élec.</div>
                   <div class="ops-pay-sub">PayPal, MoMo, Airtel</div>
                 </div>
                 <div class="ops-pay-arr">›</div>
               </div>
-              <div class="ops-pay-row" onclick="showToast('Entertainment')">
+              <div class="ops-pay-row" onclick="showToast('Divertissement')">
                 <div class="ops-pay-ico">
                   <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M10 8.5l6 3.5-6 3.5V8.5z"/></svg>
                 </div>
                 <div class="ops-pay-info">
-                  <div class="ops-pay-name">Entertainment</div>
-                  <div class="ops-pay-sub">Netflix, Spotify & more</div>
+                  <div class="ops-pay-name">Divertissement</div>
+                  <div class="ops-pay-sub">Netflix, Spotify & plus</div>
                 </div>
                 <div class="ops-pay-arr">›</div>
               </div>
-              <div class="ops-pay-row" onclick="showToast('E-Shops')">
+              <div class="ops-pay-row" onclick="showToast('Boutiques en ligne')">
                 <div class="ops-pay-ico">
                   <svg viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4z"/><path d="M3 6h18"/><path d="M16 10a4 4 0 01-8 0"/></svg>
                 </div>
                 <div class="ops-pay-info">
-                  <div class="ops-pay-name">E-Shops</div>
-                  <div class="ops-pay-sub">Jumia, Konga & online stores</div>
+                  <div class="ops-pay-name">Boutiques en ligne</div>
+                  <div class="ops-pay-sub">Jumia, Konga & e-commerce</div>
                 </div>
                 <div class="ops-pay-arr">›</div>
               </div>
             </div>
 
-
+            <!-- Investissements & garanties d'État -->
+            <div class="ops-section">
+              <div class="ops-sec-hd">
+                <div class="ops-sec-lbl">Investissements & garanties</div>
+                <div class="ops-sec-all" onclick="showToast('Tous les produits')">Tout voir</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('Obligations d\u2019\u00c9tat \u2014 portefeuille')">
+                <div class="ops-pay-ico" style="background:linear-gradient(135deg,#D4830A,#F2C94C);color:#fff">
+                  <svg viewBox="0 0 24 24" stroke="#fff"><rect x="3" y="13" width="4" height="8" rx="1"/><rect x="10" y="9" width="4" height="12" rx="1"/><rect x="17" y="4" width="4" height="17" rx="1"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">Obligations d'État</div>
+                  <div class="ops-pay-sub">Rendement 7,5% · à partir de $50</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('Garantie des d\u00e9p\u00f4ts \u2014 banques en faillite')">
+                <div class="ops-pay-ico">
+                  <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">Garantie des dépôts</div>
+                  <div class="ops-pay-sub">Récupérer fonds — banque en faillite</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('Aide \u00e0 l\u2019achat de logement')">
+                <div class="ops-pay-ico">
+                  <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/><path d="M12 8v4M10 10h4"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">Aide au logement</div>
+                  <div class="ops-pay-sub">Subvention pour 1er achat</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+              <div class="ops-pay-row" onclick="showToast('Cashback national \u2014 historique')">
+                <div class="ops-pay-ico">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="5" y="5" width="3" height="3"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="16" y="5" width="3" height="3"/><rect x="3" y="14" width="7" height="7" rx="1.2"/></svg>
+                </div>
+                <div class="ops-pay-info">
+                  <div class="ops-pay-name">Cashback national</div>
+                  <div class="ops-pay-sub">Scan reçu · 215 $ ce mois</div>
+                </div>
+                <div class="ops-pay-arr">›</div>
+              </div>
+            </div>
 
           </div>
         </div>
 
-        <!-- GOV -->
+        <!-- GOV → SERVICES -->
         <div class="isc" id="s-gov">
           <div class="ops-wrap">
 
             <!-- Header -->
             <div class="ops-hd">
-              <div class="ops-hd-title">Gov Services</div>
+              <div class="ops-hd-title">Services publics</div>
             </div>
 
             <!-- Search -->
-            <div class="gov-search" onclick="showToast('Search government services...')">
+            <div class="gov-search" onclick="showToast('Rechercher un service public...')">
               <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7.5"/><path d="M17 17l3.5 3.5"/></svg>
-              <div class="gov-search-txt">Сервисы</div>
+              <div class="gov-search-txt">Rechercher un service…</div>
             </div>
 
             <!-- News banner -->
-            <div class="gov-news-banner" onclick="showToast('Community Initiative · Food Aid Distribution')">
+            <div class="gov-news-banner" onclick="showToast('Initiative communautaire \u2014 distribution alimentaire')">
               <img src="/photos/04c650c856d772ae1ae7340d9d016e0f.jpg" alt="news"/>
               <div class="gov-news-overlay">
-                <div class="gov-news-tag">Community News</div>
-                <div class="gov-news-title">Food Aid for 200+ Families</div>
-                <div class="gov-news-sub">SuperApp supports Orphelinat Vio Dada — April 2026</div>
+                <div class="gov-news-tag">Actualité</div>
+                <div class="gov-news-title">Aide alimentaire pour 200+ familles</div>
+                <div class="gov-news-sub">SuperApp soutient l'Orphelinat Vio Dada — avril 2026</div>
               </div>
             </div>
 
@@ -1620,62 +1816,62 @@ body{
             <div class="gov-vid-wrap">
               <div class="gov-vid-hd">
                 <div class="gov-vid-ttl">Gov TV</div>
-                <div style="font-size:12px;font-weight:700;color:var(--p);cursor:pointer" onclick="showToast('All gov videos')">See all</div>
+                <div style="font-size:12px;font-weight:700;color:var(--p);cursor:pointer" onclick="showToast('Toutes les vidéos')">Tout voir</div>
               </div>
               <div class="gov-vid-scroll">
 
-                <div class="gov-vid-card" onclick="showToast('Free Healthcare Clinic · Ministry of Health')">
-                  <img src="/photos/baf129cb71ea45fab3ff3b664f9f42d5.jpg" alt="healthcare"/>
+                <div class="gov-vid-card" onclick="showToast('Comment d\u00e9clarer ses imp\u00f4ts en 5 min')">
+                  <img src="/photos/7fb534a17f18ce55211709414585c664.jpg" alt="impôts"/>
+                  <div class="gov-vid-overlay"></div>
+                  <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
+                  <div class="gov-vid-dur">5:12</div>
+                  <div class="gov-vid-info">
+                    <div class="gov-vid-label">Fiscalité</div>
+                    <div class="gov-vid-name">Déclarer ses impôts en 5 min</div>
+                  </div>
+                </div>
+
+                <div class="gov-vid-card" onclick="showToast('Audience par visioconf\u00e9rence \u2014 mode d\u2019emploi')">
+                  <img src="/photos/22f406a1d0bfed8bd964b4acfb638e29.jpg" alt="justice"/>
                   <div class="gov-vid-overlay"></div>
                   <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
                   <div class="gov-vid-dur">4:32</div>
                   <div class="gov-vid-info">
-                    <div class="gov-vid-label">Healthcare</div>
-                    <div class="gov-vid-name">Free Clinic for 500 Citizens</div>
+                    <div class="gov-vid-label">Justice</div>
+                    <div class="gov-vid-name">Audience en visioconférence</div>
                   </div>
                 </div>
 
-                <div class="gov-vid-card" onclick="showToast('Urban Farming Initiative · Ministry of Agriculture')">
-                  <img src="/photos/279b963a1603813406c3f6efec942fe2.jpg" alt="farming"/>
+                <div class="gov-vid-card" onclick="showToast('Aide au ch\u00f4mage \u2014 demander en ligne')">
+                  <img src="/photos/c4508e507c47bceedccea4fa96cc3859.jpg" alt="emploi"/>
+                  <div class="gov-vid-overlay"></div>
+                  <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
+                  <div class="gov-vid-dur">3:48</div>
+                  <div class="gov-vid-info">
+                    <div class="gov-vid-label">Aide sociale</div>
+                    <div class="gov-vid-name">Demande de chômage en ligne</div>
+                  </div>
+                </div>
+
+                <div class="gov-vid-card" onclick="showToast('Mariage en ligne \u2014 t\u00e9moignage')">
+                  <img src="/photos/938d48d039e0750642d3bbb0b35079e5.jpg" alt="mariage"/>
                   <div class="gov-vid-overlay"></div>
                   <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
                   <div class="gov-vid-dur">6:14</div>
                   <div class="gov-vid-info">
-                    <div class="gov-vid-label">Agriculture</div>
-                    <div class="gov-vid-name">Urban Farming Initiative</div>
+                    <div class="gov-vid-label">État civil</div>
+                    <div class="gov-vid-name">Premier mariage en ligne</div>
                   </div>
                 </div>
 
-                <div class="gov-vid-card" onclick="showToast('Local Medicine Production · Ministry of Industry')">
-                  <img src="/photos/c4508e507c47bceedccea4fa96cc3859.jpg" alt="pharma"/>
-                  <div class="gov-vid-overlay"></div>
-                  <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
-                  <div class="gov-vid-dur">8:05</div>
-                  <div class="gov-vid-info">
-                    <div class="gov-vid-label">Industry</div>
-                    <div class="gov-vid-name">Local Medicine Production</div>
-                  </div>
-                </div>
-
-                <div class="gov-vid-card" onclick="showToast('Skills & Employment Training · Ministry of Labour')">
-                  <img src="/photos/d05575b11d069b56086a22fdc7e9905f.jpg" alt="training"/>
-                  <div class="gov-vid-overlay"></div>
-                  <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
-                  <div class="gov-vid-dur">5:48</div>
-                  <div class="gov-vid-info">
-                    <div class="gov-vid-label">Employment</div>
-                    <div class="gov-vid-name">Skills Training Program</div>
-                  </div>
-                </div>
-
-                <div class="gov-vid-card" onclick="showToast('Youth Support Program · Ministry of Youth')">
-                  <img src="/photos/a9f9226070f7fa2ce76db677738e4f61.jpg" alt="youth"/>
+                <div class="gov-vid-card" onclick="showToast('Aide aux PDI \u2014 d\u00e9marches')">
+                  <img src="/photos/a9f9226070f7fa2ce76db677738e4f61.jpg" alt="pdi"/>
                   <div class="gov-vid-overlay"></div>
                   <div class="gov-vid-play"><svg viewBox="0 0 10 12"><path d="M1 1l8 5-8 5V1z"/></svg></div>
                   <div class="gov-vid-dur">3:21</div>
                   <div class="gov-vid-info">
-                    <div class="gov-vid-label">Youth</div>
-                    <div class="gov-vid-name">Youth Support Program</div>
+                    <div class="gov-vid-label">PDI</div>
+                    <div class="gov-vid-name">Personnes déplacées internes</div>
                   </div>
                 </div>
 
@@ -1684,112 +1880,325 @@ body{
 
             <!-- Quick access 2-col -->
             <div class="gov-quick-grid">
-              <div class="gov-quick-card" onclick="showToast('My Documents & Licences')">
+              <div class="gov-quick-card" onclick="showToast('Mes documents & permis')">
                 <div class="gov-quick-ico">
                   <svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h6M9 9h1"/></svg>
                 </div>
-                <div class="gov-quick-name">My Documents</div>
-                <div class="gov-quick-sub">ID, Passport, Licences</div>
+                <div class="gov-quick-name">Mes documents</div>
+                <div class="gov-quick-sub">ID, passeport, permis</div>
               </div>
-              <div class="gov-quick-card" onclick="showToast('Benefits & Social Support')">
+              <div class="gov-quick-card" onclick="showToast('Aides et soutiens sociaux')">
                 <div class="gov-quick-ico">
                   <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
                 </div>
-                <div class="gov-quick-name">Benefits</div>
-                <div class="gov-quick-sub">Social support</div>
+                <div class="gov-quick-name">Aides sociales</div>
+                <div class="gov-quick-sub">Soutien & prestations</div>
               </div>
             </div>
 
-            <!-- Documents -->
-            <div class="gov-cat-section" id="gov-docs">
-              <div class="gov-cat-lbl">Documents</div>
+            <!-- Fiscalité -->
+            <div class="gov-cat-section">
+              <div class="gov-cat-lbl">Fiscalité</div>
               <div class="gov-cat-grid">
-                <div class="gov-cat-item" onclick="showToast('Certificates & Statements')">
+                <div class="gov-cat-item" onclick="showToast('Imp\u00f4t sur le revenu')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M9 14l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18"/></svg></div>
+                  <div class="gov-cat-badge gold">DÛ</div>
+                  <div class="gov-cat-lbl-txt">Impôt revenu</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('TVA \u2014 EI & organisations')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M3 12h18M3 6h18M3 18h12"/></svg></div>
+                  <div class="gov-cat-lbl-txt">TVA</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Notifications fiscales')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 01-3.46 0"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Notifications</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Discuter avec le fisc')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Chat fisc</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Justice -->
+            <div class="gov-cat-section">
+              <div class="gov-cat-lbl">Justice</div>
+              <div class="gov-cat-grid">
+                <div class="gov-cat-item" onclick="showToast('Mes affaires judiciaires')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 1v22M3 9h18M3 15h18"/><path d="M5 3l14 4M5 21l14-4"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Mes affaires</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Audience par visioconf\u00e9rence')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><polygon points="23 7 16 12 23 17 23 7"/><rect x="1" y="5" width="15" height="14" rx="2"/></svg></div>
+                  <div class="gov-cat-badge gold">LIVE</div>
+                  <div class="gov-cat-lbl-txt">Visio audience</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Registre des d\u00e9cisions')">
                   <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Certificates</div>
+                  <div class="gov-cat-lbl-txt">Registre</div>
                 </div>
-                <div class="gov-cat-item" onclick="showToast('Driver\'s License')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><circle cx="8" cy="12" r="2.5"/><path d="M13 9h5M13 12h5M13 15h3"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Driver's Lic.</div>
+                <div class="gov-cat-item" onclick="showToast('Proc\u00e9dures d\u2019ex\u00e9cution')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Exécution</div>
                 </div>
-                <div class="gov-cat-item" onclick="showToast('Place of Residence')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Residence</div>
-                </div>
-                <div class="gov-cat-item" onclick="showToast('Marriage Online')">
+              </div>
+            </div>
+
+            <!-- Image illustrative -->
+            <div class="home-promo" style="margin:0 20px 14px" onclick="showToast('Mariage en ligne \u2014 envoyer une demande')">
+              <img src="/photos/938d48d039e0750642d3bbb0b35079e5.jpg" alt="">
+              <div class="home-promo-overlay">
+                <div class="home-promo-tag">État civil</div>
+                <div class="home-promo-title">Mariage en ligne</div>
+                <div class="home-promo-sub">Envoyer une demande à votre partenaire</div>
+              </div>
+            </div>
+
+            <!-- État civil & famille -->
+            <div class="gov-cat-section">
+              <div class="gov-cat-lbl">État civil & famille</div>
+              <div class="gov-cat-grid">
+                <div class="gov-cat-item" onclick="showToast('Mariage en ligne')">
                   <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div>
                   <div class="gov-cat-badge gold">NEW</div>
-                  <div class="gov-cat-lbl-txt">Marriage</div>
+                  <div class="gov-cat-lbl-txt">Mariage</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Divorce en ligne')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M16 4l-8 16M9 4h6M9 20h6"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Divorce</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Acte de naissance enfant')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a4 4 0 014-4h8a4 4 0 014 4v1"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Naissance</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Domicile / r\u00e9sidence')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Domicile</div>
                 </div>
               </div>
             </div>
 
-            <!-- Finance -->
-            <div class="gov-cat-section" id="gov-finance">
-              <div class="gov-cat-lbl">Finance</div>
+            <!-- Aide sociale -->
+            <div class="gov-cat-section">
+              <div class="gov-cat-lbl">Aide sociale</div>
               <div class="gov-cat-grid">
-                <div class="gov-cat-item" onclick="showToast('Taxes — Income & VAT')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M9 14l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18"/></svg></div>
-                  <div class="gov-cat-badge gold">DUE</div>
-                  <div class="gov-cat-lbl-txt">Taxes</div>
-                </div>
-                <div class="gov-cat-item" onclick="showToast('Deposit Returns')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M19 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2z"/><path d="M16 3H8a2 2 0 00-2 2v2h12V5a2 2 0 00-2-2z"/><path d="M12 12v4M10 14l2 2 2-2"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Deposit Return</div>
-                </div>
-                <div class="gov-cat-item" onclick="showToast('Government Bonds')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="3" y="13" width="4" height="8" rx="1"/><rect x="10" y="9" width="4" height="12" rx="1"/><rect x="17" y="4" width="4" height="17" rx="1"/><path d="M5 11l5-5 4 4 6-6" stroke-linecap="round"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Gov Bonds</div>
-                </div>
-                <div class="gov-cat-item" onclick="showToast('Government Card')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20M6 15h4"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Social Card</div>
-                </div>
-              </div>
-            </div>
-
-            <!-- Legal & Social -->
-            <div class="gov-cat-section" id="gov-legal">
-              <div class="gov-cat-lbl">Legal & Social</div>
-              <div class="gov-cat-grid">
-                <div class="gov-cat-item" onclick="showToast('Court Services')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 1v22M3 9h18M3 15h18"/><path d="M5 3l14 4M5 21l14-4"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Courts</div>
-                </div>
-                <div class="gov-cat-item" onclick="showToast('Enforcement Proceedings')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Enforcement</div>
-                </div>
-                <div class="gov-cat-item" onclick="showToast('Unemployment Aid')">
+                <div class="gov-cat-item" onclick="showToast('Aide au ch\u00f4mage')">
                   <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2M12 12v4M10 14h4"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Unemployment</div>
+                  <div class="gov-cat-lbl-txt">Chômage</div>
                 </div>
-                <div class="gov-cat-item" onclick="showToast('Government Aid & Support')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M18 8h1a4 4 0 010 8h-1"/><path d="M2 8h16v9a4 4 0 01-4 4H6a4 4 0 01-4-4V8z"/><path d="M6 1v3M10 1v3M14 1v3"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Gov Aid</div>
+                <div class="gov-cat-item" onclick="showToast('Personnes d\u00e9plac\u00e9es internes (PDI)')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4M5 21V11M19 21V11M3 21h18"/></svg></div>
+                  <div class="gov-cat-badge gold">PDI</div>
+                  <div class="gov-cat-lbl-txt">PDI</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Aide \u00e0 l\u2019achat de logement')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M12 8v4M10 10h4"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Logement</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Carte sociale')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20M6 15h4"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Carte sociale</div>
                 </div>
               </div>
             </div>
 
-            <!-- Lifestyle & Culture -->
-            <div class="gov-cat-section" id="gov-lifestyle">
-              <div class="gov-cat-lbl">Lifestyle & Culture</div>
+            <!-- Image illustrative 2 -->
+            <div class="home-promo" style="margin:0 20px 14px" onclick="showToast('Sondage citoyen actif')">
+              <img src="/photos/c67881c0dbb873b1970d95321a5c7e92.jpg" alt="">
+              <div class="home-promo-overlay">
+                <div class="home-promo-tag">Sondage</div>
+                <div class="home-promo-title">Votre avis compte</div>
+                <div class="home-promo-sub">3 sondages publics ouverts</div>
+              </div>
+            </div>
+
+            <!-- Certificats & extraits -->
+            <div class="gov-cat-section">
+              <div class="gov-cat-lbl">Certificats & extraits</div>
               <div class="gov-cat-grid">
-                <div class="gov-cat-item" onclick="showToast('Surveys & Feedback')">
+                <div class="gov-cat-item" onclick="showToast('Attestation de pension')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Pension</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Attestation s\u00e9curit\u00e9 sociale')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Sécu. sociale</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Attestation de domicile')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Domicile</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Attestation port d\u2019arme')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 12h8M12 8v8"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Arme</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Casier judiciaire \u2014 b3')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Casier</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Composition de famille')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><circle cx="9" cy="7" r="3"/><circle cx="17" cy="9" r="2"/><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2M15 21v-1a3 3 0 013-3h2"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Famille</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Attestation sans dette fiscale')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="9.5"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Sans dette</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Acte de naissance')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 21v-1a4 4 0 014-4h8a4 4 0 014 4v1"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Naissance</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Santé -->
+            <div class="gov-cat-section">
+              <div class="gov-cat-lbl">Santé</div>
+              <div class="gov-cat-grid">
+                <div class="gov-cat-item" onclick="showToast('Carnet m\u00e9dical num\u00e9rique')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M12 12v6M9 15h6"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Carnet</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Prendre rendez-vous m\u00e9decin')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2"/><path d="M16 2v4M8 2v4M3 10h18"/><path d="M12 14v4M10 16h4"/></svg></div>
+                  <div class="gov-cat-badge gold">NEW</div>
+                  <div class="gov-cat-lbl-txt">RDV médecin</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Ordonnances \u00e9lectroniques')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="6" y="3" width="12" height="18" rx="2"/><path d="M9 8h6M9 12h6M9 16h4"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Ordonnances</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Carnet de vaccination')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M9 11l-6 6 4 4 6-6M14.5 6.5l-3 3M16.5 4.5l3 3"/><path d="M11.5 9.5l3 3M21 9l-6 6"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Vaccins</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Éducation -->
+            <div class="gov-cat-section">
+              <div class="gov-cat-lbl">Éducation</div>
+              <div class="gov-cat-grid">
+                <div class="gov-cat-item" onclick="showToast('Notes de l\u2019enfant')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3.33 2 8.67 2 12 0v-5"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Notes</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Inscription \u00e9cole / cr\u00e8che')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M3 21h18M5 21V8l7-5 7 5v13"/><path d="M9 21v-6h6v6"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Inscription</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Diplômes & attestations')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Diplômes</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Bourse \u00e9tudiante')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 2v20M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Bourse</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Transport -->
+            <div class="gov-cat-section">
+              <div class="gov-cat-lbl">Transport</div>
+              <div class="gov-cat-grid">
+                <div class="gov-cat-item" onclick="showToast('Permis de conduire')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><circle cx="8" cy="12" r="2.5"/><path d="M14 10h5M14 14h5"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Permis</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Immatriculation v\u00e9hicule')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M5 17h14l-2-7H7l-2 7z"/><circle cx="7.5" cy="17.5" r="2"/><circle cx="16.5" cy="17.5" r="2"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Auto</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Amendes routi\u00e8res')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v6M12 16v.01"/></svg></div>
+                  <div class="gov-cat-badge">2</div>
+                  <div class="gov-cat-lbl-txt">Amendes</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Assurance v\u00e9hicule (RC)')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Assurance</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Service militaire -->
+            <div class="gov-cat-section">
+              <div class="gov-cat-lbl">Défense & service militaire</div>
+              <div class="gov-cat-grid">
+                <div class="gov-cat-item" onclick="showToast('Livret militaire')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Livret</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Convocations & avis')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M18 8a6 6 0 00-12 0c0 7-3 9-3 9h18s-3-2-3-9"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Convocations</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('R\u00e9serve & report')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 7v5l3 2"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Réserve</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('V\u00e9t\u00e9rans \u2014 prestations')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="9" r="6"/><path d="M8 14l-2 7 6-3 6 3-2-7"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Vétérans</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Finance & garanties -->
+            <div class="gov-cat-section">
+              <div class="gov-cat-lbl">Finance & garanties</div>
+              <div class="gov-cat-grid">
+                <div class="gov-cat-item" onclick="showToast('Obligations d\u2019\u00c9tat')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="3" y="13" width="4" height="8" rx="1"/><rect x="10" y="9" width="4" height="12" rx="1"/><rect x="17" y="4" width="4" height="17" rx="1"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Obligations</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Garantie des d\u00e9p\u00f4ts')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Garantie</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Cashback national')">
+                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/></svg></div>
+                  <div class="gov-cat-lbl-txt">Cashback</div>
+                </div>
+                <div class="gov-cat-item" onclick="showToast('Sondages citoyens')">
                   <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Surveys</div>
+                  <div class="gov-cat-lbl-txt">Sondages</div>
                 </div>
-                <div class="gov-cat-item" onclick="showToast('Culture & Events')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M12 22s-8-4.5-8-11.8A8 8 0 0112 2a8 8 0 018 8.2c0 7.3-8 11.8-8 11.8z"/><circle cx="12" cy="10" r="3"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Culture</div>
+              </div>
+            </div>
+
+            <!-- Espace agents publics (back-office) -->
+            <div class="gov-cat-section">
+              <div class="gov-cat-lbl">Pour les institutions</div>
+              <div class="agents-card" onclick="showToast('Espace agents publics \u2014 connexion s\u00e9curis\u00e9e')">
+                <div class="agents-card-ico">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M3 21v-2a4 4 0 014-4h4a4 4 0 014 4v2"/><circle cx="9" cy="7" r="4"/><path d="M16 3.13a4 4 0 010 7.75"/><path d="M21 21v-2a4 4 0 00-3-3.87"/></svg>
                 </div>
-                <div class="gov-cat-item" onclick="showToast('Tourism & Travel')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Tourism</div>
+                <div class="agents-card-info">
+                  <div class="agents-card-title">Espace agents publics</div>
+                  <div class="agents-card-sub">Cabinets : juges, greffiers, fisc, ZAGS, services sociaux</div>
                 </div>
-                <div class="gov-cat-item" onclick="showToast('Sports & Fitness')">
-                  <div class="gov-cat-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M12 2.5c0 0 4.5 4.5 4.5 9.5s-4.5 9.5-4.5 9.5M12 2.5c0 0-4.5 4.5-4.5 9.5S12 21.5 12 21.5M2.5 12h19"/></svg></div>
-                  <div class="gov-cat-lbl-txt">Sports</div>
+                <div class="agents-card-arrow">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#bbb" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M9 6l6 6-6 6"/></svg>
+                </div>
+              </div>
+              <div class="agents-grid">
+                <div class="agents-mini" onclick="showToast('Cabinet juge')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5l4 4M9.5 10.5l-6 6 4 4 6-6M12 7l5-5 5 5-5 5M3 21h8"/></svg>
+                  <span>Tribunaux</span>
+                </div>
+                <div class="agents-mini" onclick="showToast('Cabinet inspecteur fiscal')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="3" width="16" height="18" rx="2"/><path d="M8 8h8M8 12h8M8 16h5"/></svg>
+                  <span>Fisc</span>
+                </div>
+                <div class="agents-mini" onclick="showToast('Cabinet ZAGS')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 000-7.78z"/></svg>
+                  <span>ZAGS</span>
+                </div>
+                <div class="agents-mini" onclick="showToast('Cabinet services sociaux')">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#555" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                  <span>Social</span>
                 </div>
               </div>
             </div>
@@ -1797,126 +2206,185 @@ body{
           </div>
         </div>
 
-        <!-- MESSAGES -->
+        <!-- INVEST → NOTIFICATIONS -->
         <div class="isc" id="s-invest">
           <div class="msg-wrap">
 
             <!-- Header -->
             <div class="msg-hd">
-              <div class="msg-hd-title">Messages</div>
+              <div class="msg-hd-title">Notifications</div>
+            </div>
+
+            <!-- Demandes en cours -->
+            <div class="msg-pin-lbl">Demandes en cours</div>
+
+            <div class="msg-req-card" onclick="showToast('Permis de conduire \u2014 d\u00e9tails')">
+              <div class="msg-req-hd">
+                <div class="msg-req-ico"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="5" width="20" height="14" rx="2.5"/><circle cx="8" cy="12" r="2.5"/><path d="M14 10h5M14 14h5"/></svg></div>
+                <div class="msg-req-info">
+                  <div class="msg-req-name">Permis de conduire — renouvellement</div>
+                  <div class="msg-req-id">N° 2026-04231 · Ministère des Transports</div>
+                </div>
+                <div class="msg-req-step">2/3</div>
+              </div>
+              <div class="msg-req-bar"><div class="msg-req-fill" style="width:66%"></div></div>
+              <div class="msg-req-steps">
+                <div class="msg-req-st done"><div class="msg-req-st-dot"></div><span>Envoyée</span></div>
+                <div class="msg-req-st active"><div class="msg-req-st-dot"></div><span>En examen</span></div>
+                <div class="msg-req-st"><div class="msg-req-st-dot"></div><span>Décision</span></div>
+              </div>
+              <div class="msg-req-eta">⏱ Décision estimée : <b>3–5 jours ouvrés</b></div>
+            </div>
+
+            <div class="msg-req-card" onclick="showToast('Aide ch\u00f4mage \u2014 d\u00e9tails')">
+              <div class="msg-req-hd">
+                <div class="msg-req-ico" style="background:linear-gradient(135deg,#3b5bdb,#5c7cfa)"><svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="14" rx="2.5"/><path d="M16 7V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v2"/></svg></div>
+                <div class="msg-req-info">
+                  <div class="msg-req-name">Aide chômage — demande mensuelle</div>
+                  <div class="msg-req-id">N° 2026-08812 · Services sociaux</div>
+                </div>
+                <div class="msg-req-step done">3/3</div>
+              </div>
+              <div class="msg-req-bar"><div class="msg-req-fill" style="width:100%;background:linear-gradient(135deg,#10b981,#34d399)"></div></div>
+              <div class="msg-req-steps">
+                <div class="msg-req-st done"><div class="msg-req-st-dot"></div><span>Envoyée</span></div>
+                <div class="msg-req-st done"><div class="msg-req-st-dot"></div><span>En examen</span></div>
+                <div class="msg-req-st done" style="--c:#10b981"><div class="msg-req-st-dot"></div><span>Approuvée</span></div>
+              </div>
+              <div class="msg-req-eta" style="color:#10b981">✓ Versement effectué : <b>$215,00</b></div>
             </div>
 
             <!-- Pinned label -->
-            <div class="msg-pin-lbl">Pinned</div>
+            <div class="msg-pin-lbl">Épinglé</div>
 
             <!-- Support (pinned) -->
-            <div class="msg-support" onclick="showToast('SuperApp Support — always here to help')">
+            <div class="msg-support" onclick="showToast('Support SuperApp \u2014 toujours \u00e0 votre service')">
               <div class="msg-support-av">
                 <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
               </div>
               <div class="msg-support-info">
-                <div class="msg-support-name">SuperApp Support</div>
-                <div class="msg-support-sub">Always ready to help you</div>
+                <div class="msg-support-name">Assistance SuperApp</div>
+                <div class="msg-support-sub">Disponible 24/7 — chat & vidéo</div>
               </div>
               <div style="display:flex;flex-direction:column;align-items:flex-end;gap:6px">
-                <div style="font-size:11px;color:#bbb;font-weight:500">Now</div>
-                <div style="display:flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#10b981"><span style="width:6px;height:6px;border-radius:50%;background:#10b981;display:inline-block"></span>Online</div>
+                <div style="font-size:11px;color:#bbb;font-weight:500">Maint.</div>
+                <div style="display:flex;align-items:center;gap:4px;font-size:10px;font-weight:700;color:#10b981"><span style="width:6px;height:6px;border-radius:50%;background:#10b981;display:inline-block"></span>En ligne</div>
               </div>
             </div>
 
-            <!-- Promo banner -->
-            <div class="msg-promo" onclick="showToast('Explore Africa — book tours & wildlife experiences')">
-              <img src="/photos/938d48d039e0750642d3bbb0b35079e5.jpg" alt="Africa Wildlife"/>
-              <div class="msg-promo-overlay">
-                <div class="msg-promo-tag">Explore Africa</div>
-                <div class="msg-promo-title">Wildlife Tours<br>& Adventures</div>
-                <div class="msg-promo-sub">Book via SuperApp — from $49</div>
-              </div>
-            </div>
+            <!-- Important -->
+            <div class="msg-sec-lbl">Important</div>
 
-            <!-- Channels label -->
-            <div class="msg-sec-lbl">Channels</div>
-
-            <!-- Channels card -->
             <div class="msg-card">
-              <div class="msg-row" onclick="showToast('Special Offers — 1 new offer')">
-                <div class="msg-av" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
-                  <svg viewBox="0 0 24 24"><path d="M20 12V22H4V12"/><path d="M22 7H2v5h20V7z"/><path d="M12 22V7M12 7H7.5a2.5 2.5 0 010-5C11 2 12 7 12 7zM12 7h4.5a2.5 2.5 0 000-5C13 2 12 7 12 7z"/></svg>
-                </div>
-                <div class="msg-info">
-                  <div class="msg-name">Special Offers</div>
-                  <div class="msg-preview">Get 5% cashback on all transfers this week</div>
-                </div>
-                <div class="msg-right">
-                  <div class="msg-time">Today</div>
-                  <div class="msg-badge gold">1</div>
-                </div>
-              </div>
-
-              <div class="msg-row" onclick="showToast('Notifications — account activity')">
-                <div class="msg-av" style="background:linear-gradient(135deg,#f59e0b,#fbbf24)">
-                  <svg viewBox="0 0 24 24"><path d="M15 17h5l-1.405-1.405A2.032 2.032 0 0118 14.158V11a6 6 0 00-5-5.917V4a1 1 0 00-2 0v1.083A6 6 0 006 11v3.159c0 .538-.214 1.055-.595 1.436L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
-                </div>
-                <div class="msg-info">
-                  <div class="msg-name">Notifications</div>
-                  <div class="msg-preview">Your account level — Standard</div>
-                </div>
-                <div class="msg-right">
-                  <div class="msg-time">Yesterday</div>
-                </div>
-              </div>
-
-              <div class="msg-row" onclick="showToast('Operations — 7 new updates')">
+              <div class="msg-row" onclick="showToast('Imp\u00f4t T2 \u2014 \u00e9ch\u00e9ance 30 juin')">
                 <div class="msg-av" style="background:linear-gradient(135deg,#D4830A,#F2C94C)">
-                  <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+                  <svg viewBox="0 0 24 24"><path d="M9 14l2 2 4-4"/><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18"/></svg>
                 </div>
                 <div class="msg-info">
-                  <div class="msg-name">Operations</div>
-                  <div class="msg-preview">Transfer to Kwame A. — confirmed</div>
+                  <div class="msg-name">Service des impôts</div>
+                  <div class="msg-preview">Impôt T2 dû le 30 juin — $240,00</div>
                 </div>
                 <div class="msg-right">
-                  <div class="msg-time">21 Mar</div>
-                  <div class="msg-badge">7</div>
+                  <div class="msg-time">Auj.</div>
+                  <div class="msg-badge gold">!</div>
                 </div>
               </div>
 
-              <div class="msg-row" onclick="showToast('Gov Services — new update')">
-                <div class="msg-av" style="background:linear-gradient(135deg,#3b82f6,#2563eb)">
-                  <svg viewBox="0 0 24 24"><path d="M3 22h18M12 2l9 5H3l9-5z"/><path d="M5 9v11M9 9v11M15 9v11M19 9v11"/><path d="M3 7h18"/></svg>
+              <div class="msg-row" onclick="showToast('Audience #4521 \u2014 demain 10h')">
+                <div class="msg-av" style="background:linear-gradient(135deg,#1f3a8a,#3b5bdb)">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14.5 5.5l4 4M9.5 10.5l-6 6 4 4 6-6M12 7l5-5 5 5-5 5M3 21h8"/></svg>
                 </div>
                 <div class="msg-info">
-                  <div class="msg-name">Gov Services</div>
-                  <div class="msg-preview">Income Tax Q2 due June 30 — $240.00</div>
+                  <div class="msg-name">Tribunal de district</div>
+                  <div class="msg-preview">Audience #4521 — demain à 10h00 (visio)</div>
                 </div>
                 <div class="msg-right">
-                  <div class="msg-time">1 Apr</div>
-                  <div class="msg-badge">3</div>
+                  <div class="msg-time">Auj.</div>
+                  <div class="msg-badge">2</div>
                 </div>
               </div>
 
-              <div class="msg-row" onclick="showToast('Security Alerts — all clear')">
+              <div class="msg-row" onclick="showToast('Aide ch\u00f4mage \u2014 d\u00e9cision approuv\u00e9e')">
+                <div class="msg-av" style="background:linear-gradient(135deg,#10b981,#059669)">
+                  <svg viewBox="0 0 24 24"><path d="M9 11l3 3L22 4"/><path d="M21 12v7a2 2 0 01-2 2H5a2 2 0 01-2-2V5a2 2 0 012-2h11"/></svg>
+                </div>
+                <div class="msg-info">
+                  <div class="msg-name">Service social</div>
+                  <div class="msg-preview">Aide chômage approuvée — versement le 25 avril</div>
+                </div>
+                <div class="msg-right">
+                  <div class="msg-time">Hier</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Canaux officiels -->
+            <div class="msg-sec-lbl">Ministères & services</div>
+
+            <div class="msg-card">
+              <div class="msg-row" onclick="showToast('Mariage \u2014 confirmation re\u00e7ue')">
+                <div class="msg-av" style="background:linear-gradient(135deg,#ec4899,#db2777)">
+                  <svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg>
+                </div>
+                <div class="msg-info">
+                  <div class="msg-name">État civil</div>
+                  <div class="msg-preview">Mariage en ligne — choisir une date</div>
+                </div>
+                <div class="msg-right">
+                  <div class="msg-time">21 mar</div>
+                  <div class="msg-badge">1</div>
+                </div>
+              </div>
+
+              <div class="msg-row" onclick="showToast('Domicile mis \u00e0 jour')">
+                <div class="msg-av" style="background:linear-gradient(135deg,#0891b2,#0e7490)">
+                  <svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg>
+                </div>
+                <div class="msg-info">
+                  <div class="msg-name">Service du domicile</div>
+                  <div class="msg-preview">Nouvelle adresse confirmée — Lagos</div>
+                </div>
+                <div class="msg-right">
+                  <div class="msg-time">1 avr</div>
+                </div>
+              </div>
+
+              <div class="msg-row" onclick="showToast('Connexion s\u00e9curis\u00e9e \u2014 nouvel appareil')">
                 <div class="msg-av" style="background:linear-gradient(135deg,#10b981,#059669)">
                   <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg>
                 </div>
                 <div class="msg-info">
-                  <div class="msg-name">Security</div>
-                  <div class="msg-preview">New login from Lagos, Nigeria ✓</div>
+                  <div class="msg-name">Sécurité</div>
+                  <div class="msg-preview">Nouvelle connexion depuis Lagos ✓</div>
                 </div>
                 <div class="msg-right">
-                  <div class="msg-time">2 Apr</div>
+                  <div class="msg-time">2 avr</div>
                 </div>
               </div>
 
-              <div class="msg-row" onclick="showToast('SuperApp News — community update')">
+              <div class="msg-row" onclick="showToast('Aide alimentaire \u2014 200 familles')">
                 <div class="msg-av" style="background:linear-gradient(135deg,#8b5cf6,#7c3aed)">
-                  <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2zm0 0a2 2 0 01-2-2v-9c0-1.1.9-2 2-2h2"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
+                  <svg viewBox="0 0 24 24"><path d="M4 22h16a2 2 0 002-2V4a2 2 0 00-2-2H8a2 2 0 00-2 2v16a2 2 0 01-2 2z"/><path d="M18 14h-8M15 18h-5M10 6h8v4h-8z"/></svg>
                 </div>
                 <div class="msg-info">
-                  <div class="msg-name">SuperApp News</div>
-                  <div class="msg-preview">Food Aid: 200+ families supported this month</div>
+                  <div class="msg-name">Actualités SuperApp</div>
+                  <div class="msg-preview">Aide alimentaire : 200+ familles ce mois</div>
                 </div>
                 <div class="msg-right">
-                  <div class="msg-time">5 Apr</div>
+                  <div class="msg-time">5 avr</div>
+                </div>
+              </div>
+
+              <div class="msg-row" onclick="showToast('Cashback re\u00e7u +$24,50')">
+                <div class="msg-av" style="background:linear-gradient(135deg,#f59e0b,#d97706)">
+                  <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/></svg>
+                </div>
+                <div class="msg-info">
+                  <div class="msg-name">Cashback national</div>
+                  <div class="msg-preview">Reçu scanné — +$24,50 reçus</div>
+                </div>
+                <div class="msg-right">
+                  <div class="msg-time">7 avr</div>
                 </div>
               </div>
             </div>
@@ -1933,123 +2401,206 @@ body{
               <div class="prf-av-wrap">
                 <img src="/photos/7d3b5efa94a09bc99cfb59cc5c0c1a0b.jpg" alt="avatar"/>
               </div>
-              <div class="prf-name">John Ubabu</div>
-              <div class="prf-email">john.ubabu@superapp.africa</div>
-              <button class="prf-edit-btn" onclick="showToast('Edit profile')">Edit profile</button>
+              <div class="prf-name">Jean Ubabu</div>
+              <div class="prf-email">jean.ubabu@superapp.africa</div>
+              <button class="prf-edit-btn" onclick="showToast('Modifier le profil')">Modifier le profil</button>
             </div>
 
+            <!-- Switch ID type: Particulier / EI / Organisation -->
+            <div class="prf-section">
+              <div class="prf-sec-ttl">Mode d'identification</div>
+              <div class="prf-mode">
+                <div class="prf-mode-item active" onclick="showToast('Mode Particulier activ\u00e9')">
+                  <span class="prf-mode-ico">👤</span>
+                  <div class="prf-mode-lbl">Particulier</div>
+                </div>
+                <div class="prf-mode-item" onclick="showToast('Mode Entrepreneur Individuel')">
+                  <span class="prf-mode-ico">💼</span>
+                  <div class="prf-mode-lbl">EI</div>
+                </div>
+                <div class="prf-mode-item" onclick="showToast('Mode Organisation')">
+                  <span class="prf-mode-ico">🏢</span>
+                  <div class="prf-mode-lbl">Organisation</div>
+                </div>
+              </div>
+            </div>
+
+            <!-- ID & ECP (signature électronique) -->
+            <div class="prf-section">
+              <div class="prf-sec-ttl">Identité & Signature</div>
+              <div class="prf-row" onclick="showToast('ID Num\u00e9rique \u2014 v\u00e9rifi\u00e9')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><circle cx="8" cy="12" r="2.5"/><path d="M13 10h6M13 13h6M13 16h4"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">ID Numérique</div><div class="prf-row-sub">Vérifié — Niveau 3</div></div>
+                <div class="prf-row-badge" style="background:#10b981">Vérifié</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Signature \u00e9lectronique (ECP) active')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Signature électronique (ECP)</div><div class="prf-row-sub">Active · expire 2028</div></div>
+                <div class="prf-row-badge gold">ECP</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Historique des signatures')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Historique des signatures</div><div class="prf-row-sub">12 documents signés</div></div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Authentification SMS / biom\u00e9trie')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Authentification</div><div class="prf-row-sub">SMS · Biométrie · ECP</div></div>
+                <div class="prf-row-arr">›</div>
+              </div>
+            </div>
+
+            <!-- Biométrie -->
+            <div class="prf-section">
+              <div class="prf-sec-ttl">Biométrie</div>
+              <div class="prf-row prf-row-toggle" onclick="toggleBio(this)">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M8 9.5a4 4 0 018 0M9 14c.7 1 1.8 1.6 3 1.6s2.3-.6 3-1.6M9 11.5h.01M15 11.5h.01"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Face ID</div><div class="prf-row-sub">Connexion par reconnaissance faciale</div></div>
+                <div class="prf-toggle on"><div class="prf-toggle-knob"></div></div>
+              </div>
+              <div class="prf-row prf-row-toggle" onclick="toggleBio(this)">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M12 11v6M9 14h6M5 18a7 7 0 0114 0M3 11.5C3 7.36 7.03 4 12 4s9 3.36 9 7.5"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Touch ID</div><div class="prf-row-sub">Empreinte digitale</div></div>
+                <div class="prf-toggle on"><div class="prf-toggle-knob"></div></div>
+              </div>
+              <div class="prf-row prf-row-toggle" onclick="toggleBio(this)">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="9" y="2" width="6" height="12" rx="3"/><path d="M5 11a7 7 0 0014 0M12 19v3"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Voix</div><div class="prf-row-sub">Authentification vocale</div></div>
+                <div class="prf-toggle"><div class="prf-toggle-knob"></div></div>
+              </div>
+            </div>
 
             <!-- Documents -->
             <div class="prf-section">
-              <div class="prf-sec-ttl">Documents</div>
-              <div class="prf-row" onclick="showToast('International Passport')">
+              <div class="prf-sec-ttl">Mes documents</div>
+              <div class="prf-row" onclick="showToast('Passeport international')">
                 <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="3" y="2" width="18" height="20" rx="2.5"/><circle cx="12" cy="10" r="3"/><path d="M6 20c0-3.31 2.69-5 6-5s6 1.69 6 5"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Passport</div><div class="prf-row-sub">Expires 2028</div></div>
-                <div class="prf-row-badge gold">Active</div>
+                <div class="prf-row-info"><div class="prf-row-name">Passeport / CNI</div><div class="prf-row-sub">Expire 2028</div></div>
+                <div class="prf-row-badge gold">Actif</div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('Driver\'s License')">
+              <div class="prf-row" onclick="showToast('Permis de conduire')">
                 <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><circle cx="8" cy="12" r="2.5"/><path d="M13 9h5M13 12h5M13 15h3"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Driver's License</div><div class="prf-row-sub">Category B · Valid</div></div>
-                <div class="prf-row-badge gold">Active</div>
+                <div class="prf-row-info"><div class="prf-row-name">Permis de conduire</div><div class="prf-row-sub">Catégorie B · Valide</div></div>
+                <div class="prf-row-badge gold">Actif</div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('Residence Certificate')">
+              <div class="prf-row" onclick="showToast('Titre de s\u00e9jour / VNJ')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2.5"/><path d="M3 9h18M9 21V9"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Titre de séjour</div><div class="prf-row-sub">Permanent</div></div>
+                <div class="prf-row-badge" style="background:#10b981">Vérifié</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Justificatif de domicile')">
                 <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Place of Residence</div><div class="prf-row-sub">Lagos, Nigeria</div></div>
-                <div class="prf-row-badge" style="background:#10b981">Verified</div>
+                <div class="prf-row-info"><div class="prf-row-name">Justificatif de domicile</div><div class="prf-row-sub">Lagos, Nigeria</div></div>
+                <div class="prf-row-badge" style="background:#10b981">Vérifié</div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('Marriage Certificate')">
+              <div class="prf-row" onclick="showToast('Acte de mariage')">
                 <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M20.84 4.61a5.5 5.5 0 00-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 00-7.78 7.78L12 21.23l8.84-8.84a5.5 5.5 0 000-7.78z"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Marriage Certificate</div><div class="prf-row-sub">Registered 2019</div></div>
-                <div class="prf-row-badge gold">Active</div>
+                <div class="prf-row-info"><div class="prf-row-name">Acte de mariage</div><div class="prf-row-sub">Enregistré 2019</div></div>
+                <div class="prf-row-badge gold">Actif</div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('Birth Certificate')">
-                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Birth Certificate</div><div class="prf-row-sub">Original document</div></div>
-                <div class="prf-row-badge" style="background:#10b981">Verified</div>
+              <div class="prf-row" onclick="showToast('Acte de naissance enfant')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Acte de naissance</div><div class="prf-row-sub">Document original</div></div>
+                <div class="prf-row-badge" style="background:#10b981">Vérifié</div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('Education Documents')">
+              <div class="prf-row" onclick="showToast('Attestation PDI')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M3 7l9-4 9 4M5 21V11M19 21V11M3 21h18"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Attestation PDI</div><div class="prf-row-sub">Personne déplacée interne</div></div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Dipl\u00f4mes & certificats')">
                 <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M22 10v6M2 10l10-5 10 5-10 5-10-5z"/><path d="M6 12v5c3.33 2 8.67 2 12 0v-5"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Education Documents</div><div class="prf-row-sub">Diploma, Certificates</div></div>
+                <div class="prf-row-info"><div class="prf-row-name">Diplômes & certificats</div><div class="prf-row-sub">Éducation</div></div>
                 <div class="prf-row-arr">›</div>
               </div>
             </div>
 
             <!-- Finance -->
             <div class="prf-section">
-              <div class="prf-sec-ttl">Finance & Benefits</div>
-              <div class="prf-row" onclick="showToast('Social Aid Card — SuperApp')">
+              <div class="prf-sec-ttl">Finances & avantages</div>
+              <div class="prf-row" onclick="showToast('Carte sociale')">
                 <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20M6 15h4"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Social Aid Card</div><div class="prf-row-sub">Government benefits</div></div>
+                <div class="prf-row-info"><div class="prf-row-name">Carte sociale</div><div class="prf-row-sub">Solde · $742,45</div></div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('Government Bonds')">
-                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="3" y="13" width="4" height="8" rx="1"/><rect x="10" y="9" width="4" height="12" rx="1"/><rect x="17" y="4" width="4" height="17" rx="1"/><path d="M5 11l5-5 4 4 6-6" stroke-linecap="round"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Gov Bonds</div><div class="prf-row-sub">Prospective investments</div></div>
+              <div class="prf-row" onclick="showToast('Obligations d\u2019\u00c9tat')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="3" y="13" width="4" height="8" rx="1"/><rect x="10" y="9" width="4" height="12" rx="1"/><rect x="17" y="4" width="4" height="17" rx="1"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Obligations d'État</div><div class="prf-row-sub">Investissement perspectif</div></div>
                 <div class="prf-row-badge gold">NEW</div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('National Cashback — scan receipt')">
-                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="5" y="5" width="3" height="3"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="16" y="5" width="3" height="3"/><rect x="3" y="14" width="7" height="7" rx="1.2"/><rect x="5" y="16" width="3" height="3"/><path d="M14 14h3M17 17h3M14 20h3M20 14v.01M20 20v.01"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">National Cashback</div><div class="prf-row-sub">Scan receipt & earn back</div></div>
+              <div class="prf-row" onclick="showToast('Cashback national')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.2"/><rect x="14" y="3" width="7" height="7" rx="1.2"/><rect x="3" y="14" width="7" height="7" rx="1.2"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Cashback national</div><div class="prf-row-sub">Scanner reçu · gagner</div></div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('Deposit Insurance · Bankrupt bank claims')">
+              <div class="prf-row" onclick="showToast('Garantie des d\u00e9p\u00f4ts')">
                 <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Deposit Insurance</div><div class="prf-row-sub">Bankrupt bank claims</div></div>
+                <div class="prf-row-info"><div class="prf-row-name">Garantie des dépôts</div><div class="prf-row-sub">Récupérer fonds — banque en faillite</div></div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('Housing Aid — purchase support')">
-                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M9 21V12h6v9"/><path d="M12 8v4M10 10h4"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Housing Aid</div><div class="prf-row-sub">Help buying property</div></div>
+              <div class="prf-row" onclick="showToast('Aide au logement')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M3 9.5L12 3l9 6.5V20a1 1 0 01-1 1H4a1 1 0 01-1-1V9.5z"/><path d="M12 8v4M10 10h4"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Aide au logement</div><div class="prf-row-sub">Aide à l'achat immobilier</div></div>
                 <div class="prf-row-arr">›</div>
               </div>
             </div>
 
             <!-- Security & Settings -->
             <div class="prf-section">
-              <div class="prf-sec-ttl">Security & Settings</div>
-              <div class="prf-row" onclick="showToast('Digital Signature — EDS')">
-                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Digital Signature</div><div class="prf-row-sub">EDS · Active</div></div>
-                <div class="prf-row-badge gold">EDS</div>
-                <div class="prf-row-arr">›</div>
-              </div>
-              <div class="prf-row" onclick="showToast('Signing History')">
-                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><path d="M14 2v6h6M9 13h6M9 17h4"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Signing History</div><div class="prf-row-sub">12 documents signed</div></div>
-                <div class="prf-row-arr">›</div>
-              </div>
-              <div class="prf-row" onclick="showToast('App Settings')">
+              <div class="prf-sec-ttl">Sécurité & paramètres</div>
+              <div class="prf-row" onclick="showToast('Param\u00e8tres de l\u2019app')">
                 <div class="prf-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 00.33 1.82l.06.06a2 2 0 010 2.83 2 2 0 01-2.83 0l-.06-.06a1.65 1.65 0 00-1.82-.33 1.65 1.65 0 00-1 1.51V21a2 2 0 01-4 0v-.09A1.65 1.65 0 009 19.4a1.65 1.65 0 00-1.82.33l-.06.06a2 2 0 01-2.83-2.83l.06-.06A1.65 1.65 0 004.68 15a1.65 1.65 0 00-1.51-1H3a2 2 0 010-4h.09A1.65 1.65 0 004.6 9a1.65 1.65 0 00-.33-1.82l-.06-.06a2 2 0 012.83-2.83l.06.06A1.65 1.65 0 009 4.68a1.65 1.65 0 001-1.51V3a2 2 0 014 0v.09a1.65 1.65 0 001 1.51 1.65 1.65 0 001.82-.33l.06-.06a2 2 0 012.83 2.83l-.06.06A1.65 1.65 0 0019.4 9a1.65 1.65 0 001.51 1H21a2 2 0 010 4h-.09a1.65 1.65 0 00-1.51 1z"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Settings</div><div class="prf-row-sub">Language · Theme · Notifications</div></div>
-                <div class="prf-row-val">English</div>
+                <div class="prf-row-info"><div class="prf-row-name">Paramètres</div><div class="prf-row-sub">Thème · Notifications</div></div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('Connected Sessions')">
+              <div class="prf-row prf-row-lang">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M2.5 12h19M12 2.5c2.5 3 4 6.5 4 9.5s-1.5 6.5-4 9.5M12 2.5c-2.5 3-4 6.5-4 9.5s1.5 6.5 4 9.5"/></svg></div>
+                <div class="prf-row-info">
+                  <div class="prf-row-name">Langue</div>
+                  <div class="prf-lang-pills">
+                    <div class="prf-lang-pill active" onclick="event.stopPropagation();selectLang(this,'Fran\u00e7ais')">FR</div>
+                    <div class="prf-lang-pill" onclick="event.stopPropagation();selectLang(this,'English')">EN</div>
+                    <div class="prf-lang-pill" onclick="event.stopPropagation();selectLang(this,'Hausa')">HA</div>
+                    <div class="prf-lang-pill" onclick="event.stopPropagation();selectLang(this,'Yoruba')">YO</div>
+                    <div class="prf-lang-pill" onclick="event.stopPropagation();selectLang(this,'Igbo')">IG</div>
+                  </div>
+                </div>
+              </div>
+              <div class="prf-row" onclick="showToast('Accessibilit\u00e9 \u2014 WCAG')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="4" r="2"/><path d="M5 9.5L12 7l7 2.5M12 7v6.5M9 22l3-8.5L15 22M8 11.5h8"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Accessibilité</div><div class="prf-row-sub">Police XL · Voix · Lecteur d'écran · Contraste</div></div>
+                <div class="prf-row-badge" style="background:#3b5bdb">WCAG</div>
+                <div class="prf-row-arr">›</div>
+              </div>
+              <div class="prf-row" onclick="showToast('Sessions actives')">
                 <div class="prf-row-ico"><svg viewBox="0 0 24 24"><rect x="5" y="2" width="14" height="20" rx="2.5"/><path d="M10 18h4"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">Sessions</div><div class="prf-row-sub">2 active devices</div></div>
+                <div class="prf-row-info"><div class="prf-row-name">Sessions</div><div class="prf-row-sub">2 appareils actifs</div></div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('App updated · v2.4.1')">
-                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 01-9 9m9-9a9 9 0 00-9-9m9 9H3m9 9a9 9 0 01-9-9m9 9c1.66 0 3-4.03 3-9s-1.34-9-3-9m0 18c-1.66 0-3-4.03-3-9s1.34-9 3-9m-9 9a9 9 0 019-9"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">App Update</div><div class="prf-row-sub">v2.4.1 — Up to date</div></div>
+              <div class="prf-row" onclick="showToast('App \u00e0 jour \u00b7 v2.4.1')">
+                <div class="prf-row-ico"><svg viewBox="0 0 24 24"><path d="M21 12a9 9 0 11-3-6.7M21 4v5h-5"/></svg></div>
+                <div class="prf-row-info"><div class="prf-row-name">Mise à jour</div><div class="prf-row-sub">v2.4.1 — à jour</div></div>
                 <div class="prf-row-val">✓</div>
                 <div class="prf-row-arr">›</div>
               </div>
-              <div class="prf-row" onclick="showToast('FAQ — Frequently Asked Questions')">
+              <div class="prf-row" onclick="showToast('FAQ \u2014 Aide & support')">
                 <div class="prf-row-ico"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9.5"/><path d="M9.09 9a3 3 0 015.83 1c0 2-3 3-3 3M12 17h.01"/></svg></div>
-                <div class="prf-row-info"><div class="prf-row-name">FAQ</div><div class="prf-row-sub">Help & support</div></div>
+                <div class="prf-row-info"><div class="prf-row-name">FAQ</div><div class="prf-row-sub">Aide & support</div></div>
                 <div class="prf-row-arr">›</div>
               </div>
             </div>
 
             <!-- Logout -->
-            <button class="prf-logout" onclick="showToast('Logged out')">Log Out</button>
+            <button class="prf-logout" onclick="showToast('D\u00e9connect\u00e9')">Se déconnecter</button>
 
           </div>
         </div>
@@ -2063,31 +2614,31 @@ body{
         <div class="bni active" onclick="goTo('home')" data-sc="home">
           <div class="bni-inner">
             <svg viewBox="0 0 24 24"><path d="M2.25 12l8.954-8.955a1.126 1.126 0 011.591 0L21.75 12M4.5 9.75v10.125c0 .621.504 1.125 1.125 1.125H9.75v-4.875c0-.621.504-1.125 1.125-1.125h2.25c.621 0 1.125.504 1.125 1.125V21h4.125c.621 0 1.125-.504 1.125-1.125V9.75M8.25 21h8.25"/></svg>
-            <div class="bni-lbl">Home</div>
+            <div class="bni-lbl">Fil</div>
           </div>
         </div>
         <div class="bni" onclick="goTo('pay')" data-sc="pay">
           <div class="bni-inner">
-            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
-            <div class="bni-lbl">Operations</div>
+            <svg viewBox="0 0 24 24"><rect x="2" y="5" width="20" height="14" rx="2.5"/><path d="M2 10h20M6 15h4"/></svg>
+            <div class="bni-lbl">Portefeuille</div>
           </div>
         </div>
         <div class="bni" onclick="goTo('gov')" data-sc="gov">
           <div class="bni-inner">
-            <svg viewBox="0 0 24 24"><path d="M3 22h18M12 2l9 5H3l9-5z"/><path d="M5 9v11M9 9v11M15 9v11M19 9v11"/><path d="M3 7h18"/></svg>
-            <div class="bni-lbl">Gov</div>
+            <svg viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1.5"/><rect x="14" y="3" width="7" height="7" rx="1.5"/><rect x="3" y="14" width="7" height="7" rx="1.5"/><rect x="14" y="14" width="7" height="7" rx="1.5"/></svg>
+            <div class="bni-lbl">Services</div>
           </div>
         </div>
         <div class="bni" onclick="goTo('invest')" data-sc="invest">
           <div class="bni-inner">
-            <svg viewBox="0 0 24 24"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
-            <div class="bni-lbl">Messages</div>
+            <svg viewBox="0 0 24 24"><path d="M15 17h5l-1.4-1.4A2 2 0 0118 14.2V11a6 6 0 00-5-5.9V4a1 1 0 00-2 0v1.1A6 6 0 006 11v3.2c0 .5-.2 1-.6 1.4L4 17h5m6 0v1a3 3 0 11-6 0v-1m6 0H9"/></svg>
+            <div class="bni-lbl">Notifs</div>
           </div>
         </div>
         <div class="bni" onclick="goTo('profile')" data-sc="profile">
           <div class="bni-inner">
             <svg viewBox="0 0 24 24"><circle cx="12" cy="8" r="4"/><path d="M4 20c0-4 3.58-7 8-7s8 3 8 7"/></svg>
-            <div class="bni-lbl">Profile</div>
+            <div class="bni-lbl">Profil</div>
           </div>
         </div>
       </div>
@@ -2106,6 +2657,50 @@ body{
 const SCREENS = ['home','pay','gov','invest','profile'];
 let cur = 0;
 let navigating = false;
+
+/* ── URL params: ?screen=X jumps to a screen on load; ?embed=1 hides desktop chrome ── */
+(function initFromQuery(){
+  try {
+    var qs = new URLSearchParams(location.search);
+    var sc = qs.get('screen');
+    var embed = qs.get('embed');
+    if (embed === '1') {
+      document.documentElement.classList.add('embed-mode');
+      var st = document.createElement('style');
+      st.textContent = 'html.embed-mode body{padding:60px 80px 60px!important;background:transparent!important;min-height:0!important}'
+        + 'html.embed-mode .top-bar,html.embed-mode .sp-section,html.embed-mode .phone-meta,html.embed-mode .sp-section-head{display:none!important}'
+        + 'html.embed-mode .phone-wrap{margin:0!important}';
+      document.head.appendChild(st);
+    }
+    if (sc && SCREENS.indexOf(sc) !== -1 && sc !== 'home') {
+      document.addEventListener('DOMContentLoaded', function(){
+        document.querySelectorAll('.isc').forEach(function(el){
+          el.classList.remove('active');
+          el.style.transition = 'none';
+          el.style.transform = '';
+        });
+        var t = document.getElementById('s-' + sc);
+        if (t) t.classList.add('active');
+        cur = SCREENS.indexOf(sc);
+        document.querySelectorAll('.bni').forEach(function(b){ b.classList.toggle('active', b.dataset.sc === sc); });
+        document.querySelectorAll('.tb-tab').forEach(function(t,i){ t.classList.toggle('active', i === cur); });
+        var sb = document.querySelector('.status-bar');
+        if (sb) sb.style.background = sc === 'home' ? '#f5f6f8' : '#fff';
+      });
+    }
+    // ?scroll=N scrolls the active screen to N px from top (runs after screen is active)
+    var scy = qs.get('scroll');
+    if (scy) {
+      var n = parseInt(scy, 10) || 0;
+      var applyScroll = function(){
+        var active = document.querySelector('.isc.active');
+        if (active) active.scrollTop = n;
+      };
+      document.addEventListener('DOMContentLoaded', function(){ setTimeout(applyScroll, 50); });
+      window.addEventListener('load', function(){ setTimeout(applyScroll, 100); });
+    }
+  } catch(e) {}
+})();
 
 function goTo(name) {
   const ni = SCREENS.indexOf(name);
@@ -2191,6 +2786,21 @@ function swapCurrencies(btn) {
     toFlag.textContent = '🇳🇬';
   }
   calcExchange();
+}
+
+/* ── Profile: biometrics toggle ── */
+function toggleBio(row){
+  const t = row.querySelector('.prf-toggle');
+  if(!t) return;
+  t.classList.toggle('on');
+  const name = row.querySelector('.prf-row-name')?.textContent || 'Biométrie';
+  showToast(name + (t.classList.contains('on') ? ' activé' : ' désactivé'));
+}
+function selectLang(el, label){
+  const parent = el.parentElement;
+  parent.querySelectorAll('.prf-lang-pill').forEach(p=>p.classList.remove('active'));
+  el.classList.add('active');
+  showToast('Langue : ' + label);
 }
 
 /* ── Toast ── */
