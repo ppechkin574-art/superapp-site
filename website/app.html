@@ -2668,15 +2668,18 @@ document.querySelectorAll('.ops-chart-per').forEach(btn => {
 
       screen.innerHTML =
         '<div class="dynamic-island"><div class="di-cam"></div></div>' +
-        '<div class="status-bar" style="color:#fff;opacity:.9"><span class="sb-time">9:41</span><div class="sb-icons" style="color:#fff">' +
-          '<svg width="13" height="10" viewBox="0 0 17 12" fill="#fff" opacity=".9"><rect x="0" y="8.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>' +
-          '<svg width="13" height="10" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#fff" stroke-opacity=".8" stroke-width="1.5"/><rect x="1.5" y="2.5" width="14" height="7" rx="1" fill="#fff" opacity=".8"/></svg>' +
-        '</div></div>' +
+        '<div style="position:absolute;top:0;left:0;right:0;height:54px;display:flex;align-items:flex-end;justify-content:space-between;padding:0 26px 10px;z-index:25;background:transparent">' +
+          '<span style="font-size:15px;font-weight:700;color:#fff;letter-spacing:-.3px">9:41</span>' +
+          '<div style="display:flex;gap:4px;align-items:center">' +
+            '<svg width="13" height="10" viewBox="0 0 17 12" fill="#fff" opacity=".9"><rect x="0" y="8.5" width="3" height="3.5" rx="1"/><rect x="4.5" y="5.5" width="3" height="6.5" rx="1"/><rect x="9" y="2.5" width="3" height="9.5" rx="1"/><rect x="13.5" y="0" width="3" height="12" rx="1"/></svg>' +
+            '<svg width="13" height="10" viewBox="0 0 24 12" fill="none"><rect x="0" y="1" width="20" height="10" rx="2" stroke="#fff" stroke-opacity=".8" stroke-width="1.5"/><rect x="1.5" y="2.5" width="14" height="7" rx="1" fill="#fff" opacity=".8"/></svg>' +
+          '</div>' +
+        '</div>' +
         '<div style="position:absolute;top:0;left:0;right:0;bottom:0;pointer-events:none;overflow:hidden;border-radius:inherit">' +
           '<div style="position:absolute;width:420px;height:420px;top:-130px;right:-110px;border-radius:50%;background:rgba(255,255,255,.06)"></div>' +
           '<div style="position:absolute;width:300px;height:300px;bottom:-70px;left:-90px;border-radius:50%;background:rgba(255,255,255,.04)"></div>' +
         '</div>' +
-        '<div style="position:relative;z-index:2;padding:22px 22px 0;flex-shrink:0">' +
+        '<div style="position:relative;z-index:2;padding:60px 22px 0;flex-shrink:0">' +
           '<div style="display:inline-block;background:rgba(255,255,255,.18);color:#fff;font-size:10px;font-weight:700;padding:4px 10px;border-radius:20px;letter-spacing:.5px;backdrop-filter:blur(8px);margin-bottom:10px">' + ob.badge + '</div>' +
           '<div style="color:#fff;font-size:20px;font-weight:800;line-height:1.2;letter-spacing:-.3px">' + ob.title + '</div>' +
         '</div>' +
