@@ -565,6 +565,8 @@
       'Seed round to scale the anchor market and prepare regional expansion — from 1M in 2026 to 54 markets by 2028.',
     'Tour d’amorçage pour scaler le marché ancre et préparer l’expansion régionale — de 1 M en 2026 à 54 marchés d’ici 2028.':
       'Seed round to scale the anchor market and prepare regional expansion — from 1M in 2026 to 54 markets by 2028.',
+    'Tour d\'amorçage pour scaler le marché ancre et préparer l\'expansion régionale — de 1 M en 2026 à 54 marchés d\'ici 2028.':
+      'Seed round to scale the anchor market and prepare regional expansion — from 1M in 2026 to 54 markets by 2028.',
     '1 M téléchargements · 12 ministères · 60+ services · ECP & biométrie':
       '1M downloads · 12 ministries · 60+ services · ECP & biometrics',
     '6 marchés · USSD · IA · Série A':'6 markets · USSD · AI · Series A',
@@ -574,6 +576,20 @@
     'Bienvenue':'Welcome',
     'Continuer':'Continue'
   };
+
+  // Auto-expand DICT: any key containing curly ’ also gets a straight '
+  // variant (and vice-versa) so source text works regardless of quote style.
+  Object.keys(DICT).slice().forEach(k => {
+    const v = DICT[k];
+    if (k.indexOf('\u2019') !== -1) {
+      const alt = k.replace(/\u2019/g, "'");
+      if (!(alt in DICT)) DICT[alt] = v;
+    }
+    if (k.indexOf("'") !== -1) {
+      const alt = k.replace(/'/g, '\u2019');
+      if (!(alt in DICT)) DICT[alt] = v;
+    }
+  });
 
   // Build reverse EN→FR
   const REV = {};
