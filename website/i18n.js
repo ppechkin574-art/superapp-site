@@ -502,6 +502,74 @@
       '54 countries · 40M users · public Service Catalog API · Series B',
     'Contact':'Contact',
 
+    // ---- presentation round 2 (shortened copy) ----
+    'Identité, services publics, paiements et justice — une plateforme unique pour 40\u00a0millions de citoyens.':
+      'Identity, public services, payments and justice — one platform for 40\u00a0million citizens.',
+    'Identité, services publics, paiements et justice — une plateforme unique pour 40 millions de citoyens.':
+      'Identity, public services, payments and justice — one platform for 40 million citizens.',
+    'Guichets, papiers, applis dispersées. Aucune source unique pour l\u2019identité, la fiscalité ou la justice.':
+      'Counters, paper, scattered apps. No single source for identity, tax or justice.',
+    'Guichets, papiers, applis dispersées. Aucune source unique pour l’identité, la fiscalité ou la justice.':
+      'Counters, paper, scattered apps. No single source for identity, tax or justice.',
+    'Permis, impôts, mariage — chaque démarche : déplacement, papier, heures perdues.':
+      'License, taxes, marriage — every step: trip, paper, lost hours.',
+    'Sans ID vérifié : pas de crédit, pas d\u2019aides, pas d\u2019accès transfrontalier.':
+      'No verified ID: no credit, no benefits, no cross-border access.',
+    'Sans ID vérifié : pas de crédit, pas d’aides, pas d’accès transfrontalier.':
+      'No verified ID: no credit, no benefits, no cross-border access.',
+    'Fisc, justice, ZAGS, social — chacun son dossier. Aucun back-office unifié.':
+      'Tax, justice, ZAGS, social — each its own records. No unified back-office.',
+    'Un compte vérifié unique : identité, services publics, portefeuille civique et dialogue État-citoyen. Passeport, impôt, audience — au même endroit.':
+      'One verified account: identity, public services, civic wallet and State-citizen dialogue. Passport, tax, hearing — in one place.',
+    'Annonces officielles de chaque ministère, scan QR, carte sociale, services populaires — dès l\u2019ouverture.':
+      'Official announcements from every ministry, QR scan, social card, popular services — right on open.',
+    'Annonces officielles de chaque ministère, scan QR, carte sociale, services populaires — dès l’ouverture.':
+      'Official announcements from every ministry, QR scan, social card, popular services — right on open.',
+    'Finances, Justice, Numérique — annonces vérifiées.':'Finance, Justice, Digital — verified announcements.',
+    'Impôts, Justice, Mariage, Permis — en un tap.':'Taxes, Justice, Marriage, License — in one tap.',
+    'Services, documents, agents — une seule barre.':'Services, documents, agents — a single bar.',
+    'Carte, aides, obligations, cashback, logement — tous les flux financiers liés à l\u2019État, un seul écran.':
+      'Card, benefits, bonds, cashback, housing — every State-linked financial flow, one screen.',
+    'Carte, aides, obligations, cashback, logement — tous les flux financiers liés à l’État, un seul écran.':
+      'Card, benefits, bonds, cashback, housing — every State-linked financial flow, one screen.',
+    'Du passeport à la déclaration d\u2019impôt : un parcours intégré, en minutes, pas en jours.':
+      'From passport to tax filing: an integrated journey, in minutes, not days.',
+    'Du passeport à la déclaration d’impôt : un parcours intégré, en minutes, pas en jours.':
+      'From passport to tax filing: an integrated journey, in minutes, not days.',
+    'Passeport, permis, mariage, diplômes, PDI — chaque document d\u2019État, vérifié, dans l\u2019onglet Profil.':
+      'Passport, license, marriage, diplomas, IDP — every State document, verified, in the Profile tab.',
+    'Passeport, permis, mariage, diplômes, PDI — chaque document d’État, vérifié, dans l’onglet Profil.':
+      'Passport, license, marriage, diplomas, IDP — every State document, verified, in the Profile tab.',
+    'Push, canal par ministère, suivi temps-réel (envoyée → examen → décision). Une boîte unique remplace SMS, e-mail et papier.':
+      'Push, one channel per ministry, real-time tracking (sent → review → decision). One inbox replaces SMS, email and paper.',
+    'Progression visuelle du dépôt à la décision.':'Visual progress from filing to decision.',
+    'Échéances fiscales, aides, annonces — à la source.':'Tax deadlines, benefits, announcements — from the source.',
+    'Chat & vidéo humains. Réponse < 2 min.':'Human chat & video. Reply < 2 min.',
+    'Fraude temps-réel, contrôle des sessions.':'Real-time fraud alerts, session controls.',
+    'ECP à valeur juridique. Biométrie multi-modale. Historique et sessions actives.':
+      'ECP with legal weight. Multi-modal biometrics. History and active sessions.',
+    'Recherche unifiée. Assistant IA « Comment obtenir X ? ». Multi-langue. WCAG : voix, police XL, lecteur d\u2019écran.':
+      'Unified search. AI Assistant "How do I get X?". Multi-language. WCAG: voice, XL font, screen reader.',
+    'Recherche unifiée. Assistant IA « Comment obtenir X ? ». Multi-langue. WCAG : voix, police XL, lecteur d’écran.':
+      'Unified search. AI Assistant "How do I get X?". Multi-language. WCAG: voice, XL font, screen reader.',
+    'Back-office sécurisé pour juges, fisc, ZAGS et services sociaux — l\u2019autre côté du guichet.':
+      'Secure back-office for judges, tax, ZAGS and social services — the other side of the counter.',
+    'Back-office sécurisé pour juges, fisc, ZAGS et services sociaux — l’autre côté du guichet.':
+      'Secure back-office for judges, tax, ZAGS and social services — the other side of the counter.',
+    'Registre, audiences visio, dossiers, signatures.':'Registry, video hearings, files, signatures.',
+    'Paiements, notifications, dialogue, stats.':'Payments, notifications, dialogue, stats.',
+    'Actes, planning, archive — mariages, naissances, décès.':'Records, scheduling, archive — marriages, births, deaths.',
+    'Demandes d\u2019aide, décisions, retours bénéficiaires.':'Aid requests, decisions, beneficiary feedback.',
+    'Demandes d’aide, décisions, retours bénéficiaires.':'Aid requests, decisions, beneficiary feedback.',
+    'Tour d\u2019amorçage pour scaler le marché ancre et préparer l\u2019expansion régionale — de 1 M en 2026 à 54 marchés d\u2019ici 2028.':
+      'Seed round to scale the anchor market and prepare regional expansion — from 1M in 2026 to 54 markets by 2028.',
+    'Tour d’amorçage pour scaler le marché ancre et préparer l’expansion régionale — de 1 M en 2026 à 54 marchés d’ici 2028.':
+      'Seed round to scale the anchor market and prepare regional expansion — from 1M in 2026 to 54 markets by 2028.',
+    '1 M téléchargements · 12 ministères · 60+ services · ECP & biométrie':
+      '1M downloads · 12 ministries · 60+ services · ECP & biometrics',
+    '6 marchés · USSD · IA · Série A':'6 markets · USSD · AI · Series A',
+    '54 pays · 40 M utilisateurs · API publique · Série B':'54 countries · 40M users · public API · Series B',
+
     // misc
     'Bienvenue':'Welcome',
     'Continuer':'Continue'
