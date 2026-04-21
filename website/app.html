@@ -17,12 +17,12 @@ body{
 :root{--p:#D4830A;--p-lt:#F0A520;--p-g:linear-gradient(135deg,#D4830A,#F2C94C)}
 
 /* top bar */
-.top-bar{width:100%;max-width:480px;display:flex;align-items:center;justify-content:space-between;margin-bottom:32px}
-.tb-back{display:inline-flex;align-items:center;gap:6px;font-size:13px;font-weight:600;color:#888;text-decoration:none;transition:color .2s}
-.tb-back:hover{color:#333}
-.tb-back svg{width:16px;height:16px}
-.tb-title{font-size:14px;font-weight:700;color:#333}
-.tb-tabs{display:flex;gap:5px}
+.top-bar{width:100%;max-width:880px;display:flex;align-items:center;gap:14px;margin-bottom:32px;flex-wrap:wrap}
+.tb-back{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:999px;font-size:13px;font-weight:700;color:#fff;background:#D4830A;border:1px solid #D4830A;text-decoration:none;transition:filter .2s;flex-shrink:0}
+.tb-back:hover{filter:brightness(1.08)}
+.tb-back svg{width:15px;height:15px}
+.tb-title{display:none}
+.tb-tabs{display:flex;gap:5px;margin-left:auto;flex-wrap:wrap}
 .tb-tab{padding:5px 11px;border-radius:6px;font-size:12px;font-weight:600;border:1px solid #ddd;background:#fff;color:#888;cursor:pointer;transition:all .2s;font-family:inherit}
 .tb-tab.active{background:#D4830A;color:#fff;border-color:#D4830A}
 .theme-toggle{display:inline-flex;align-items:center;gap:6px;padding:7px 14px;border-radius:50px;font-size:12px;font-weight:700;cursor:pointer;border:1.5px solid #ddd;background:#fff;color:#333;font-family:inherit;transition:all .2s}
@@ -2401,8 +2401,8 @@ body{
               <div class="prf-av-wrap">
                 <img src="/photos/7d3b5efa94a09bc99cfb59cc5c0c1a0b.jpg" alt="avatar"/>
               </div>
-              <div class="prf-name">Jean Ubabu</div>
-              <div class="prf-email">jean.ubabu@superapp.africa</div>
+              <div class="prf-name">Elhadji Diallo</div>
+              <div class="prf-email">thunderwind2311@gmail.com</div>
               <button class="prf-edit-btn" onclick="showToast('Modifier le profil')">Modifier le profil</button>
             </div>
 
